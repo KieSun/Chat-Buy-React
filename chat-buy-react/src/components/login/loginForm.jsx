@@ -4,14 +4,20 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ButtonWrapper from '../../styles/form/form'
 import {withRouter} from 'react-router-dom'
+import {connect} from 'react-redux'
+import {login} from '../../actions/user'
 
 @withRouter
+@connect(
+  state => state.user,
+  {login}
+)
 class LoginForm extends React.Component {
   constructor() {
     super()
     this.handleTextChange = this.handleTextChange.bind(this)
     this.state = {
-      phone: '',
+      user: '',
       pwd: ''
     }
   }
@@ -24,10 +30,10 @@ class LoginForm extends React.Component {
     return (
       <div>
         <TextField
-          hintText="手机号"
-          floatingLabelText="手机号"
+          hintText="用户名"
+          floatingLabelText="用户名"
           fullWidth={true}
-          onChange={(event, v) => this.handleTextChange('phone', v)}
+          onChange={(event, v) => this.handleTextChange('user', v)}
         />
         <TextField
           hintText="密码"
@@ -41,7 +47,7 @@ class LoginForm extends React.Component {
           primary={true}
           fullWidth={true}
           style={{marginTop: '20px'}}
-          onClick={() => {}}
+          onClick={() => this.props.login(this.state)}
         />
         <ButtonWrapper>
           <FlatButton

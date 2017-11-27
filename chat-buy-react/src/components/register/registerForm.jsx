@@ -31,7 +31,7 @@ class RegisterForm extends React.Component {
           hintText="用户名"
           floatingLabelText="用户名"
           fullWidth={true}
-          onChange={(event, v) => this.handleTextChange('phone', v)}
+          onChange={(event, v) => this.handleTextChange('user', v)}
         />
         <TextField
           hintText="密码"
