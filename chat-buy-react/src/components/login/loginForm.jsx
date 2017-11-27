@@ -2,8 +2,10 @@ import React from 'react'
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-import InputWrapper from '../../styles/form/form'
+import ButtonWrapper from '../../styles/form/form'
+import {withRouter} from 'react-router-dom'
 
+@withRouter
 class LoginForm extends React.Component {
   constructor() {
     super()
@@ -31,7 +33,8 @@ class LoginForm extends React.Component {
           hintText="密码"
           floatingLabelText="密码"
           fullWidth={true}
-          onChange={(event, v) => this.handleTextChange('phone', v)}
+          type='password'
+          onChange={(event, v) => this.handleTextChange('pwd', v)}
         />
         <RaisedButton
           label="登录"
@@ -40,17 +43,18 @@ class LoginForm extends React.Component {
           style={{marginTop: '20px'}}
           onClick={() => {}}
         />
-        <InputWrapper>
+        <ButtonWrapper>
           <FlatButton
-                  label="注册"
-                  style={{width: '100px'}}
+            label="注册"
+            style={{width: '100px'}}
+            onClick={() => console.log(this.props.history.push('/register'))}
           />
           <FlatButton
             label="忘记密码"
             style={{width: '100px'}}
             secondary={true}
           />
-        </InputWrapper>
+        </ButtonWrapper>
       </div>
     )
   }
