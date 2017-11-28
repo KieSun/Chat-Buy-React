@@ -1,7 +1,5 @@
 import React from 'react'
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile'
 import {connect} from 'react-redux'
 import {regiser} from '../../actions/user'
 
@@ -25,45 +23,33 @@ class RegisterForm extends React.Component {
     })
   }
   render() {
+    const redioData = [
+      { type: 'deliver', text:'送货员' },
+      { type: 'customer', text:'顾客' },
+    ];
     return (
-      <div>
-        <TextField
-          hintText="用户名"
-          floatingLabelText="用户名"
-          fullWidth={true}
-          onChange={(event, v) => this.handleTextChange('user', v)}
-        />
-        <TextField
-          hintText="密码"
-          floatingLabelText="密码"
-          fullWidth={true}
-          style={{marginBottom: '20px'}}
-          type='password'
-          onChange={(event, v) => this.handleTextChange('pwd', v)}
-        />
-        <RadioButtonGroup 
-          name="shipSpeed" 
-          defaultSelected="deliver"
-          onChange={(event, v) => this.handleTextChange('type', v)}
-        >
-          <RadioButton
-            value="deliver"
-            label="送货员"
-          />
-          <RadioButton
-            value="customer"
-            label="顾客"
-            style={{marginTop: '10px'}}
-          />
-        </RadioButtonGroup>
-        <RaisedButton
-          label="注册"
-          primary={true}
-          fullWidth={true}
-          style={{marginTop: '20px'}}
+      <WingBlank>
+        <List>
+						<InputItem
+							onChange={v=>this.handleTextChange('user',v)}
+						>用户名</InputItem>
+						<WhiteSpace />
+						<InputItem
+							onChange={v=>this.handleTextChange('pwd',v)}
+						>密码</InputItem>
+            <WhiteSpace />
+            {redioData.map(i => (
+              <Radio.RadioItem key={i.type} checked={this.state.type === i.type} onChange={() => this.handleTextChange('type', i.type)}>
+                {i.text}
+              </Radio.RadioItem>
+            ))}
+				</List>
+        <WhiteSpace />
+        <Button 
+          type="primary"
           onClick={() => this.props.regiser(this.state)}
-        />
-      </div>
+        >注册</Button>
+      </WingBlank>
     )
   }
 }

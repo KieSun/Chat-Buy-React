@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd-mobile": "^2.0.3",
     "autoprefixer": "7.1.6",
     "axios": "^0.17.1",
     "babel-core": "6.26.0",
@@ -103,6 +104,13 @@
       "react-app"
     ],
     "plugins": [
+      [
+        "import",
+        {
+          "libraryName": "antd-mobile",
+          "style": "css"
+        }
+      ],
       "transform-decorators-legacy"
     ]
   },

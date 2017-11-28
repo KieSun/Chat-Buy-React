@@ -1,7 +1,5 @@
 import React from 'react'
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import FlatButton from 'material-ui/FlatButton';
+import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
 import ButtonWrapper from '../../styles/form/form'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
@@ -28,40 +26,33 @@ class LoginForm extends React.Component {
   }
   render() {
     return (
-      <div>
-        <TextField
-          hintText="用户名"
-          floatingLabelText="用户名"
-          fullWidth={true}
-          onChange={(event, v) => this.handleTextChange('user', v)}
-        />
-        <TextField
-          hintText="密码"
-          floatingLabelText="密码"
-          fullWidth={true}
-          type='password'
-          onChange={(event, v) => this.handleTextChange('pwd', v)}
-        />
-        <RaisedButton
-          label="登录"
-          primary={true}
-          fullWidth={true}
-          style={{marginTop: '20px'}}
-          onClick={() => this.props.login(this.state)}
-        />
+      <WingBlank>
+        <List>
+						<InputItem
+							onChange={v=>this.handleTextChange('user',v)}
+						>用户名</InputItem>
+						<WhiteSpace />
+						<InputItem
+							onChange={v=>this.handleTextChange('pwd',v)}
+						>密码</InputItem>
+				</List>
+        <WhiteSpace />
+        <Button type="primary">登录</Button>
+        <WhiteSpace />
         <ButtonWrapper>
-          <FlatButton
-            label="注册"
-            style={{width: '100px'}}
+          <Button 
+            inline 
+            size="small" 
+            style={{ width: '100px' }}
             onClick={() => console.log(this.props.history.push('/register'))}
-          />
-          <FlatButton
-            label="忘记密码"
-            style={{width: '100px'}}
-            secondary={true}
-          />
+          >注册</Button>
+          <Button 
+            inline 
+            size="small" 
+            style={{ width: '100px' }}
+          >忘记密码</Button>
         </ButtonWrapper>
-      </div>
+      </WingBlank>
     )
   }
 }
