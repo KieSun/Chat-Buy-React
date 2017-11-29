@@ -54,6 +54,11 @@ const list = [
     state => state.user
 )
 class DashBoard extends React.Component {
+    componentWillMount() {
+        if (!this.props.type) {
+            console.log(this);
+        }
+    }
     render() {
         const {user, location, history} = this.props
         return (
