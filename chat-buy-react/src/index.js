@@ -5,6 +5,7 @@ import {AppContainer} from 'react-hot-loader'
 import App from './router/router';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
+import './common/axiosMiddleware'
 
 const store = configureStore()
 

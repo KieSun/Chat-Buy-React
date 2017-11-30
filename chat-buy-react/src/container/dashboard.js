@@ -1,8 +1,9 @@
 import React from 'react'
 import { TabBar } from 'antd-mobile';
-import {Switch, Route} from 'react-router-dom'
+import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {DashBoardWrapper} from '../styles/dashboard/dashboard'
+import {getInfo} from '../actions/user'
 
 function Deliver() {
     return (
@@ -29,13 +30,13 @@ const list = [
     {
         title: '订单',
         path: '/order',
-        type: 'deliver',
+        type: 'customer',
         component: Deliver
     },
     {
         title: '商品',
         path: '/goods',
-        type: 'customer',
+        type: 'deliver',
         component: Goods
     },
     {
@@ -51,18 +52,28 @@ const list = [
 ]
 
 @connect(
-    state => state.user
+    state => state.user,
+    {getInfo}
 )
 class DashBoard extends React.Component {
-    componentWillMount() {
-        if (!this.props.type) {
-            console.log(this);
+    componentDidMount() {
+        const {history, type} = this.props
+        if (window.localStorage.getItem('token')) {
+            if (!type) {
+                this.props.getInfo()
+            }
+        } else {
+            history.push('/login')
         }
     }
     render() {
-        const {user, location, history} = this.props
-        return (
+        const {type, location, history, path} = this.props
+        if (!type) {
+            return null
+        }
+        return  (
             <div>
+                {path && location.pathname === '/' ? <Redirect to={path} /> : null}
                 <Switch>
                     {list.map(v => (
                         <Route key={v.path} path={v.path} component={Me}/>
@@ -71,7 +82,7 @@ class DashBoard extends React.Component {
                 <DashBoardWrapper>
                     <TabBar>
                         {list
-                            .filter(v => v.type !== user)
+                            .filter(v => v.type !== type)
                             .map(v => (
                             <TabBar.Item
                                 icon={<div style={{
