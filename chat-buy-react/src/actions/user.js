@@ -5,6 +5,7 @@ import {
   LOG_OUT
 } from './type'
 
+import { Toast } from 'antd-mobile'
 import axios from 'axios'
 import history from '../common/history'
 
@@ -33,41 +34,45 @@ function clearToken() {
 }
 
 export function regiser({user, pwd, type}) {
-  return dispatch => {
-    clearToken()
-    axios.post('/user/register', {user, pwd, type})
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch(regiserSuccess(res.data.data))
-          setToken(res.data.token)
-          pushHome()
-        }
-      })
+  return async dispatch => {
+    if (!user || !pwd ) {
+      Toast.fail('请输入帐号密码', 1)
+      return
+    } else {
+      clearToken()
+      const res = await axios.post('/user/register', {user, pwd, type})
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(regiserSuccess(res.data.data))
+        setToken(res.data.token)
+        pushHome()
+      }
+    }
   }
 }
 
 export function login({user, pwd}) {
-  return dispatch => {
-    clearToken()
-    axios.post('/user/login', {user, pwd})
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch(loginSuccess(res.data.data))
-          setToken(res.data.token)
-          pushHome()
-        }
-      })
+  return async dispatch => {
+    if (!user || !pwd ) {
+      Toast.fail('请输入帐号密码', 1)
+    } else {
+      clearToken()
+      const res = await axios.post('/user/login', {user, pwd})
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch(loginSuccess(res.data.data))
+        setToken(res.data.token)
+        pushHome()
+      }
+    }
   }
 }
 
 export function getInfo() {
-  return dispatch => {
-    axios.post('/user/info')
-      .then(res => {
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch(getInfoSuccess(res.data.doc))
-        }
-      })
+  return async dispatch => {
+    const res = await axios.post('/user/info')
+    console.log(res);
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch(getInfoSuccess(res.data.data))
+    }
   }
 }
 

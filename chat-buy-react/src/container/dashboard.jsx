@@ -31,23 +31,27 @@ const list = [
         title: '订单',
         path: '/order',
         type: 'customer',
-        component: Deliver
+        component: Deliver,
+        imgName: 'order'
     },
     {
         title: '商品',
         path: '/goods',
         type: 'deliver',
-        component: Goods
+        component: Goods,
+        imgName: 'goods'
     },
     {
         title: '消息',
         path: '/message',
-        component: Message
+        component: Message,
+        imgName: 'message'
     },
     {
         title: '我的',
         path: '/me',
-        component: Me
+        component: Me,
+        imgName: 'user'
     }
 ]
 
@@ -85,15 +89,11 @@ class DashBoard extends React.Component {
                             .filter(v => v.type !== type)
                             .map(v => (
                             <TabBar.Item
-                                icon={<div style={{
-                                    width: '22px',
-                                    height: '22px',
-                                    background: 'url(https://gw.alipayobjects.com/zos/rmsportal/BTSsmHkPsQSPTktcXyTV.svg) center center /  21px 21px no-repeat' }}
-                                />}
-                                // selectedIcon={{ uri: require(`./img/${v.icon}-active.png`) }}
+                                icon={{ uri: require(`../images/${v.imgName}.png`) }}
+                                selectedIcon={{ uri: require(`../images/${v.imgName}-sel.png`) }}
                                 title={v.title}
                                 key={v.title}
-                                selected={location === v.path}
+                                selected={location.pathname === v.path}
                                 onPress={() => {
                                     history.push(v.path)
                                 }}

@@ -5,7 +5,7 @@ import history from '../common/history'
 
 const Login = asyncComponent(() => import('../container/login'))
 const Register = asyncComponent(() => import('../container/register'))
-const DashBoard = asyncComponent(() => import('../container/dashboard'))
+const DashBoard = asyncComponent(() => import('../container/dashboard.jsx'))
 
 const Root = () => (
       <Router history={history}>

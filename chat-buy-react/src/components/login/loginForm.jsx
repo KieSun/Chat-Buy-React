@@ -38,14 +38,17 @@ class LoginForm extends React.Component {
               >密码</InputItem>
           </List>
           <WhiteSpace />
-          <Button type="primary">登录</Button>
+          <Button 
+            type="primary"
+            onClick={() => this.props.login(this.state)}
+          >登录</Button>
           <WhiteSpace />
           <ButtonWrapper>
             <Button 
               inline 
               size="small" 
               style={{ width: '100px' }}
-              onClick={() => console.log(this.props.history.push('/register'))}
+              onClick={() => this.props.history.push('/register')}
             >注册</Button>
             <Button 
               inline 

@@ -35,7 +35,7 @@ Router.post('/login', function(req, res) {
 		const token = jwt.sign({id: doc._id}, key, {
 			expiresIn: 60 * 30
 		});
-		return res.json({code: 0, doc, token})
+		return res.json({code: 0, data: doc, token})
 	})
 })
 
@@ -45,7 +45,7 @@ Router.post('/info', function(req, res) {
 		if (!doc) {
 			return res.json({code: 2, msg: 'token失效'})
 		} 
-		return res.json({code: 0, doc})
+		return res.json({code: 0, data: doc})
 	})
 })
 
