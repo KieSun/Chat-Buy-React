@@ -1,5 +1,6 @@
 const express = require('express')
 const userRouter = require('./user')
+const goodsRouter = require('./goods')
 const app = express()
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
@@ -12,6 +13,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 
 app.use('/user', jwtMiddleware, userRouter)
+app.use('/goods', goodsRouter)
 
 
 app.listen(1717,function(){

@@ -1,18 +1,16 @@
 import React from 'react'
-import { TabBar } from 'antd-mobile';
+import { TabBar, NavBar } from 'antd-mobile';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {DashBoardWrapper} from '../styles/dashboard/dashboard'
 import {getInfo} from '../actions/user'
 
+import asyncComponent from '../asyncComponent'
+
+const Goods = asyncComponent(() => import('./goods.jsx'))
 function Deliver() {
     return (
         <div>deliver</div>
-    )
-}
-function Goods() {
-    return (
-        <div>Goods</div>
     )
 }
 function Message() {
@@ -78,9 +76,12 @@ class DashBoard extends React.Component {
         return  (
             <div>
                 {path && location.pathname === '/' ? <Redirect to={path} /> : null}
+                <NavBar>
+                    {list.find(v => v.path === location.pathname).title}
+                </NavBar>
                 <Switch>
                     {list.map(v => (
-                        <Route key={v.path} path={v.path} component={Me}/>
+                        <Route key={v.path} path={v.path} component={v.component}/>
                     ))}
                 </Switch>
                 <DashBoardWrapper>

@@ -7,6 +7,11 @@ const models = {
         user: {type: String, require: true},
         pwd: {type: String, require: true},
         type: {type: String, require: true},
+    },
+    goods: {
+        name: {type: String, require: true},
+        id: {type: Number, require: true},
+        price: {type: Number, require: true},
     }
 }
 
