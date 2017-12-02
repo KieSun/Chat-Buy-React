@@ -1,11 +1,11 @@
 import React from 'react'
 import {List, InputItem, WingBlank, WhiteSpace, Button, Radio} from 'antd-mobile'
 import {connect} from 'react-redux'
-import {regiser} from '../../actions/user'
+import {regitser} from '../../actions/user'
 
 @connect(
   state => state.user,
-  {regiser}
+  {regiser: regitser}
 )
 class RegisterForm extends React.Component {
   constructor() {

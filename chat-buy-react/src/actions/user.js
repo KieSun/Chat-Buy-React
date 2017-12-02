@@ -33,7 +33,7 @@ function clearToken() {
   window.localStorage.setItem('token', '')
 }
 
-export function regiser({user, pwd, type}) {
+export function regitser({user, pwd, type}) {
   return async dispatch => {
     if (!user || !pwd ) {
       Toast.fail('请输入帐号密码', 1)
@@ -69,7 +69,6 @@ export function login({user, pwd}) {
 export function getInfo() {
   return async dispatch => {
     const res = await axios.post('/user/info')
-    console.log(res);
     if (res.status === 200 && res.data.code === 0) {
       dispatch(getInfoSuccess(res.data.data))
     }

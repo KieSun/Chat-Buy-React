@@ -70,12 +70,14 @@ class DashBoard extends React.Component {
     }
     render() {
         const {type, location, history, path} = this.props
+        
         if (!type) {
             return null
+        } else if (path && location.pathname === '/') {
+            return <Redirect to={path} />
         }
         return  (
             <div>
-                {path && location.pathname === '/' ? <Redirect to={path} /> : null}
                 <NavBar>
                     {list.find(v => v.path === location.pathname).title}
                 </NavBar>
