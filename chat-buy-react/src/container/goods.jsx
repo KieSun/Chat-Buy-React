@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getGoodsInfo} from '../actions/goods'
+import GoodsList from '../components/goods/goodsList'
 
 @connect(
   state => state.goods,
@@ -13,7 +14,9 @@ class Goods extends React.Component {
   render() {
     return (
       <div>
-        goods1
+        <GoodsList 
+          goodsList={this.props.goodsList}
+        />
       </div>
     )
   }
