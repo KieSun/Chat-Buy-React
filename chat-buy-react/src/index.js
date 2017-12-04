@@ -6,6 +6,8 @@ import App from './router/router';
 import registerServiceWorker from './registerServiceWorker';
 import configureStore from './store/configureStore';
 import './common/axiosMiddleware'
+import 'fastclick'
+import './styles/index.css'
 
 const store = configureStore()
 

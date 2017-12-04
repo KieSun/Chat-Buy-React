@@ -1,7 +1,10 @@
 import {
-  GOODS_LIST
+  GOODS_LIST,
+  ADD_TO_CART,
+  ERROR
 } from './type'
 
+import { Toast } from 'antd-mobile'
 import axios from 'axios'
 
 export function getGoodsInfo() {
@@ -11,4 +14,13 @@ export function getGoodsInfo() {
       dispatch({type: GOODS_LIST, payload: res.data.data})
     }
   }
+}
+
+export function addToCart({id, price, count}) {
+  if (!Number.isInteger(count)) {
+    return { type: ERROR  }
+  } else {
+    return { type: ADD_TO_CART, payload: {id, price, count: count > 99 ? 99 : count } }
+  }
+  
 }

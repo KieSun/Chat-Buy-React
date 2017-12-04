@@ -1,11 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {getGoodsInfo} from '../actions/goods'
+import {getGoodsInfo, addToCart} from '../actions/goods'
 import GoodsList from '../components/goods/goodsList'
+import Buy from '../components/goods/buy'
 
 @connect(
   state => state.goods,
-  {getGoodsInfo}
+  {getGoodsInfo, addToCart}
 )
 class Goods extends React.Component {
   componentDidMount() {
@@ -13,10 +14,12 @@ class Goods extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className='list'>
         <GoodsList 
           goodsList={this.props.goodsList}
+          addToCart={this.props.addToCart}
         />
+        <Buy />
       </div>
     )
   }

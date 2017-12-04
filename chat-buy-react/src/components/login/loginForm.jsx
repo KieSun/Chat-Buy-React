@@ -1,6 +1,5 @@
 import React from 'react'
 import {List, InputItem, WingBlank, WhiteSpace, Button} from 'antd-mobile'
-import {ButtonWrapper} from '../../styles/form/form'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {login} from '../../actions/user'
@@ -43,7 +42,7 @@ class LoginForm extends React.Component {
             onClick={() => this.props.login(this.state)}
           >登录</Button>
           <WhiteSpace />
-          <ButtonWrapper>
+          <div className='button-wrapper'>
             <Button 
               inline 
               size="small" 
@@ -55,7 +54,7 @@ class LoginForm extends React.Component {
               size="small" 
               style={{ width: '100px' }}
             >忘记密码</Button>
-          </ButtonWrapper>
+          </div>
         </WingBlank>
       </div>
     )

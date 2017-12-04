@@ -7,3 +7,7 @@ export const DashBoardWrapper = styled.div`
     bottom: 0;
     z-index: 100;
 `
+export const ButtonWrapper = styled.div`
+    width: 200px;
+    margin: 10px auto 0;
+`

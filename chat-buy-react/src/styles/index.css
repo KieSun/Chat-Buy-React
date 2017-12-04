@@ -1,3 +1,63 @@
-body {
-    margin-top: 100px;
+/* body {
+    touch-action: none;
+} */
+
+.dashBoard-wrapper {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+}
+
+.button-wrapper {
+    width: 200px;
+    margin: 10px auto 0;
+}
+
+.list {
+    margin-top: 45px;
+    margin-bottom: 100px;
+}
+
+.list .price {
+    flex: 1;
+    padding-left: 15px;
+    line-height: 50px;
+    background: rgb(87, 85, 83);
+    color: white;
+}
+
+.list .buy-button {
+    width: 150px;
+    text-align: center;
+    line-height: 50px;
+    background: rgb(45, 151, 252);
+    color: white;
+}
+
+.list .no-buy-button {
+    width: 150px;
+    text-align: center;
+    line-height: 50px;
+    background: rgba(45, 151, 252, 0.5);
+    color: white;
+}
+
+.nav {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.buy-wrapper {
+    display: flex;
+    height: 50px;
+    position: fixed;
+    left: 0;
+    bottom: 50px;
+    width: 100%;
+    z-index: 100;
 }

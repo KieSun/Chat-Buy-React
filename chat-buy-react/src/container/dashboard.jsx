@@ -2,7 +2,6 @@ import React from 'react'
 import { TabBar, NavBar } from 'antd-mobile';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {connect} from 'react-redux'
-import {DashBoardWrapper} from '../styles/dashboard/dashboard'
 import {getInfo} from '../actions/user'
 
 import asyncComponent from '../asyncComponent'
@@ -78,7 +77,7 @@ class DashBoard extends React.Component {
         }
         return  (
             <div>
-                <NavBar>
+                <NavBar className='nav'>
                     {list.find(v => v.path === location.pathname).title}
                 </NavBar>
                 <Switch>
@@ -86,7 +85,7 @@ class DashBoard extends React.Component {
                         <Route key={v.path} path={v.path} component={v.component}/>
                     ))}
                 </Switch>
-                <DashBoardWrapper>
+                <div className='dashBoard-wrapper'>
                     <TabBar>
                         {list
                             .filter(v => v.type !== type)
@@ -103,7 +102,7 @@ class DashBoard extends React.Component {
                             />
                         ))}
                     </TabBar>
-                </DashBoardWrapper>
+                </div>
             </div>
         )
     }
