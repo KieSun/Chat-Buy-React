@@ -2,17 +2,21 @@ import React from 'react'
 // import { Button } from 'antd-mobile';
 import PropTypes from 'prop-types'
 
-const Buy = () => {
+const Buy = ({price, handleBuy}) => {
     return (
         <div className='buy-wrapper'>
-          <div className="price">¥10</div>
-          <div className="no-buy-button">购买</div>
+          <div className="price">¥{price}</div>
+          <div 
+            className={price > 0 ? "buy-button" : "no-buy-button"}
+            onClick={() => price > 0 && handleBuy()}
+          >购买</div>
         </div>
     )
 }
 
-// Buy.propTypes = {
-//   goodsList: PropTypes.array.isRequired,
-// }
+Buy.propTypes = {
+  price: PropTypes.number.isRequired,
+  handleBuy: PropTypes.func.isRequired,
+}
 
 export default Buy

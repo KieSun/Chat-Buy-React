@@ -4,7 +4,14 @@ import PropTypes from 'prop-types'
 
 const Item = List.Item;
 
-const GoodsList = ({goodsList, addToCart}) => {
+function getCount(shopCart, id) {
+  let obj = shopCart.find(value => {
+    return id === value.id
+  })
+  return obj ? obj.count : 0
+}
+
+const GoodsList = ({goodsList, addToCart, shopCart}) => {
   return (
     <List>
       {goodsList.map(v => (
@@ -16,6 +23,7 @@ const GoodsList = ({goodsList, addToCart}) => {
               showNumber
               min={0}
               max={99}
+              value={shopCart.length && getCount(shopCart, v.id)}
               defaultValue={0}
               onChange={(count) => addToCart({id: v.id, price:v.price, count}) }
             />}
@@ -29,6 +37,7 @@ const GoodsList = ({goodsList, addToCart}) => {
 GoodsList.propTypes = {
   goodsList: PropTypes.array.isRequired,
   addToCart: PropTypes.func.isRequired,
+  shopCart: PropTypes.array.isRequired,
 }
 
 export default GoodsList

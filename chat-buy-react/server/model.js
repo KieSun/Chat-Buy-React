@@ -7,6 +7,17 @@ const models = {
         user: {type: String, require: true},
         pwd: {type: String, require: true},
         type: {type: String, require: true},
+        orders: [
+            {
+                price: {type: Number, require: true},
+                desc: {type: String, require: true},
+                count: {type: Number, require: true},
+                state: {type: Number, require: true},
+                date: {type: Date, require: true, default: Date.now()},
+                customerId: {type: String, require: true},
+                deliverId: {type: Number},
+            }
+        ]
     },
     goods: {
         name: {type: String, require: true},

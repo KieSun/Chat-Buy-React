@@ -13,7 +13,7 @@ app.use(cookieParser())
 app.use(bodyParser.json())
 
 app.use('/user', jwtMiddleware, userRouter)
-app.use('/goods', goodsRouter)
+app.use('/goods', jwtMiddleware, goodsRouter)
 
 
 app.listen(1717,function(){
