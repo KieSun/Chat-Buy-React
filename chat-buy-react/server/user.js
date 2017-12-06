@@ -19,7 +19,7 @@ Router.post('/register', function(req, res) {
 			}
 			const {user, type, _id} = doc
 			const token = jwt.sign({id: _id}, key, {
-				expiresIn: 2
+				expiresIn: 60 * 60 * 24 * 7
 			});
 			return res.json({code: 0, token, data: {user, type, _id}})
 		})
@@ -33,7 +33,7 @@ Router.post('/login', function(req, res) {
 			return res.json({code: 1, msg: '用户名或密码错误'})
 		} 
 		const token = jwt.sign({id: doc._id}, key, {
-			expiresIn: 60 * 30
+			expiresIn: 60 * 60 * 24 * 7
 		});
 		return res.json({code: 0, data: doc, token})
 	})
@@ -46,6 +46,17 @@ Router.post('/info', function(req, res) {
 			return res.json({code: 2, msg: 'token失效'})
 		} 
 		return res.json({code: 0, data: doc})
+	})
+})
+
+Router.post('/orders', function(req, res) {
+	const {id} = req.decoded
+	User.findOne({_id: id},{pwd: 0}, function(e, doc) {
+		if (!doc || e) {
+			return res.json({code: 2, msg: 'token失效'})
+		} 
+		console.log(doc.orders);
+		return res.json({code: 0, data: doc.orders})
 	})
 })
 

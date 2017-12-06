@@ -9,9 +9,14 @@ import Buy from '../components/goods/buy'
   {getGoodsInfo, addToCart, buy}
 )
 class Goods extends React.Component {
-  componentDidMount() {
-    this.props.getGoodsInfo()
+  constructor() {
+    super()
     this.handleBuy = this.handleBuy.bind(this)
+  }
+  componentDidMount() {
+    if (!this.props.goodsList.length) {
+      this.props.getGoodsInfo()
+    }
   }
   handleBuy() {
     this.props.buy()

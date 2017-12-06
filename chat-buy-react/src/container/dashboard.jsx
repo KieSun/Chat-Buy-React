@@ -7,6 +7,8 @@ import {getInfo} from '../actions/user'
 import asyncComponent from '../asyncComponent'
 
 const Goods = asyncComponent(() => import('./goods.jsx'))
+const My = asyncComponent(() => import('./my.jsx'))
+
 function Deliver() {
     return (
         <div>deliver</div>
@@ -15,11 +17,6 @@ function Deliver() {
 function Message() {
     return (
         <div>Message</div>
-    )
-}
-function Me() {
-    return (
-        <div>Me</div>
     )
 }
 
@@ -47,7 +44,7 @@ const list = [
     {
         title: '我的',
         path: '/me',
-        component: Me,
+        component: My,
         imgName: 'user'
     }
 ]

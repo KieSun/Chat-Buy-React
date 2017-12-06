@@ -1,6 +1,7 @@
 import {
   GOODS_LIST,
-  ADD_TO_CART
+  ADD_TO_CART,
+  BUY_SUCCESS
 } from '../actions/type'
 
 const initialState = {
@@ -43,6 +44,8 @@ export default function (state = initialState, action) {
           shopCart: data[0], 
           totalPrice: data[1]
         }
+      case BUY_SUCCESS:
+        return {...state, shopCart: [], totalPrice: 0}
       default:
         break
   }

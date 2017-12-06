@@ -2,7 +2,6 @@ import {
   REGISTER,
   LOGIN,
   GET_INFO,
-  LOG_OUT
 } from '../actions/type'
 
 
@@ -21,8 +20,6 @@ export default function (state = initialState, action) {
         return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
       case GET_INFO:
         return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
-      case LOG_OUT:
-        return {...initialState}
       default:
         break
   }

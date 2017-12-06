@@ -75,6 +75,15 @@ export function getInfo() {
   }
 }
 
+export function getMyOrders() {
+  return async dispatch => {
+    const res = await axios.post('/user/orders')
+    if (res.status === 200 && res.data.code === 0) {
+      // dispatch(getInfoSuccess(res.data.data))
+    }
+  }
+}
+
 export function logout() {
   return {type: LOG_OUT}
 }

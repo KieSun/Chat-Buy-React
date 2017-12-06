@@ -3,6 +3,7 @@ const model = require('./model')
 const foods = require('./foods.json')
 const Goods = model.getModel('goods')
 const User = model.getModel('user')
+const AllOrders = model.getModel('allOrders')
 const Router = express.Router()
 
 Router.get('/list', function(req, res) {
@@ -42,8 +43,16 @@ Router.post('/buy', function(req, res) {
             if (!doc || e) {
                 return res.json({code: 2, msg: 'token失效'})
             } 
-            res.json({code: 0, msg: '成功购买'})
-	    })
+            const model = new AllOrders(order)
+            model.save(function(error, data) {
+                if (error || !data) {
+                    return res.json({code: 1, msg: '后端出错'})
+                }
+                return res.json({code: 0, msg: '购买成功'})
+            })
+            
+        })
+        
 })
 
 module.exports = Router

@@ -1,7 +1,7 @@
 import {
   GOODS_LIST,
   ADD_TO_CART,
-  ERROR
+  BUY_SUCCESS
 } from './type'
 
 import { Toast } from 'antd-mobile'
@@ -28,8 +28,9 @@ export function buy() {
   return async (dispatch, state) => {
     console.log();
     const res = await axios.post('/goods/buy', {buyList: state().goods.shopCart})
-    // if (res.status === 200 && res.data.code === 0) {
-    //   dispatch({type: GOODS_LIST, payload: res.data.data})
-    // }
+    if (res.status === 200 && res.data.code === 0) {
+      Toast.success('购买成功', 1)
+      dispatch({ type: BUY_SUCCESS })
+    }
   }
 }
