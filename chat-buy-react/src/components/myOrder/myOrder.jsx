@@ -2,10 +2,11 @@ import React from 'react'
 import {  NavBar, Icon } from 'antd-mobile';
 import {connect} from 'react-redux'
 import {getMyOrders} from '../../actions/user'
+import MyOrderItem from './myOrderItem'
 // import PropTypes from 'prop-types'
 
 @connect(
-    null,
+    state => state.user,
     {getMyOrders}
 )
 class MyOrder extends React.Component {
@@ -14,7 +15,7 @@ class MyOrder extends React.Component {
     }
     render() {
         return (
-            <div className='buy-wrapper'>
+            <div>
                 <NavBar 
                     className='nav'
                     icon={<Icon type="left" />}
@@ -22,6 +23,15 @@ class MyOrder extends React.Component {
                 >
                     我的订单
                 </NavBar>
+                <div style={{marginTop: '60px'}}>
+                    {this.props.orders.map(v => (
+                        <MyOrderItem 
+                            item={v}
+                            type={this.props.type}
+                            key={v._id}
+                        />
+                    ))}
+                </div>
             </div>
         )
     }

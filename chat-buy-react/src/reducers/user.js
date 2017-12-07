@@ -2,14 +2,15 @@ import {
   REGISTER,
   LOGIN,
   GET_INFO,
+  GET_MY_ORDERS
 } from '../actions/type'
-
 
 const initialState = {
   user: '',
   type: '',
   _id: '',
-  path: ''
+  path: '',
+  orders: []
 };
 
 export default function (state = initialState, action) {
@@ -20,6 +21,8 @@ export default function (state = initialState, action) {
         return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
       case GET_INFO:
         return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
+      case GET_MY_ORDERS:
+        return {...state, orders: action.payload}
       default:
         break
   }

@@ -2,7 +2,8 @@ import {
   REGISTER,
   LOGIN,
   GET_INFO,
-  LOG_OUT
+  LOG_OUT,
+  GET_MY_ORDERS
 } from './type'
 
 import { Toast } from 'antd-mobile'
@@ -79,7 +80,7 @@ export function getMyOrders() {
   return async dispatch => {
     const res = await axios.post('/user/orders')
     if (res.status === 200 && res.data.code === 0) {
-      // dispatch(getInfoSuccess(res.data.data))
+      dispatch({type: GET_MY_ORDERS, payload: res.data.data})
     }
   }
 }

@@ -61,3 +61,12 @@
     width: 100%;
     z-index: 100;
 }
+
+.list-item:not(:last-child) {
+    margin-bottom: 10px;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+}
