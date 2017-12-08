@@ -2,7 +2,8 @@ import React from 'react'
 import { List, Stepper } from 'antd-mobile'
 import PropTypes from 'prop-types'
 
-const Item = List.Item;
+const Item = List.Item
+const Brief = Item.Brief
 
 function getCount(shopCart, id) {
   let obj = shopCart.find(value => {
@@ -27,7 +28,7 @@ const GoodsList = ({goodsList, addToCart, shopCart}) => {
               defaultValue={0}
               onChange={(count) => addToCart({id: v.id, price:v.price, count}) }
             />}
-        >{v.name}</Item>
+        >{v.name} <Brief>¥{v.price}</Brief> </Item>
       ))}
     </List>
   )

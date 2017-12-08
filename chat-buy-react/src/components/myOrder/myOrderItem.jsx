@@ -31,7 +31,7 @@ const Item = ({item, type}) => {
         
       </Card.Body>
       <Card.Footer extra={
-        item.state === 0 ? (
+        item.state !== 0 ? (
           <div >
             <Button type="ghost" inline size="small" >联系对方</Button>
             <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >确认送达</Button>
