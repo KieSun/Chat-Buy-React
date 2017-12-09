@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
-import UserReducer from '../reducers/user'
-import GoodsReducer from '../reducers/goods'
+import UserReducer from './user'
+import GoodsReducer from './goods'
+import OrdersReducer from './orders'
 import {
     LOG_OUT
 } from '../actions/type'
@@ -8,7 +9,8 @@ import history from '../common/history'
 
 const appReducer = combineReducers({
     user: UserReducer,
-    goods: GoodsReducer
+    goods: GoodsReducer,
+    order: OrdersReducer
 })
   
 const rootReducer = (state, action) => {

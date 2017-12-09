@@ -1,6 +1,7 @@
 const express = require('express')
 const userRouter = require('./user')
 const goodsRouter = require('./goods')
+const orderRouter = require('./order')
 const app = express()
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
@@ -14,7 +15,7 @@ app.use(bodyParser.json())
 
 app.use('/user', jwtMiddleware, userRouter)
 app.use('/goods', jwtMiddleware, goodsRouter)
-
+app.use('/order', jwtMiddleware, orderRouter)
 
 app.listen(1717,function(){
 	console.log('Node app start at port 1717')

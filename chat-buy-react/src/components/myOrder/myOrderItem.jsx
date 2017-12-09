@@ -1,5 +1,6 @@
 import React from 'react'
 import { Card, Button } from 'antd-mobile'
+import PropTypes from 'prop-types'
 
 const Item = ({item, type}) => {
   let stateText = ''
@@ -17,6 +18,25 @@ const Item = ({item, type}) => {
       break
   }
   const countDesc = item.count > 1 ? ` 等${item.count}件` : ''
+
+  let footerExtra = ''
+  if (type === 'deliver' && item.state === 0) {
+    footerExtra =  (
+      <div >
+        <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >接单</Button>
+      </div>
+    )
+  } else if (item.state !== 0) {
+    footerExtra =  (
+      <div >
+        <Button type="ghost" inline size="small" >联系对方</Button>
+        <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >确认送达</Button>
+      </div>
+    )
+  } else {
+    footerExtra = null
+  }
+
   return (
     <Card className='list-item'>
       <Card.Header
@@ -30,17 +50,15 @@ const Item = ({item, type}) => {
         </div>
         
       </Card.Body>
-      <Card.Footer extra={
-        item.state !== 0 ? (
-          <div >
-            <Button type="ghost" inline size="small" >联系对方</Button>
-            <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >确认送达</Button>
-          </div>
-        ) : null
-      } 
+      <Card.Footer extra={footerExtra} 
       />
     </Card>
   )
+}
+
+Item.propTypes = {
+  item: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
 }
 
 export default Item

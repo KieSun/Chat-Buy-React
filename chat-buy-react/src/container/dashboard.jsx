@@ -8,6 +8,7 @@ import asyncComponent from '../asyncComponent'
 
 const Goods = asyncComponent(() => import('./goods.jsx'))
 const My = asyncComponent(() => import('./my.jsx'))
+const AllOrders = asyncComponent(() => import('./allOrders.jsx'))
 
 function Deliver() {
     return (
@@ -23,9 +24,9 @@ function Message() {
 const list = [
     {
         title: '订单',
-        path: '/order',
+        path: '/allOrders',
         type: 'customer',
-        component: Deliver,
+        component: AllOrders,
         imgName: 'order'
     },
     {

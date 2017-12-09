@@ -16,11 +16,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
       case REGISTER:
-        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
+        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/allOrders'}
       case LOGIN:
-        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
+        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/allOrders'}
       case GET_INFO:
-        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/order'}
+        return {...state, ...action.payload, path: action.payload.type === 'customer' ? '/goods' : '/allOrders'}
       case GET_MY_ORDERS:
         return {...state, orders: action.payload}
       default:
