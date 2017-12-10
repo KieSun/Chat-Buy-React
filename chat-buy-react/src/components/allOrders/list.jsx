@@ -11,6 +11,9 @@ class List extends React.Component {
   componentDidMount() {
     this.props.getAllOrders()
   }
+  handleGetOrder() {
+    
+  }
   render() {
     return (
       <div style={{marginTop: '60px'}}>
@@ -19,6 +22,7 @@ class List extends React.Component {
                 item={v}
                 type='deliver'
                 key={v._id}
+                handleGetOrder={this.handleGetOrder}
             />
         ))}
       </div>

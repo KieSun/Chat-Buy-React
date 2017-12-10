@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button } from 'antd-mobile'
 import PropTypes from 'prop-types'
 
-const Item = ({item, type}) => {
+const Item = ({item, type, handleGetOrder}) => {
   let stateText = ''
   switch (item.state) {
     case 0:
@@ -23,7 +23,13 @@ const Item = ({item, type}) => {
   if (type === 'deliver' && item.state === 0) {
     footerExtra =  (
       <div >
-        <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >接单</Button>
+        <Button 
+          type="ghost" 
+          inline 
+          size="small"
+          style={{marginLeft: '8px'}} 
+          onClick={handleGetOrder}
+        >接单</Button>
       </div>
     )
   } else if (item.state !== 0) {

@@ -26,33 +26,37 @@ Router.post('/buy', function(req, res) {
         }
     })
     const order = {
+        orderId: parseInt(new Date().getTime() / 1000),
         price,
         count,
         state: 0,
         desc,
         customerId: id
     }
-	User.findByIdAndUpdate({
-            _id: id
-        }, {
-            $push: { 
-                orders: order 
+    const model = new AllOrders(order)
+    model.save(function(error, data) {
+        if (error || !data) {
+            return res.json({code: 1, msg: '后端出错'})
+        }
+
+        User.update({_id: id}, {
+            $push: {
+                orders: data._id
             }
-        }, 
-        function(e, doc) {
-            if (!doc || e) {
-                return res.json({code: 2, msg: 'token失效'})
-            } 
-            const model = new AllOrders(order)
-            model.save(function(error, data) {
-                if (error || !data) {
-                    return res.json({code: 1, msg: '后端出错'})
-                }
-                return res.json({code: 0, msg: '购买成功'})
-            })
-            
+        }, function(e, user) {
+            if (e || !user) {
+                return res.json({code: 1, msg: '后端出错'})
+            }
+
+            User.findOne({_id: id})
+                .populate('orders')
+                .exec(function(e, eee) {
+                    console.log(eee, e)
+                })
+
+            return res.json({code: 0, msg: '购买成功'})
         })
-        
+    })  
 })
 
 module.exports = Router

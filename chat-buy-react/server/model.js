@@ -8,17 +8,7 @@ const models = {
         user: {type: String, require: true},
         pwd: {type: String, require: true},
         type: {type: String, require: true},
-        orders: [
-            {
-                price: {type: Number, require: true},
-                desc: {type: String, require: true},
-                count: {type: Number, require: true},
-                state: {type: Number, require: true},
-                date: {type: Date, require: true, default: Date.now()},
-                customerId: {type: String, require: true},
-                deliverId: {type: Number},
-            }
-        ]
+        orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'allOrders'}]
     },
     goods: {
         name: {type: String, require: true},
@@ -26,6 +16,7 @@ const models = {
         price: {type: Number, require: true},
     },
     allOrders: {
+        orderId: {type: Number, require: true},
         price: {type: Number, require: true},
         desc: {type: String, require: true},
         count: {type: Number, require: true},

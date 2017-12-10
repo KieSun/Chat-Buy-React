@@ -1,5 +1,6 @@
 import {
-  GET_ALL_ORDERS
+  GET_ALL_ORDERS,
+  GET_ORDER
 } from './type'
 
 import { Toast } from 'antd-mobile'
@@ -11,6 +12,15 @@ export function getAllOrders() {
     const res = await axios.get('/order/allOrders')
     if (res.status === 200 && res.data.code === 0) {
       dispatch({type: GET_ALL_ORDERS, payload: res.data.data})
+    }
+  }
+}
+
+export function getOrder() {
+  return async dispatch => {
+    const res = await axios.post('/order/getOrder')
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch({type: GET_ORDER, payload: res.data.data})
     }
   }
 }
