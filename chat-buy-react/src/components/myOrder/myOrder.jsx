@@ -14,6 +14,7 @@ class MyOrder extends React.Component {
         this.props.getMyOrders()
     }
     render() {
+        console.log(this.props.orders);
         return (
             <div>
                 <NavBar 
@@ -28,7 +29,7 @@ class MyOrder extends React.Component {
                         <MyOrderItem 
                             item={v}
                             type={this.props.type}
-                            key={v._id}
+                            key={v.orderId}
                         />
                     ))}
                 </div>

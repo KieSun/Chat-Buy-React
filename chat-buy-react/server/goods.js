@@ -26,12 +26,11 @@ Router.post('/buy', function(req, res) {
         }
     })
     const order = {
-        orderId: parseInt(new Date().getTime() / 1000),
         price,
         count,
         state: 0,
         desc,
-        customerId: id
+        customer: id
     }
     const model = new AllOrders(order)
     model.save(function(error, data) {
@@ -47,12 +46,6 @@ Router.post('/buy', function(req, res) {
             if (e || !user) {
                 return res.json({code: 1, msg: '后端出错'})
             }
-
-            User.findOne({_id: id})
-                .populate('orders')
-                .exec(function(e, eee) {
-                    console.log(eee, e)
-                })
 
             return res.json({code: 0, msg: '购买成功'})
         })

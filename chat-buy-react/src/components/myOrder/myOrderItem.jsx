@@ -28,7 +28,7 @@ const Item = ({item, type, handleGetOrder}) => {
           inline 
           size="small"
           style={{marginLeft: '8px'}} 
-          onClick={handleGetOrder}
+          onClick={() => handleGetOrder(item._id)}
         >接单</Button>
       </div>
     )

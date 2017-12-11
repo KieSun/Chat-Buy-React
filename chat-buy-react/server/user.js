@@ -51,13 +51,21 @@ Router.post('/info', function(req, res) {
 
 Router.post('/orders', function(req, res) {
 	const {id} = req.decoded
-	User.findOne({_id: id},{pwd: 0}, function(e, doc) {
-		if (!doc || e) {
-			return res.json({code: 2, msg: 'token失效'})
-		} 
-		console.log(doc.orders);
-		return res.json({code: 0, data: doc.orders})
-	})
+
+	User.findOne({_id: id})
+		.populate('orders')
+		.exec(function(error, user) {
+			if (error) {
+				return res.json({code: 1, msg: '后端出错'})
+			}
+			if (!user) {
+				return res.json({code: 2, errorMsg: 'token失效'})
+			}
+
+			return res.json({code: 0, data: user.orders})
+		})
+
+	
 })
 
 

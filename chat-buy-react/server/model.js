@@ -16,14 +16,13 @@ const models = {
         price: {type: Number, require: true},
     },
     allOrders: {
-        orderId: {type: Number, require: true},
         price: {type: Number, require: true},
         desc: {type: String, require: true},
         count: {type: Number, require: true},
         state: {type: Number, require: true},
         date: {type: Date, require: true, default: Date.now()},
-        customerId: {type: String, require: true},
-        deliverId: {type: Number},
+        customer: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
+        deliver: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
     }
 }
 

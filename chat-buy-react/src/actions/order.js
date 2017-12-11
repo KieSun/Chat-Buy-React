@@ -16,10 +16,12 @@ export function getAllOrders() {
   }
 }
 
-export function getOrder() {
+export function getOrder(orderId) {
   return async dispatch => {
-    const res = await axios.post('/order/getOrder')
+    const res = await axios.post('/order/getOrder', {orderId})
     if (res.status === 200 && res.data.code === 0) {
+      history.push('/me/orders')
+      Toast.success('接单成功', 1)
       dispatch({type: GET_ORDER, payload: res.data.data})
     }
   }
