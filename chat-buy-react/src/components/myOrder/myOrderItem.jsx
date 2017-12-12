@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, Button } from 'antd-mobile'
 import PropTypes from 'prop-types'
 
-const Item = ({item, type, handleGetOrder}) => {
+const Item = ({item, type, handleGetOrder, affirmOrder}) => {
   let stateText = ''
   switch (item.state) {
     case 0:
@@ -32,11 +32,17 @@ const Item = ({item, type, handleGetOrder}) => {
         >接单</Button>
       </div>
     )
-  } else if (item.state !== 0) {
+  } else if (item.state !== 0 && item.state !== 2) {
     footerExtra =  (
       <div >
         <Button type="ghost" inline size="small" >联系对方</Button>
-        <Button type="ghost" inline size="small" style={{marginLeft: '8px'}} >确认送达</Button>
+        <Button 
+          type="ghost"
+          inline 
+          size="small" 
+          style={{marginLeft: '8px'}} 
+          onClick={() => affirmOrder(item._id)}
+        >确认送达</Button>
       </div>
     )
   } else {
@@ -65,6 +71,8 @@ const Item = ({item, type, handleGetOrder}) => {
 Item.propTypes = {
   item: PropTypes.object.isRequired,
   type: PropTypes.string.isRequired,
+  handleGetOrder: PropTypes.func,
+  affirmOrder: PropTypes.func,
 }
 
 export default Item

@@ -1,6 +1,7 @@
 import {
   GET_ALL_ORDERS,
-  GET_ORDER
+  GET_ORDER,
+  AFFIRM_ORDER
 } from './type'
 
 import { Toast } from 'antd-mobile'
@@ -22,7 +23,15 @@ export function getOrder(orderId) {
     if (res.status === 200 && res.data.code === 0) {
       history.push('/me/orders')
       Toast.success('接单成功', 1)
-      dispatch({type: GET_ORDER, payload: res.data.data})
+    }
+  }
+}
+
+export function affirmOrder(orderId) {
+  return async dispatch => {
+    const res = await axios.post('/order/affirm', {orderId})
+    if (res.status === 200 && res.data.code === 0) {
+      Toast.success('确认订单成功', 1)
     }
   }
 }

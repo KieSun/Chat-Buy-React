@@ -32,6 +32,9 @@ Router.post('/login', function(req, res) {
 		if (!doc) {
 			return res.json({code: 1, msg: '用户名或密码错误'})
 		} 
+		if (error) {
+			return res.json({code: 1, msg: '后端出错'})
+		}
 		const token = jwt.sign({id: doc._id}, key, {
 			expiresIn: 60 * 60 * 24 * 7
 		});
@@ -42,8 +45,8 @@ Router.post('/login', function(req, res) {
 Router.post('/info', function(req, res) {
 	const {id} = req.decoded
 	User.findOne({_id: id},{pwd: 0}, function(e, doc) {
-		if (!doc) {
-			return res.json({code: 2, msg: 'token失效'})
+		if (e || !doc) {
+			return res.json({code: 2, msg: '后端出错'})
 		} 
 		return res.json({code: 0, data: doc})
 	})
@@ -59,7 +62,7 @@ Router.post('/orders', function(req, res) {
 				return res.json({code: 1, msg: '后端出错'})
 			}
 			if (!user) {
-				return res.json({code: 2, errorMsg: 'token失效'})
+				return res.json({code: 2, errorMsg: '找不到该用户'})
 			}
 
 			return res.json({code: 0, data: user.orders})

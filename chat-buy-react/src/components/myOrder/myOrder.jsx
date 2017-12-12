@@ -2,12 +2,13 @@ import React from 'react'
 import {  NavBar, Icon } from 'antd-mobile';
 import {connect} from 'react-redux'
 import {getMyOrders} from '../../actions/user'
+import {affirmOrder} from '../../actions/order'
 import MyOrderItem from './myOrderItem'
 // import PropTypes from 'prop-types'
 
 @connect(
     state => state.user,
-    {getMyOrders}
+    {getMyOrders, affirmOrder}
 )
 class MyOrder extends React.Component {
     componentDidMount() {
@@ -30,6 +31,7 @@ class MyOrder extends React.Component {
                             item={v}
                             type={this.props.type}
                             key={v.orderId}
+                            affirmOrder={this.props.affirmOrder}
                         />
                     ))}
                 </div>
@@ -37,10 +39,5 @@ class MyOrder extends React.Component {
         )
     }
 }
-
-// Buy.propTypes = {
-//   price: PropTypes.number.isRequired,
-//   handleBuy: PropTypes.func.isRequired,
-// }
 
 export default MyOrder
