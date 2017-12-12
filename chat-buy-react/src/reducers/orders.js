@@ -1,6 +1,4 @@
-import {
-  GET_ALL_ORDERS
-} from '../actions/type'
+import {GET_ALL_ORDERS} from '../actions/type';
 
 const initialState = {
   allOrders: [],
@@ -8,10 +6,10 @@ const initialState = {
 
 export default function (state = initialState, action) {
   switch (action.type) {
-      case GET_ALL_ORDERS:
-        return {...state, allOrders: action.payload}
-      default:
-        break
+    case GET_ALL_ORDERS:
+      return {...state, allOrders: action.payload};
+    default:
+      break;
   }
-  return state
+  return state;
 }
