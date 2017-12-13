@@ -3,12 +3,12 @@ import { List } from "antd-mobile";
 
 const Item = List.Item;
 
-const My = () => (
+const My = ({history}) => (
   <div className="list">
     <List style={{ marginTop: "100px" }}>
       <Item
         arrow="horizontal"
-        onClick={() => this.props.history.push("/me/orders")}
+        onClick={() => history.push("/me/orders")}
       >
         我的订单
       </Item>

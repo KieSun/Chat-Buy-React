@@ -1,41 +1,30 @@
-var mongoose = require ('mongoose');
-mongoose.Promise = require ('bluebird');
-var DB_URL = 'mongodb://localhost/chat-buy-react';
-mongoose.connect (DB_URL, {useMongoClient: true});
+var mongoose = require("mongoose");
+mongoose.Promise = require("bluebird");
+var DB_URL = "mongodb://localhost/chat-buy-react";
+mongoose.connect(DB_URL, { useMongoClient: true });
 
-const models = {
-  user: {
-    user: {type: String, require: true},
-    pwd: {type: String, require: true},
-    type: {type: String, require: true},
-    orders: [{type: mongoose.Schema.Types.ObjectId, ref: 'allOrders'}],
-  },
-  goods: {
-    name: {type: String, require: true},
-    id: {type: Number, require: true},
-    price: {type: Number, require: true},
-  },
-  allOrders: {
-    price: {type: Number, require: true},
-    desc: {type: String, require: true},
-    count: {type: Number, require: true},
-    state: {type: Number, require: true},
-    date: {type: Date, require: true, default: Date.now ()},
-    customer: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-    deliver: {type: mongoose.Schema.Types.ObjectId, ref: 'user'},
-  },
-};
+const userSchema = mongoose.Schema({
+  user: { type: String, require: true },
+  pwd: { type: String, require: true },
+  type: { type: String, require: true },
+  orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "allOrders" }]
+});
 
-for (let m in models) {
-  mongoose.model (m, new mongoose.Schema (models[m]));
-}
+const allOrdersSchema = mongoose.Schema({
+  price: { type: Number, require: true },
+  desc: { type: String, require: true },
+  count: { type: Number, require: true },
+  state: { type: Number, require: true },
+  date: { type: Date, require: true, default: Date.now() },
+  customer: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  deliver: { type: mongoose.Schema.Types.ObjectId, ref: "user" }
+});
 
-mongoose.connection.on ('error', function (err) {
-  console.error ('MongoDB error: %s', err);
+mongoose.connection.on("error", function(err) {
+  console.error("MongoDB error: %s", err);
 });
 
 module.exports = {
-  getModel: function (name) {
-    return mongoose.model (name);
-  },
+  user: mongoose.model("user", userSchema),
+  allOrders: mongoose.model("allOrders", allOrdersSchema)
 };
