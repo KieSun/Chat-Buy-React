@@ -1,14 +1,10 @@
-import React from 'react'
-import RegisterForm from '../components/register/registerForm'
+import React from "react";
+import RegisterForm from "../components/register/registerForm";
 
-class Register extends React.Component {
-  render() {
-    return (
-      <div>
-        <RegisterForm />
-      </div>
-    )
-  }
-}
+const Register = () => (
+  <div>
+    <RegisterForm />
+  </div>
+);
 
-export default Register
+export default Register;
