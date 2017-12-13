@@ -68,11 +68,11 @@ const Item = ({item, type, handleGetOrder, affirmOrder}) => {
   );
 };
 
-// Item.propTypes = {
-//   item: PropTypes.object.isRequired,
-//   type: PropTypes.string.isRequired,
-//   handleGetOrder: PropTypes.func,
-//   affirmOrder: PropTypes.func,
-// };
+Item.propTypes = {
+  item: PropTypes.object.isRequired,
+  type: PropTypes.string.isRequired,
+  handleGetOrder: PropTypes.func,
+  affirmOrder: PropTypes.func,
+};
 
 export default Item;

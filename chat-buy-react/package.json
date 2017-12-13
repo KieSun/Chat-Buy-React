@@ -34,6 +34,7 @@
     "fs-extra": "3.0.1",
     "history": "^4.7.2",
     "html-webpack-plugin": "2.29.0",
+    "immutable": "^3.8.2",
     "jest": "20.0.4",
     "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.13.5",

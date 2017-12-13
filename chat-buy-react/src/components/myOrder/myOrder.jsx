@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getMyOrders } from "../../actions/user";
 import { affirmOrder } from "../../actions/order";
 import MyOrderItem from "./myOrderItem";
-import NavBar from '../navBar/backNavBar'
+import NavBar from "../navBar/backNavBar";
 
 @connect(state => state.user, { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {
@@ -11,13 +11,10 @@ class MyOrder extends React.Component {
     this.props.getMyOrders();
   }
   render() {
-    console.log(this.props);
-    return (
+    console.log(this.props.orders);
+    return this.props.orders.size ? (
       <div>
-        <NavBar 
-          title='我的订单'
-          backClick={this.props.history.goBack()}
-        />
+        <NavBar title='我的订单' backClick={this.props.history.goBack} />
         <div style={{ marginTop: "60px" }}>
           {this.props.orders.map(v => (
             <MyOrderItem
@@ -29,7 +26,7 @@ class MyOrder extends React.Component {
           ))}
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 

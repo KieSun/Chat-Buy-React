@@ -12,9 +12,9 @@ const BackNavBar = ({ title, backClick }) => (
   </NavBar>
 );
 
-// NavBar.propTypes = {
-//   title: PropTypes.string.isRequired,
-//   backClick: PropTypes.func.isRequired
-// };
+BackNavBar.propTypes = {
+  title: PropTypes.string.isRequired,
+  backClick: PropTypes.func.isRequired
+};
 
 export default BackNavBar;

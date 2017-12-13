@@ -1,4 +1,4 @@
-import { GET_ALL_ORDERS, GET_ORDER, AFFIRM_ORDER } from "./type";
+import { GET_ALL_ORDERS, AFFIRM_ORDER } from "./type";
 
 import { Toast } from "antd-mobile";
 import axios from "axios";
@@ -28,6 +28,7 @@ export function affirmOrder(orderId) {
     const res = await axios.post("/order/affirm", { orderId });
     if (res.status === 200 && res.data.code === 0) {
       Toast.success("确认订单成功", 1);
+      dispatch({ type: AFFIRM_ORDER, payload: orderId });
     }
   };
 }

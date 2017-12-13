@@ -55,16 +55,16 @@ Router.post("/affirm", function(req, res) {
     { _id: orderId, state: 1 },
     {
       $set: {
-        state: 2
+        state: 1
       }
     },
     function(error, result) {
       if (error) {
         return res.json({ code: 1, msg: "后端出错" });
       }
-      if (result.nModified === 0) {
-        return res.json({ code: 1, msg: "该订单已完成" });
-      }
+      // if (result.nModified === 0) {
+      //   return res.json({ code: 1, msg: "该订单已完成" });
+      // }
       return res.json({ code: 0, msg: "订单完成" });
     }
   );
