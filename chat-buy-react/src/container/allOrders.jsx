@@ -1,14 +1,14 @@
-import React from 'react'
-import List from '../components/allOrders/list'
+import React from 'react';
+import List from '../components/allOrders/list';
 
 class AllOrders extends React.Component {
-  render() {
+  render () {
     return (
-      <div className='list'>
+      <div className="list">
         <List />
       </div>
-    )
+    );
   }
 }
 
-export default AllOrders
+export default AllOrders;
