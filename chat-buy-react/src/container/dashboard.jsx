@@ -9,10 +9,8 @@ import asyncComponent from "../asyncComponent";
 const Goods = asyncComponent(() => import("./goods.jsx"));
 const My = asyncComponent(() => import("./my.jsx"));
 const AllOrders = asyncComponent(() => import("./allOrders.jsx"));
-
-function Message() {
-  return <div>Message</div>;
-}
+const Message = asyncComponent(() => import("./message.jsx"));
+const NotFound = asyncComponent(() => import("../components/common/404"));
 
 const list = [
   {
@@ -63,15 +61,17 @@ class DashBoard extends React.Component {
     } else if (path && location.pathname === "/") {
       return <Redirect to={path} />;
     }
+    let currentNavBar = list.find(v => v.path === location.pathname);
     return (
       <div>
         <NavBar className="nav">
-          {list.find(v => v.path === location.pathname).title}
+          {currentNavBar ? currentNavBar.title : "找不到该页面"}
         </NavBar>
         <Switch>
           {list.map(v => (
             <Route key={v.path} path={v.path} component={v.component} />
           ))}
+          <Route component={NotFound} />
         </Switch>
         <div className="dashBoard-wrapper">
           <TabBar>

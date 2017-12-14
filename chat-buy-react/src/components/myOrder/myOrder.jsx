@@ -11,7 +11,6 @@ class MyOrder extends React.Component {
     this.props.getMyOrders();
   }
   render() {
-    console.log(this.props.orders);
     return this.props.orders.size ? (
       <div>
         <NavBar title='我的订单' backClick={this.props.history.goBack} />
