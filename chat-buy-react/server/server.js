@@ -19,7 +19,7 @@ app.use("/goods", jwtMiddleware, goodsRouter);
 app.use("/order", jwtMiddleware, orderRouter);
 
 io.on("connection", function(client) {
-  console.log("io connection");
+  console.log("io connection1");
 });
 
 server.listen(1717, function() {
