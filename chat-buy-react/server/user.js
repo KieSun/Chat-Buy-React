@@ -31,7 +31,7 @@ Router.post("/login", function(req, res) {
     if (!doc) {
       return res.json({ code: 1, msg: "用户名或密码错误" });
     }
-    if (error) {
+    if (e) {
       return res.json({ code: 1, msg: "后端出错" });
     }
     const token = jwt.sign({ id: doc._id }, key, {
@@ -43,11 +43,18 @@ Router.post("/login", function(req, res) {
 
 Router.post("/info", function(req, res) {
   const { id } = req.decoded;
-  User.findOne({ _id: id }, { pwd: 0 }, function(e, user) {
+  User.findOne({ _id: id }, function(e, user) {
     if (e || !user) {
       return res.json({ code: 2, msg: "后端出错" });
     }
-    return res.json({ code: 0, data: user });
+    return res.json({
+      code: 0,
+      data: {
+        user: user.user,
+        type: user.type,
+        id: user.id
+      }
+    });
   });
 });
 

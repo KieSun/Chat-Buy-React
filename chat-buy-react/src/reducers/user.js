@@ -11,7 +11,7 @@ import { List } from "immutable";
 const initialState = {
   user: "",
   type: "",
-  _id: "",
+  id: "",
   path: "",
   orders: List([])
 };

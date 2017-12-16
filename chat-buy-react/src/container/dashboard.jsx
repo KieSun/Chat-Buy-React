@@ -10,7 +10,8 @@ const Goods = asyncComponent(() => import("./goods.jsx"));
 const My = asyncComponent(() => import("./my.jsx"));
 const AllOrders = asyncComponent(() => import("./allOrders.jsx"));
 const Message = asyncComponent(() => import("./message.jsx"));
-const NotFound = asyncComponent(() => import("../components/common/404"));
+const NotFound = asyncComponent(() => import("../components/common/404.jsx"));
+const MyOrder = asyncComponent(() => import('../components/myOrder/myOrder.jsx'))
 
 const list = [
   {
@@ -53,9 +54,9 @@ class DashBoard extends React.Component {
       history.push("/login");
     }
   }
+  
   render() {
     const { type, location, history, path } = this.props;
-
     if (!type) {
       return null;
     } else if (path && location.pathname === "/") {
@@ -64,17 +65,20 @@ class DashBoard extends React.Component {
     let currentNavBar = list.find(v => v.path === location.pathname);
     return (
       <div>
-        <NavBar className="nav">
-          {currentNavBar ? currentNavBar.title : "找不到该页面"}
-        </NavBar>
+        {currentNavBar ? (
+          <NavBar className="nav">
+            {currentNavBar.title}
+          </NavBar>
+        ) : null}
         <Switch>
           {list.map(v => (
-            <Route key={v.path} path={v.path} component={v.component} />
+            <Route exact key={v.path} path={v.path} component={v.component} />
           ))}
+          <Route path="/me/orders" component={MyOrder}/>
           <Route component={NotFound} />
         </Switch>
         <div className="dashBoard-wrapper">
-          <TabBar>
+          <TabBar hidden={!currentNavBar}>
             {list.filter(v => v.type !== type).map(v => (
               <TabBar.Item
                 icon={{ uri: require(`../images/${v.imgName}.png`) }}
@@ -82,6 +86,7 @@ class DashBoard extends React.Component {
                   uri: require(`../images/${v.imgName}-sel.png`)
                 }}
                 title={v.title}
+                
                 key={v.title}
                 selected={location.pathname === v.path}
                 onPress={() => {
