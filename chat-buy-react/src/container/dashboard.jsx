@@ -3,6 +3,7 @@ import { TabBar, NavBar } from "antd-mobile";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getInfo } from "../actions/user";
+import { connectSocket } from "../actions/chat";
 
 import asyncComponent from "../asyncComponent";
 
@@ -11,7 +12,9 @@ const My = asyncComponent(() => import("./my.jsx"));
 const AllOrders = asyncComponent(() => import("./allOrders.jsx"));
 const Message = asyncComponent(() => import("./message.jsx"));
 const NotFound = asyncComponent(() => import("../components/common/404.jsx"));
-const MyOrder = asyncComponent(() => import('../components/myOrder/myOrder.jsx'))
+const MyOrder = asyncComponent(() =>
+  import("../components/myOrder/myOrder.jsx")
+);
 
 const list = [
   {
@@ -42,19 +45,21 @@ const list = [
   }
 ];
 
-@connect(state => state.user, { getInfo })
+@connect(state => state.user, { getInfo, connectSocket })
 class DashBoard extends React.Component {
   componentDidMount() {
     const { history, type } = this.props;
     if (window.localStorage.getItem("token")) {
       if (!type) {
         this.props.getInfo();
+      } else {
+        connectSocket();
       }
     } else {
       history.push("/login");
     }
   }
-  
+
   render() {
     const { type, location, history, path } = this.props;
     if (!type) {
@@ -66,15 +71,13 @@ class DashBoard extends React.Component {
     return (
       <div>
         {currentNavBar ? (
-          <NavBar className="nav">
-            {currentNavBar.title}
-          </NavBar>
+          <NavBar className="nav">{currentNavBar.title}</NavBar>
         ) : null}
         <Switch>
           {list.map(v => (
             <Route exact key={v.path} path={v.path} component={v.component} />
           ))}
-          <Route path="/me/orders" component={MyOrder}/>
+          <Route path="/me/orders" component={MyOrder} />
           <Route component={NotFound} />
         </Switch>
         <div className="dashBoard-wrapper">
@@ -86,7 +89,6 @@ class DashBoard extends React.Component {
                   uri: require(`../images/${v.imgName}-sel.png`)
                 }}
                 title={v.title}
-                
                 key={v.title}
                 selected={location.pathname === v.path}
                 onPress={() => {

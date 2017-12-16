@@ -1,5 +1,4 @@
 import React from "react";
-import io from 'socket.io-client'
 // import { List, Stepper } from "antd-mobile";
 // import PropTypes from "prop-types";
 
@@ -8,7 +7,9 @@ import io from 'socket.io-client'
 
 class MessageList extends React.Component {
   componentDidMount() {
-    const socket = io('http://localhost:1717');
+    
+    // emit 发送一个事件
+    // on 接受一个事件
   }
   render() {
     return (

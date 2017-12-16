@@ -4,6 +4,8 @@ import { Toast } from "antd-mobile";
 import axios from "axios";
 import history from "../common/history";
 
+import { connectSocket } from "./chat";
+
 function regiserSuccess(data) {
   return { type: REGISTER, payload: data };
 }
@@ -66,6 +68,7 @@ export function getInfo() {
     const res = await axios.post("/user/info");
     if (res.status === 200 && res.data.code === 0) {
       dispatch(getInfoSuccess(res.data.data));
+      dispatch(connectSocket());
     }
   };
 }
