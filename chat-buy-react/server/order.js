@@ -5,16 +5,21 @@ const AllOrders = model.allOrders;
 const Router = express.Router();
 
 Router.get("/allOrders", function(req, res) {
-  AllOrders.find({ state: 0 }, function(error, doc) {
-    return res.json({ code: 0, data: doc });
-  });
+  AllOrders.find({ state: 0 })
+    .sort({ date: -1 })
+    .exec(function(error, doc) {
+      if (error) {
+        return res.json({ code: 1, msg: "后端出错" });
+      }
+      return res.json({ code: 0, data: doc });
+    });
 });
 
 Router.post("/getOrder", function(req, res) {
   const { orderId } = req.body;
   const { id } = req.decoded;
 
-  AllOrders.update(
+  AllOrders.findByIdAndUpdate(
     { _id: orderId, state: 0 },
     {
       $set: {
@@ -26,7 +31,7 @@ Router.post("/getOrder", function(req, res) {
       if (error) {
         return res.json({ code: 1, msg: "后端出错" });
       }
-      if (result.nModified === 0) {
+      if (!result) {
         return res.json({ code: 1, msg: "该订单已被接单" });
       }
       User.update(
@@ -39,6 +44,10 @@ Router.post("/getOrder", function(req, res) {
         function(e, user) {
           if (e || !user) {
             return res.json({ code: 1, msg: "后端出错" });
+          }
+          let receiver = result.customer;
+          if (clients.hasOwnProperty(receiver)) {
+            clients[receiver].emit("getOrder", orderId);
           }
           return res.json({ code: 0, msg: "接单成功" });
         }
@@ -62,10 +71,11 @@ Router.post("/affirm", function(req, res) {
       if (error) {
         return res.json({ code: 1, msg: "后端出错" });
       }
-      if (result.nModified === 0) {
+      if (!result) {
         return res.json({ code: 1, msg: "该订单已完成" });
       }
-      let receiver = result.deliver === id ? result.deliver : result.customer;
+      let receiver =
+        result.deliver === parseInt(id) ? result.customer : result.deliver;
       if (clients.hasOwnProperty(receiver)) {
         clients[receiver].emit("affirmOrder", orderId);
       }

@@ -4,6 +4,7 @@ import { getMyOrders } from "../../actions/user";
 import { affirmOrder } from "../../actions/order";
 import MyOrderItem from "./myOrderItem";
 import NavBar from "../navBar/backNavBar";
+import AnimationContainer from '../../container/animation'
 
 @connect(state => state.user, { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {
@@ -29,4 +30,5 @@ class MyOrder extends React.Component {
   }
 }
 
-export default MyOrder;
+export default AnimationContainer(MyOrder);
+// export default MyOrder;

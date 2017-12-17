@@ -3,7 +3,8 @@ import {
   LOGIN,
   GET_INFO,
   GET_MY_ORDERS,
-  AFFIRM_ORDER
+  AFFIRM_ORDER,
+  GET_ORDER_SUCCESS
 } from "../actions/type";
 import { changeOrderState } from "../common/unit";
 import { List } from "immutable";
@@ -42,6 +43,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         orders: changeOrderState(state.orders, action.payload, 2)
+      };
+    case GET_ORDER_SUCCESS:
+      return {
+        ...state,
+        orders: changeOrderState(state.orders, action.payload, 1)
       };
     default:
       break;

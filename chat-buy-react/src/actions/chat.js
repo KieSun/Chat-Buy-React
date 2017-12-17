@@ -1,4 +1,5 @@
 // import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "./type";
+import { getOrderSuccess, affirmOrderSuccess } from "./order";
 
 import axios from "axios";
 import io from "socket.io-client";
@@ -10,7 +11,10 @@ export function connectSocket() {
       socket.emit("user", state().user.id);
     });
     socket.on("affirmOrder", id => {
-      console.log(id);
+      dispatch(affirmOrderSuccess(id));
+    });
+    socket.on("getOrder", id => {
+      dispatch(getOrderSuccess(id));
     });
   };
 }

@@ -8,4 +8,5 @@ export const BUY_SUCCESS = "BUY_SUCCESS";
 export const GET_MY_ORDERS = "GET_MY_ORDERS";
 export const GET_ALL_ORDERS = "GET_ALL_ORDERS";
 export const GET_ORDER = "GET_ORDER";
+export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const AFFIRM_ORDER = "AFFIRM_ORDER";

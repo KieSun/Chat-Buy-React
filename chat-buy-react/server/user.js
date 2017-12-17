@@ -62,7 +62,7 @@ Router.post("/orders", function(req, res) {
   const { id } = req.decoded;
 
   User.findOne({ _id: id })
-    .populate("orders")
+    .populate({ path: "orders", options: { sort: { date: -1 } } })
     .exec(function(error, user) {
       if (error) {
         return res.json({ code: 1, msg: "后端出错" });

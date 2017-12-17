@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getGoodsInfo, addToCart, buy } from "../actions/goods";
 import GoodsList from "../components/goods/goodsList";
 import Buy from "../components/goods/buy";
+import AnimationContainer from './animation'
 
 @connect(state => state.goods, { getGoodsInfo, addToCart, buy })
 class Goods extends React.Component {
@@ -26,4 +27,4 @@ class Goods extends React.Component {
   }
 }
 
-export default Goods;
+export default AnimationContainer(Goods);

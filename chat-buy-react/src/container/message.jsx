@@ -1,5 +1,6 @@
 import React from "react";
 import MessageList from "../components/message/messageList";
+import AnimationContainer from './animation'
 
 class Message extends React.Component {
   render() {
@@ -11,4 +12,4 @@ class Message extends React.Component {
   }
 }
 
-export default Message;
+export default AnimationContainer(Message);
