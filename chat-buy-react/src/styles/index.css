@@ -73,3 +73,13 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.bottom-input {
+  display: flex;
+  height: 46px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}

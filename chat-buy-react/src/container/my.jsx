@@ -1,6 +1,5 @@
 import React from "react";
 import { List } from "antd-mobile";
-import AnimationContainer from './animation'
 
 const Item = List.Item;
 
@@ -17,4 +16,4 @@ const My = ({history}) => (
   </div>
 );
 
-export default AnimationContainer(My);
+export default My;

@@ -1,6 +1,5 @@
 import React from "react";
 import RegisterForm from "../components/register/registerForm";
-import AnimationContainer from './animation'
 
 const Register = () => (
   <div>
@@ -8,4 +7,4 @@ const Register = () => (
   </div>
 );
 
-export default AnimationContainer(Register);
+export default Register;

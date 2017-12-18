@@ -47,7 +47,12 @@ export default function(state = initialState, action) {
     case GET_ORDER_SUCCESS:
       return {
         ...state,
-        orders: changeOrderState(state.orders, action.payload, 1)
+        orders: changeOrderState(
+          state.orders,
+          action.payload.orderId,
+          1,
+          action.payload.id
+        )
       };
     default:
       break;

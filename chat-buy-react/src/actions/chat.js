@@ -13,8 +13,17 @@ export function connectSocket() {
     socket.on("affirmOrder", id => {
       dispatch(affirmOrderSuccess(id));
     });
-    socket.on("getOrder", id => {
-      dispatch(getOrderSuccess(id));
+    socket.on("getOrder", data => {
+      dispatch(getOrderSuccess(data));
+    });
+  };
+}
+
+export function getUserName(id) {
+  return dispatch => {
+    const socket = io("http://localhost:1717");
+    socket.on("open", () => {
+      socket.emit("getUserName", id);
     });
   };
 }

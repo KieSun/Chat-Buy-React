@@ -4,12 +4,18 @@ import { getMyOrders } from "../../actions/user";
 import { affirmOrder } from "../../actions/order";
 import MyOrderItem from "./myOrderItem";
 import NavBar from "../navBar/backNavBar";
-import AnimationContainer from '../../container/animation'
 
 @connect(state => state.user, { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {
+  constructor() {
+    super()
+    this.handleChat = this.handleChat.bind(this)
+  }
   componentDidMount() {
     this.props.getMyOrders();
+  }
+  handleChat(id) {
+    this.props.history.push(`/chat/${id}`)
   }
   render() {
     return this.props.orders.size ? (
@@ -22,6 +28,8 @@ class MyOrder extends React.Component {
               type={this.props.type}
               key={v._id}
               affirmOrder={this.props.affirmOrder}
+              chat={this.handleChat}
+              id={this.props.id}
             />
           ))}
         </div>
@@ -30,5 +38,4 @@ class MyOrder extends React.Component {
   }
 }
 
-export default AnimationContainer(MyOrder);
-// export default MyOrder;
+export default MyOrder;

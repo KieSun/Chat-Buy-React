@@ -1,5 +1,7 @@
 let clients = {};
 global.clients = clients;
+const model = require("./model");
+const User = model.user;
 
 module.exports = function() {
   io.on("connection", function(client) {
@@ -10,6 +12,11 @@ module.exports = function() {
     });
     client.on("disconnect", function() {
       delete clients.current;
+    });
+    client.on("getUserName", id => {
+      User.findOne({ _id: id }, (error, user) => {
+        client.emit("userName", user.user);
+      });
     });
   });
 };

@@ -15,6 +15,7 @@ const NotFound = asyncComponent(() => import("../components/common/404.jsx"));
 const MyOrder = asyncComponent(() =>
   import("../components/myOrder/myOrder.jsx")
 );
+const Chat = asyncComponent(() => import("./chat.jsx"));
 
 const list = [
   {
@@ -78,6 +79,7 @@ class DashBoard extends React.Component {
             <Route exact key={v.path} path={v.path} component={v.component} />
           ))}
           <Route path="/me/orders" component={MyOrder} />
+          <Route path="/chat/:id" component={Chat} />
           <Route component={NotFound} />
         </Switch>
         <div className="dashBoard-wrapper">

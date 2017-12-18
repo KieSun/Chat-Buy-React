@@ -13,8 +13,8 @@ export function getAllOrders() {
   };
 }
 
-export function getOrderSuccess(id) {
-  return { type: GET_ORDER_SUCCESS, payload: id };
+export function getOrderSuccess(data) {
+  return { type: GET_ORDER_SUCCESS, payload: data };
 }
 
 export function getOrder(orderId) {
