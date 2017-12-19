@@ -20,7 +20,7 @@ Router.post("/register", function(req, res) {
       const token = jwt.sign({ id: _id }, key, {
         expiresIn: 60 * 60 * 24 * 7
       });
-      return res.json({ code: 0, token, data: { user, type, _id } });
+      return res.json({ code: 0, token, data: { user, type, id: _id } });
     });
   });
 });
@@ -34,10 +34,11 @@ Router.post("/login", function(req, res) {
     if (e) {
       return res.json({ code: 1, msg: "后端出错" });
     }
-    const token = jwt.sign({ id: doc._id }, key, {
+    const { user, type, _id } = doc;
+    const token = jwt.sign({ id: _id }, key, {
       expiresIn: 60 * 60 * 24 * 7
     });
-    return res.json({ code: 0, data: doc, token });
+    return res.json({ code: 0, data: { user, type, id: _id }, token });
   });
 });
 

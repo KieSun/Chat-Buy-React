@@ -1,23 +1,25 @@
-import {combineReducers} from 'redux';
-import UserReducer from './user';
-import GoodsReducer from './goods';
-import OrdersReducer from './orders';
-import {LOG_OUT} from '../actions/type';
-import history from '../common/history';
+import { combineReducers } from "redux";
+import UserReducer from "./user";
+import GoodsReducer from "./goods";
+import OrdersReducer from "./orders";
+import ChatReducer from "./chat";
+import { LOG_OUT } from "../actions/type";
+import history from "../common/history";
 
-const appReducer = combineReducers ({
+const appReducer = combineReducers({
   user: UserReducer,
   goods: GoodsReducer,
   order: OrdersReducer,
+  chat: ChatReducer
 });
 
 const rootReducer = (state, action) => {
   if (action.type === LOG_OUT) {
-    history.push ('/login');
-    window.localStorage.clear ();
+    history.push("/login");
+    window.localStorage.clear();
     state = undefined;
   }
-  return appReducer (state, action);
+  return appReducer(state, action);
 };
 
 export default rootReducer;

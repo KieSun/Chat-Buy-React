@@ -15,6 +15,12 @@ module.exports = function() {
     });
     client.on("getUserName", id => {
       User.findOne({ _id: id }, (error, user) => {
+        // if (!user) {
+        //   client.emit("userName", null);
+        // } else {
+        //   client.emit("userName", user.user);
+        // }
+        console.log(user.user);
         client.emit("userName", user.user);
       });
     });

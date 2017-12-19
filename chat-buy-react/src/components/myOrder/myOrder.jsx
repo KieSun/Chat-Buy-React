@@ -15,6 +15,7 @@ class MyOrder extends React.Component {
     this.props.getMyOrders();
   }
   handleChat(id) {
+    console.log(id);
     this.props.history.push(`/chat/${id}`)
   }
   render() {

@@ -41,7 +41,7 @@ const Item = ({ item, type, handleGetOrder, affirmOrder, chat, id }) => {
           type="ghost"
           inline
           size="small"
-          onClick={() => chat(item.customer === id ? item.deliver : id)}
+          onClick={() => chat(item.customer == id ? item.deliver : item.customer)}
         >
           联系对方
         </Button>

@@ -34,7 +34,7 @@ const list = [
   },
   {
     title: "消息",
-    path: "/message",
+    path: "/chat",
     component: Message,
     imgName: "message"
   },
@@ -49,10 +49,11 @@ const list = [
 @connect(state => state.user, { getInfo, connectSocket })
 class DashBoard extends React.Component {
   componentDidMount() {
-    const { history, type } = this.props;
+    const { history, type, connectSocket } = this.props;
     if (window.localStorage.getItem("token")) {
       if (!type) {
         this.props.getInfo();
+        console.log('getInfo');
       } else {
         connectSocket();
       }
