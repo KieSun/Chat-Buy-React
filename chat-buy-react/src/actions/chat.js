@@ -36,3 +36,9 @@ export function getUserName(id) {
     socket.emit("getUserName", id);
   };
 }
+
+export function sendMessage(to, message) {
+  return (dispatch, state) => {
+    socket.emit("sendMessage", {from: state().user.id, to, message});
+  };
+}
