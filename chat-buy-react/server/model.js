@@ -33,13 +33,12 @@ const allOrdersSchema = mongoose.Schema({
 });
 
 var chatSchema = new Schema({
-  // 发送方
-  send: {
+  // 聊天双方
+  userOne: {
     type: Schema.Types.ObjectId,
     ref: "user"
   },
-  // 接收方
-  recieve: {
+  userTwo: {
     type: Schema.Types.ObjectId,
     ref: "user"
   },
@@ -48,7 +47,7 @@ var chatSchema = new Schema({
   // 接收方未读消息数
   recieveNoRead: Number,
   messages: [
-    { 
+    {
       // 发送方
       from: {
         type: Schema.Types.ObjectId,
@@ -62,7 +61,7 @@ var chatSchema = new Schema({
       // 发送的消息
       message: String,
       // 发送日期
-       date: { type: Date, default: Date.now }
+      date: { type: Date, default: Date.now }
     }
   ]
 });

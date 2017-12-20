@@ -1,4 +1,4 @@
-import { GET_USERNAME } from "./type";
+import { GET_USERNAME, GET_MESSAGE } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
 
 import axios from "axios";
@@ -28,6 +28,10 @@ export function connectSocket() {
         history.push("/chat");
       }
     });
+    socket.on("message", data => {
+      console.log(data);
+      dispatch({ type: GET_MESSAGE, payload: data });
+    });
   };
 }
 
@@ -39,6 +43,16 @@ export function getUserName(id) {
 
 export function sendMessage(to, message) {
   return (dispatch, state) => {
-    socket.emit("sendMessage", {from: state().user.id, to, message});
+    const id = state().user.id;
+    dispatch({
+      type: GET_MESSAGE,
+      payload: {
+        from: id,
+        to,
+        message
+      }
+    });
+    console.log(id, to);
+    socket.emit("sendMessage", { from: id, to, message });
   };
 }

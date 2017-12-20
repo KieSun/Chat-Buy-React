@@ -24,12 +24,15 @@ class ChatList extends React.Component {
     this.setState({ value: "" });
   }
   render() {
-    const { userName } = this.props;
+    const { userName, currentChatList } = this.props;
     return (
       <div>
         {userName && (
           <NavBar title={userName} backClick={this.props.history.goBack} />
         )}
+        {currentChatList.map(v => (
+          <div key={v.message}>{v.message}</div>
+        ))}
         <div className="bottom-input">
           <List style={{ width: "100%" }}>
             <InputItem
