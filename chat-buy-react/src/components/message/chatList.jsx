@@ -16,11 +16,11 @@ class ChatList extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
-    this.id = this.props.match.params.id
+    this.id = this.props.match.params.id;
     this.props.getUserName(this.id);
   }
   handleSubmit() {
-    this.props.sendMessage(this.id, this.state.value)
+    this.props.sendMessage(this.id, this.state.value);
     this.setState({ value: "" });
   }
   render() {
@@ -30,9 +30,9 @@ class ChatList extends React.Component {
         {userName && (
           <NavBar title={userName} backClick={this.props.history.goBack} />
         )}
-        {currentChatList.map(v => (
-          <div key={v.message}>{v.message}</div>
-        ))}
+        <div style={{marginTop: '60px'}}>
+          {currentChatList.map(v => <div key={v.message}>{v.message}</div>)}
+        </div>
         <div className="bottom-input">
           <List style={{ width: "100%" }}>
             <InputItem

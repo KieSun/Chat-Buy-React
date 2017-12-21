@@ -56,8 +56,7 @@ Router.post("/getOrder", function(req, res) {
             }
             let receiver = order.customer;
             if (clients.hasOwnProperty(receiver)) {
-              console.log(order.deliver);
-              clients[receiver].emit("getOrder", {
+              io.to(clients[receiver]).emit("getOrder", {
                 orderId,
                 id
               });
@@ -96,7 +95,7 @@ Router.post("/affirm", function(req, res) {
       }
       let receiver = result.deliver == id ? result.customer : result.deliver;
       if (clients.hasOwnProperty(receiver)) {
-        clients[receiver].emit("affirmOrder", orderId);
+        io.to(clients[receiver]).emit("affirmOrder", orderId);
       }
       return res.json({ code: 0, msg: "订单完成" });
     }

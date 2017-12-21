@@ -6,13 +6,11 @@ import io from "socket.io-client";
 import history from "../common/history";
 
 let socket = "";
-if (!socket) {
-  socket = io("http://localhost:1717");
-}
 
 export function connectSocket() {
   return (dispatch, state) => {
-    socket.on("open", () => {
+    socket = io("http://localhost:1717");
+    socket.on("connect", function() {
       socket.emit("user", state().user.id);
     });
     socket.on("affirmOrder", id => {
@@ -29,7 +27,6 @@ export function connectSocket() {
       }
     });
     socket.on("message", data => {
-      console.log(data);
       dispatch({ type: GET_MESSAGE, payload: data });
     });
   };
@@ -52,7 +49,6 @@ export function sendMessage(to, message) {
         message
       }
     });
-    console.log(id, to);
     socket.emit("sendMessage", { from: id, to, message });
   };
 }

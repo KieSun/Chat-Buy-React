@@ -7,13 +7,15 @@ const async = require("async");
 
 module.exports = function() {
   io.on("connection", function(client) {
-    client.emit("open");
     client.on("user", user => {
       clients[user] = client.id;
+      client.user = user;
+      console.log(user);
     });
     client.on("disconnect", () => {
-      console.log(client.id);
-      delete clients.current;
+      if (client.user) {
+        delete clients[client.user];
+      }
     });
     client.on("getUserName", id => {
       User.findOne({ _id: id }, (error, user) => {
@@ -91,9 +93,10 @@ module.exports = function() {
               }
             });
           }
-          if (io.of(clients[to])) {
-            console.log(io.to(clients[to]));
-            io.of(clients[to]).emit("message", { message, from, to });
+          console.log(clients[to]);
+
+          if (clients[to]) {
+            io.to(clients[to]).emit("message", { message, from, to });
           }
         }
       );
