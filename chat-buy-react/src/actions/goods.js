@@ -28,7 +28,6 @@ export function addToCart({ id, price, count }) {
 
 export function buy() {
   return async (dispatch, state) => {
-    console.log();
     const res = await axios.post("/goods/buy", {
       buyList: state().goods.shopCart
     });

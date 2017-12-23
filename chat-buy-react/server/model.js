@@ -33,19 +33,18 @@ const allOrdersSchema = mongoose.Schema({
 });
 
 var chatSchema = new Schema({
+  messageId: String,
   // 聊天双方
-  userOne: {
-    type: Schema.Types.ObjectId,
-    ref: "user"
-  },
-  userTwo: {
-    type: Schema.Types.ObjectId,
-    ref: "user"
-  },
-  // 发送方未读消息数
-  sendNoRead: Number,
-  // 接收方未读消息数
-  recieveNoRead: Number,
+  bothSide: [
+    {
+      user: {
+        type: Schema.Types.ObjectId
+      },
+      lastId: {
+        type: Number
+      }
+    }
+  ],
   messages: [
     {
       // 发送方

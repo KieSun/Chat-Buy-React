@@ -34,7 +34,7 @@ const list = [
   },
   {
     title: "消息",
-    path: "/chat",
+    path: "/messageList",
     component: Message,
     imgName: "message"
   },

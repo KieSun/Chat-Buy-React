@@ -10,7 +10,6 @@ module.exports = function() {
     client.on("user", user => {
       clients[user] = client.id;
       client.user = user;
-      console.log(user);
     });
     client.on("disconnect", () => {
       if (client.user) {
@@ -48,17 +47,19 @@ module.exports = function() {
             client.emit("error", { errorMsg: "找不到聊天对象" });
           } else {
             Chat.findOne({
-              $or: [
-                { userOne: from, userTwo: to },
-                { userOne: to, userTwo: from }
-              ]
+              messageId: [from, to].sort().join("")
             }).exec(function(err, doc) {
               if (!doc) {
                 var chatModel = new Chat({
-                  userOne: from,
-                  userTwo: to,
-                  sendNoRead: 0,
-                  recieveNoRead: 1,
+                  messageId: [from, to].sort().join(""),
+                  bothSide: [
+                    {
+                      user: from
+                    },
+                    {
+                      user: to
+                    }
+                  ],
                   messages: [
                     {
                       from,
@@ -69,7 +70,7 @@ module.exports = function() {
                 });
                 chatModel.save(function(err, chat) {
                   if (err || !chat) {
-                    client.emit("error", { errorMsg: "后端出错" });
+                    client.emit("serverError", { errorMsg: "后端出错" });
                   }
                 });
               } else {
@@ -79,22 +80,14 @@ module.exports = function() {
                   message
                 });
 
-                if (doc.send == from) {
-                  doc.recieveNoRead += 1;
-                } else {
-                  doc.sendNoRead += 1;
-                }
-
                 doc.save(function(err, chat) {
                   if (err || !chat) {
-                    client.emit("error", { errorMsg: "后端出错" });
+                    client.emit("serverError", { errorMsg: "后端出错" });
                   }
                 });
               }
             });
           }
-          console.log(clients[to]);
-
           if (clients[to]) {
             io.to(clients[to]).emit("message", { message, from, to });
           }
