@@ -8,20 +8,20 @@ import NavBar from "../navBar/backNavBar";
 @connect(state => state.user, { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {
   constructor() {
-    super()
-    this.handleChat = this.handleChat.bind(this)
+    super();
+    this.handleChat = this.handleChat.bind(this);
   }
   componentDidMount() {
     this.props.getMyOrders();
   }
   handleChat(id) {
     console.log(id);
-    this.props.history.push(`/chat/${id}`)
+    this.props.history.push(`/chat/${id}`);
   }
   render() {
-    return this.props.orders.size ? (
+    return (
       <div>
-        <NavBar title='我的订单' backClick={this.props.history.goBack} />
+        <NavBar title="我的订单" backClick={this.props.history.goBack} />
         <div style={{ marginTop: "60px" }}>
           {this.props.orders.map(v => (
             <MyOrderItem
@@ -35,7 +35,7 @@ class MyOrder extends React.Component {
           ))}
         </div>
       </div>
-    ) : null;
+    );
   }
 }
 

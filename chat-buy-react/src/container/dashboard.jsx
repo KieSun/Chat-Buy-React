@@ -46,14 +46,14 @@ const list = [
   }
 ];
 
-@connect(state => state.user, { getInfo, connectSocket })
+@connect(state => ({user: state.user, noReadCount: state.chat.noReadCount}), { getInfo, connectSocket })
 class DashBoard extends React.Component {
   componentDidMount() {
-    const { history, type, connectSocket } = this.props;
+    const { history, connectSocket } = this.props;
+    const {type} = this.props.user
     if (window.localStorage.getItem("token")) {
       if (!type) {
         this.props.getInfo();
-        console.log('getInfo');
       } else {
         connectSocket();
       }
@@ -63,7 +63,8 @@ class DashBoard extends React.Component {
   }
 
   render() {
-    const { type, location, history, path } = this.props;
+    const { location, history, noReadCount } = this.props;
+    const {type, path} = this.props.user
     if (!type) {
       return null;
     } else if (path && location.pathname === "/") {
@@ -91,6 +92,7 @@ class DashBoard extends React.Component {
                 selectedIcon={{
                   uri: require(`../images/${v.imgName}-sel.png`)
                 }}
+                badge={v.path === '/messageList' && noReadCount}
                 title={v.title}
                 key={v.title}
                 selected={location.pathname === v.path}

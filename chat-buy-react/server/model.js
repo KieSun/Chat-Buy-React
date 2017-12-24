@@ -40,6 +40,9 @@ var chatSchema = new Schema({
       user: {
         type: Schema.Types.ObjectId
       },
+      name: {
+        type: String
+      },
       lastId: {
         type: Number
       }

@@ -12,3 +12,4 @@ export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
 export const AFFIRM_ORDER = "AFFIRM_ORDER";
 export const GET_USERNAME = "GET_USERNAME";
 export const GET_MESSAGE = "GET_MESSAGE";
+export const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";

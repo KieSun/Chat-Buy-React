@@ -1,4 +1,4 @@
-import { GET_USERNAME, GET_MESSAGE } from "./type";
+import { GET_USERNAME, GET_MESSAGE, GET_MESSAGE_LIST } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
 
 import axios from "axios";
@@ -11,7 +11,6 @@ let socket = "";
 export function connectSocket() {
   return (dispatch, state) => {
     socket = io("http://localhost:1717");
-    console.log(state().user);
     socket.on("connect", function() {
       socket.emit("user", state().user.id);
     });
@@ -29,7 +28,7 @@ export function connectSocket() {
       }
     });
     socket.on("message", data => {
-      dispatch({ type: GET_MESSAGE, payload: data });
+      dispatch(getMessageSuccess(data));
     });
     socket.on("serverError", msg => {
       Toast.info(msg, 2);
@@ -39,7 +38,6 @@ export function connectSocket() {
 
 export function getUserName(id) {
   return dispatch => {
-    console.log("getUserName");
     socket.emit("getUserName", id);
   };
 }
@@ -47,21 +45,74 @@ export function getUserName(id) {
 export function sendMessage(to, message) {
   return (dispatch, state) => {
     const id = state().user.id;
-    dispatch({
-      type: GET_MESSAGE,
-      payload: {
-        from: id,
-        to,
-        message
-      }
-    });
+    const payload = {
+      from: id,
+      to,
+      message,
+      date: Date()
+    };
+    dispatch(getMessageSuccess(payload));
     socket.emit("sendMessage", { from: id, to, message });
   };
 }
 
 export function getMessageList() {
-  return async dispatch => {
-    // getMessageList
+  return async (dispatch, state) => {
     const res = await axios.post("/chat/getMessageList");
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch({
+        type: GET_MESSAGE_LIST,
+        payload: res.data.data,
+        userId: state().user.id
+      });
+    }
+  };
+}
+
+function getMessageSuccess(payload) {
+  console.log(payload);
+  return (dispatch, getState) => {
+    let oldIndex = 0;
+    const state = getState();
+    let chatUserName = state.chat.chatUserName;
+    if (payload.obj) {
+      chatUserName = payload.name;
+      payload = payload.obj;
+    }
+    const list = state.chat.messageList;
+    const messageId = [payload.from, payload.to].sort().join("");
+    const isNoRead = payload.from == state.user.id ? 0 : 1;
+
+    let currentLsit = list.find((v, index) => {
+      if (v.messageId === messageId) {
+        oldIndex = index;
+        v.messages.push(payload);
+        return v;
+      }
+    });
+    if (currentLsit) {
+      dispatch({
+        type: GET_MESSAGE,
+        messageList: list.move(oldIndex, 0),
+        isNoRead
+      });
+    } else {
+      const obj = {
+        messageId,
+        bothSide: [
+          {
+            user: payload.from,
+            name: chatUserName
+          },
+          {
+            user: payload.to,
+            name: state.user.user
+          }
+        ],
+        messages: [payload]
+      };
+      list.unshift(obj);
+      dispatch({ type: GET_MESSAGE, messageList: list, isNoRead });
+    }
   };
 }

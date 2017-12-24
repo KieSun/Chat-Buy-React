@@ -2,26 +2,31 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { getMessageList } from "../../actions/chat";
 import { connect } from "react-redux";
-import NavBar from "../navBar/backNavBar";
-// import { List, Stepper } from "antd-mobile";
+import { List } from "antd-mobile";
 
-// const Item = List.Item;
-// const Brief = Item.Brief;
+const Item = List.Item;
+const Brief = Item.Brief;
 
 @withRouter
 @connect(state => state.chat, { getMessageList })
 class MessageList extends React.Component {
   componentDidMount() {
-    // emit 发送一个事件
-    // on 接受一个事件
-    this.props.getMessageList()
+    !this.props.messageList.length && this.props.getMessageList();
   }
   render() {
+    console.log(this.props.messageList)
     return (
-      <div style={{marginTop: '60px'}}>
-        消息列表
+      <div style={{ marginTop: "60px" }}>
+        {this.props.messageList.length && <List>
+          {this.props.messageList.map(v => (
+            <Item key={v.messageId} arrow="horizontal" onClick={() => {}}>
+              {this.props.userId == v.bothSide[0].user ? v.bothSide[1].name : v.bothSide[0].name} 
+              <Brief>{v.messages.last().message}</Brief>
+            </Item>
+          ))}
+        </List>}
       </div>
-    )
+    );
   }
 }
 

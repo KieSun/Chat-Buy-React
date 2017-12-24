@@ -1,20 +1,34 @@
-import { GET_USERNAME, GET_MESSAGE } from "../actions/type";
+import { GET_USERNAME, GET_MESSAGE, GET_MESSAGE_LIST } from "../actions/type";
 
 const initialState = {
-  userName: "",
+  chatUserName: "",
   currentChatList: [],
-  messageList: []
+  messageList: [],
+  userId: "",
+  noReadCount: 0
 };
+
+function sortMessageList(list) {
+  return list.sort((a, b) => {
+    return a.messages.last().date < b.messages.last().date;
+  });
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USERNAME:
       return { ...state, userName: action.payload };
     case GET_MESSAGE:
-      console.log([...state.currentChatList, action.payload]);
       return {
         ...state,
-        currentChatList: [...state.currentChatList, action.payload]
+        messageList: action.messageList,
+        noReadCount: state.noReadCount + action.isNoRead
+      };
+    case GET_MESSAGE_LIST:
+      return {
+        ...state,
+        messageList: sortMessageList(action.payload),
+        userId: action.userId
       };
     default:
       return state;
