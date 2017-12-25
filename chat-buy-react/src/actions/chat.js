@@ -2,7 +2,8 @@ import {
   GET_USERNAME,
   GET_MESSAGE,
   GET_MESSAGE_LIST,
-  SET_CURRENLIST
+  SET_CURRENLIST,
+  CLEAN_NO_READ
 } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
 
@@ -75,12 +76,24 @@ export function getMessageList() {
   };
 }
 
-export function setCurrentChatList(list) {
-  return { type: "SET_CURRENLIST", payload: list };
+export function setCurrentChatList(obj) {
+  console.log(obj);
+  return { type: "SET_CURRENLIST", payload: obj };
+}
+
+export function cleanNoRead(readId, messageId) {
+  return async dispatch => {
+    const res = await axios.post("/chat/cleanNoRead", { readId, messageId });
+    if (res.status === 200 && res.data.code === 0) {
+      dispatch({
+        type: CLEAN_NO_READ,
+        payload: { readId, messageId }
+      });
+    }
+  };
 }
 
 function getMessageSuccess(payload) {
-  console.log(payload);
   return (dispatch, getState) => {
     let oldIndex = 0;
     const state = getState();

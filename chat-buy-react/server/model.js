@@ -44,7 +44,7 @@ var chatSchema = new Schema({
         type: String
       },
       lastId: {
-        type: Number
+        type: String
       }
     }
   ],

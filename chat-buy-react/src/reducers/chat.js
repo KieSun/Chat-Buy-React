@@ -8,6 +8,7 @@ import {
 const initialState = {
   chatUserName: "",
   currentChatList: [],
+  currentMessageId: "",
   messageList: [],
   userId: "",
   noReadCount: 0
@@ -36,7 +37,11 @@ export default function(state = initialState, action) {
         userId: action.userId
       };
     case SET_CURRENLIST:
-      return { ...state, currentChatList: action.payload };
+      return {
+        ...state,
+        currentChatList: action.payload.messages,
+        currentMessageId: action.payload.messageId
+      };
     default:
       return state;
   }

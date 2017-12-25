@@ -4,14 +4,20 @@ import { withRouter } from "react-router-dom";
 import {
   getUserName,
   sendMessage,
-  setCurrentChatList
+  setCurrentChatList,
+  cleanNoRead
 } from "../../actions/chat";
 import { connect } from "react-redux";
 import NavBar from "../navBar/backNavBar";
 import ChatListItem from "./chatListItem";
 
 @withRouter
-@connect(state => state.chat, { getUserName, sendMessage, setCurrentChatList })
+@connect(state => state.chat, {
+  getUserName,
+  sendMessage,
+  setCurrentChatList,
+  cleanNoRead
+})
 class ChatList extends React.Component {
   constructor() {
     super();
@@ -22,22 +28,32 @@ class ChatList extends React.Component {
   }
   componentDidMount() {
     this.id = this.props.match.params.id;
-    if (!this.props.currentChatList.length) {
+    if (this.props.currentChatList.length == 0) {
       let currentList = this.props.messageList.find(v => {
         return v.messageId == [this.props.userId, this.id].sort().join("");
       });
       if (currentList) {
-        this.props.setCurrentChatList(currentList.messages);
+        this.props.setCurrentChatList(currentList);
       }
     }
     this.props.getUserName(this.id);
+  }
+  componentWillUnmount() {
+    const { currentChatList, currentMessageId } = this.props;
+    if (!currentChatList.length) {return}
+    let index = currentChatList.reverse().findIndex(v => v.to == this.props.userId)
+    if (index !== -1) {
+      console.log(currentChatList[currentChatList.length - 1 - index]._id, currentMessageId)
+      this.props.cleanNoRead(currentChatList[currentChatList.length - 1 - index]._id, currentMessageId);
+    }
+    
   }
   handleSubmit() {
     this.props.sendMessage(this.id, this.state.value);
     this.setState({ value: "" });
   }
   render() {
-    window.scrollTo(0,document.body.scrollHeight);
+    window.scrollTo(0, document.body.scrollHeight);
     const { userName, currentChatList, userId } = this.props;
     return (
       <div>
@@ -45,7 +61,9 @@ class ChatList extends React.Component {
           <NavBar title={userName} backClick={this.props.history.goBack} />
         )}
         <div style={{ margin: "60px 0 55px" }}>
-          {currentChatList.map(v => <ChatListItem key={v.date} messageObj={v} userId={userId} />)}
+          {currentChatList.length > 0 && currentChatList.map(v => (
+            <ChatListItem key={v.date} messageObj={v} userId={userId} />
+          ))}
         </div>
         <div className="bottom-input">
           <List style={{ width: "100%" }}>

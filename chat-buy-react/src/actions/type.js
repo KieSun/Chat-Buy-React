@@ -14,3 +14,4 @@ export const GET_USERNAME = "GET_USERNAME";
 export const GET_MESSAGE = "GET_MESSAGE";
 export const GET_MESSAGE_LIST = "GET_MESSAGE_LIST";
 export const SET_CURRENLIST = "SET_CURRENLIST";
+export const CLEAN_NO_READ = "CLEAN_NO_READ";

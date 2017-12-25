@@ -10,6 +10,26 @@ const Brief = Item.Brief;
 @withRouter
 @connect(state => state.chat, { setCurrentChatList })
 class MessageList extends React.Component {
+  filterNoReadCount(obj) {
+    const {userId} = this.props;
+    const sendObj = obj.bothSide.find(v => v.user == userId)
+    let readId
+    if (sendObj) {
+      readId = sendObj.lastId
+    }
+    let array = obj.messages.filter(v => {
+      return v.to == userId
+    })
+    if (readId) {
+      let index = array.findIndex(v => readId == v._id)
+      return array.length - index - 1
+    } else {
+      return array.length
+    }
+  }
+  getSideObj(userId, bothSide) {
+    return bothSide.find(v => v.user != userId)
+  }
   render() {
     const { messageList, userId, history, setCurrentChatList } = this.props;
     return (
@@ -20,20 +40,15 @@ class MessageList extends React.Component {
               <Item
                 key={v.messageId}
                 arrow="horizontal"
+                extra={this.filterNoReadCount(v) && <span className='no-read-circle'>{this.filterNoReadCount(v)}</span>}
                 onClick={() => {
-                  setCurrentChatList(v.messages);
+                  setCurrentChatList(v);
                   history.push(
-                    `/chat/${
-                      userId == v.bothSide[0].user
-                        ? v.bothSide[1].user
-                        : v.bothSide[0].user
-                    }`
+                    `/chat/${this.getSideObj(userId, v.bothSide).user}`
                   );
                 }}
               >
-                {userId == v.bothSide[0].user
-                  ? v.bothSide[1].name
-                  : v.bothSide[0].name}
+                {this.getSideObj(userId, v.bothSide).name}
                 <Brief>{v.messages.last().message}</Brief>
               </Item>
             ))}
