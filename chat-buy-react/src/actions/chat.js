@@ -1,4 +1,9 @@
-import { GET_USERNAME, GET_MESSAGE, GET_MESSAGE_LIST } from "./type";
+import {
+  GET_USERNAME,
+  GET_MESSAGE,
+  GET_MESSAGE_LIST,
+  SET_CURRENLIST
+} from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
 
 import axios from "axios";
@@ -31,7 +36,8 @@ export function connectSocket() {
       dispatch(getMessageSuccess(data));
     });
     socket.on("serverError", msg => {
-      Toast.info(msg, 2);
+      Toast.info(msg.errorMsg, 2);
+      history.push("/messageList");
     });
   };
 }
@@ -67,6 +73,10 @@ export function getMessageList() {
       });
     }
   };
+}
+
+export function setCurrentChatList(list) {
+  return { type: "SET_CURRENLIST", payload: list };
 }
 
 function getMessageSuccess(payload) {

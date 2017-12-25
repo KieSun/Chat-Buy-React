@@ -1,12 +1,17 @@
 import React from "react";
 import { List, InputItem } from "antd-mobile";
 import { withRouter } from "react-router-dom";
-import { getUserName, sendMessage } from "../../actions/chat";
+import {
+  getUserName,
+  sendMessage,
+  setCurrentChatList
+} from "../../actions/chat";
 import { connect } from "react-redux";
 import NavBar from "../navBar/backNavBar";
+import ChatListItem from "./chatListItem";
 
 @withRouter
-@connect(state => state.chat, { getUserName, sendMessage })
+@connect(state => state.chat, { getUserName, sendMessage, setCurrentChatList })
 class ChatList extends React.Component {
   constructor() {
     super();
@@ -17,6 +22,14 @@ class ChatList extends React.Component {
   }
   componentDidMount() {
     this.id = this.props.match.params.id;
+    if (!this.props.currentChatList.length) {
+      let currentList = this.props.messageList.find(v => {
+        return v.messageId == [this.props.userId, this.id].sort().join("");
+      });
+      if (currentList) {
+        this.props.setCurrentChatList(currentList.messages);
+      }
+    }
     this.props.getUserName(this.id);
   }
   handleSubmit() {
@@ -24,14 +37,15 @@ class ChatList extends React.Component {
     this.setState({ value: "" });
   }
   render() {
-    const { userName, currentChatList } = this.props;
+    window.scrollTo(0,document.body.scrollHeight);
+    const { userName, currentChatList, userId } = this.props;
     return (
       <div>
         {userName && (
           <NavBar title={userName} backClick={this.props.history.goBack} />
         )}
-        <div style={{marginTop: '60px'}}>
-          {currentChatList.map(v => <div key={v.message}>{v.message}</div>)}
+        <div style={{ margin: "60px 0 55px" }}>
+          {currentChatList.map(v => <ChatListItem key={v.date} messageObj={v} userId={userId} />)}
         </div>
         <div className="bottom-input">
           <List style={{ width: "100%" }}>

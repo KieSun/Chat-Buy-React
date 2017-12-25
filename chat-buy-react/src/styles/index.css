@@ -83,3 +83,26 @@
   width: 100%;
   z-index: 100;
 }
+
+.chat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.chat-list-item > .circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: greenyellow;
+  text-align: center;
+  line-height: 40px;
+  margin: 0 10px;
+}
+
+.chat-list-item > .message {
+  margin-right: 10px;
+}

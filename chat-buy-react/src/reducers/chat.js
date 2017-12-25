@@ -1,4 +1,9 @@
-import { GET_USERNAME, GET_MESSAGE, GET_MESSAGE_LIST } from "../actions/type";
+import {
+  GET_USERNAME,
+  GET_MESSAGE,
+  GET_MESSAGE_LIST,
+  SET_CURRENLIST
+} from "../actions/type";
 
 const initialState = {
   chatUserName: "",
@@ -30,6 +35,8 @@ export default function(state = initialState, action) {
         messageList: sortMessageList(action.payload),
         userId: action.userId
       };
+    case SET_CURRENLIST:
+      return { ...state, currentChatList: action.payload };
     default:
       return state;
   }

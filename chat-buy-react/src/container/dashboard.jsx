@@ -3,7 +3,7 @@ import { TabBar, NavBar } from "antd-mobile";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getInfo } from "../actions/user";
-import { connectSocket } from "../actions/chat";
+import { connectSocket, getMessageList } from "../actions/chat";
 
 import asyncComponent from "../asyncComponent";
 
@@ -46,11 +46,15 @@ const list = [
   }
 ];
 
-@connect(state => ({user: state.user, noReadCount: state.chat.noReadCount}), { getInfo, connectSocket })
+@connect(state => ({ user: state.user, noReadCount: state.chat.noReadCount }), {
+  getInfo,
+  connectSocket,
+  getMessageList
+})
 class DashBoard extends React.Component {
   componentDidMount() {
     const { history, connectSocket } = this.props;
-    const {type} = this.props.user
+    const { type } = this.props.user;
     if (window.localStorage.getItem("token")) {
       if (!type) {
         this.props.getInfo();
@@ -60,11 +64,12 @@ class DashBoard extends React.Component {
     } else {
       history.push("/login");
     }
+    this.props.getMessageList();
   }
 
   render() {
     const { location, history, noReadCount } = this.props;
-    const {type, path} = this.props.user
+    const { type, path } = this.props.user;
     if (!type) {
       return null;
     } else if (path && location.pathname === "/") {
@@ -92,7 +97,7 @@ class DashBoard extends React.Component {
                 selectedIcon={{
                   uri: require(`../images/${v.imgName}-sel.png`)
                 }}
-                badge={v.path === '/messageList' && noReadCount}
+                badge={v.path === "/messageList" && noReadCount}
                 title={v.title}
                 key={v.title}
                 selected={location.pathname === v.path}

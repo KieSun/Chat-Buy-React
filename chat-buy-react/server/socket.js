@@ -18,7 +18,11 @@ module.exports = function() {
     });
     client.on("getUserName", id => {
       User.findOne({ _id: id }, (error, user) => {
-        client.emit("userName", user.user);
+        if (user) {
+          client.emit("userName", user.user);
+        } else {
+          client.emit("serverError", { errorMsg: "找不到该用户" });
+        }
       });
     });
     client.on("sendMessage", data => {
