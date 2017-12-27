@@ -9,7 +9,6 @@ import { login } from "../../actions/user";
 class LoginForm extends React.Component {
   constructor() {
     super();
-    this.handleTextChange = this.handleTextChange.bind(this);
     this.state = {
       user: "",
       pwd: ""

@@ -24,7 +24,7 @@ const GoodsList = ({ goodsList, addToCart, shopCart }) => {
               showNumber
               min={0}
               max={99}
-              value={shopCart.length && getCount(shopCart, v.id)}
+              value={!!shopCart.length && getCount(shopCart, v.id)}
               defaultValue={0}
               onChange={count => addToCart({ id: v.id, price: v.price, count })}
             />
