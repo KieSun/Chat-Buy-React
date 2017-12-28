@@ -24,7 +24,6 @@ Router.post("/cleanNoRead", function(req, res) {
     { "bothSide.user": id, messageId },
     { $set: { "bothSide.$.lastId": readId } },
     function(error, result) {
-      console.log(error, result);
       return res.json({ code: 0, msg: "订单完成" });
     }
   );

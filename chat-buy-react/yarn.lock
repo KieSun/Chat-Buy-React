@@ -6385,6 +6385,10 @@ schema-utils@^0.3.0:
   dependencies:
     ajv "^5.0.0"
 
+seamless-immutable@^7.1.2:
+  version "7.1.2"
+  resolved "http://registry.npm.taobao.org/seamless-immutable/download/seamless-immutable-7.1.2.tgz#c87a1eba6767a32455311d76600ac5eddeafbb69"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
