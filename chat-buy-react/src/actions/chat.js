@@ -77,7 +77,6 @@ export function getMessageList() {
 }
 
 export function setCurrentChatList(obj) {
-  console.log(obj);
   return { type: "SET_CURRENLIST", payload: obj };
 }
 
@@ -102,7 +101,7 @@ function getMessageSuccess(payload) {
       chatUserName = payload.name;
       payload = payload.obj;
     }
-    const list = state.chat.messageList;
+    const list = state.chat.messageList.toArray();
     const messageId = [payload.from, payload.to].sort().join("");
     const isNoRead = payload.from == state.user.id ? 0 : 1;
 

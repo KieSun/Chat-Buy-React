@@ -65,6 +65,7 @@ class DashBoard extends React.Component {
       history.push("/login");
     }
     this.props.getMessageList();
+    console.log('getMessageList');
   }
 
   render() {

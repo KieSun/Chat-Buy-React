@@ -91,7 +91,7 @@ module.exports = function() {
                   }
                   if (clients[to]) {
                     io.to(clients[to]).emit("message", {
-                      obj,
+                      obj: chat.messages[chat.messages.length - 1],
                       name: results[0].hasOwnProperty("from")
                         ? results[0].from
                         : results[1].from
@@ -105,8 +105,13 @@ module.exports = function() {
                   if (err || !chat) {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
+                  console.log(chat, "1e12312312");
                   if (clients[to]) {
-                    io.to(clients[to]).emit("message", obj);
+                    io
+                      .to(clients[to])
+                      .emit("message", {
+                        obj: chat.messages[chat.messages.length - 1]
+                      });
                   }
                 });
               }
