@@ -68,6 +68,7 @@ class DashBoard extends React.Component {
     }
     // 获取聊天消息列表
     this.props.getMessageList();
+    console.log('getMessageList');
   }
 
   render() {

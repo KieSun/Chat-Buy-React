@@ -40,30 +40,39 @@ class ChatList extends React.Component {
   }
   componentWillUnmount() {
     const { currentChatList, currentMessageId } = this.props;
-    if (!currentChatList.length) {return}
-    let index = currentChatList.reverse().findIndex(v => v.to == this.props.userId)
-    if (index !== -1) {
-      console.log(currentChatList[currentChatList.length - 1 - index]._id, currentMessageId)
-      this.props.cleanNoRead(currentChatList[currentChatList.length - 1 - index]._id, currentMessageId);
+    if (!currentChatList.length) {
+      return;
     }
-    
+    let index;
+    for (let i = currentChatList.length - 1; i > 0; i--) {
+      if (currentChatList[i].to == this.props.userId) {
+        index = i;
+        break;
+      }
+    }
+    if (index) {
+      this.props.cleanNoRead(currentChatList[index]._id, currentMessageId);
+    }
   }
   handleSubmit() {
-    this.props.sendMessage(this.id, this.state.value);
-    this.setState({ value: "" });
+    if (this.state.value.trim()) {
+      this.props.sendMessage(this.id, this.state.value);
+      this.setState({ value: "" });
+    }
   }
   render() {
     window.scrollTo(0, document.body.scrollHeight);
     const { userName, currentChatList, userId } = this.props;
     return (
       <div>
-        {userName && (
+        {!!userName && (
           <NavBar title={userName} backClick={this.props.history.goBack} />
         )}
         <div style={{ margin: "60px 0 55px" }}>
-          {currentChatList.length > 0 && currentChatList.map(v => (
-            <ChatListItem key={v.date} messageObj={v} userId={userId} />
-          ))}
+          {!!currentChatList.length &&
+            currentChatList.map(v => (
+              <ChatListItem key={v.date} messageObj={v} userId={userId} />
+            ))}
         </div>
         <div className="bottom-input">
           <List style={{ width: "100%" }}>
