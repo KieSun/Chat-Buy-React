@@ -14,7 +14,6 @@ import { regitser } from "../../actions/user";
 class RegisterForm extends React.Component {
   constructor() {
     super();
-    this.handleTextChange = this.handleTextChange.bind(this);
     this.state = {
       user: "",
       pwd: "",

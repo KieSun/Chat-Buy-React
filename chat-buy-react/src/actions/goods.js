@@ -3,6 +3,7 @@ import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "./type";
 import { Toast } from "antd-mobile";
 import axios from "axios";
 
+// 获取商品列表
 export function getGoodsInfo() {
   return async dispatch => {
     const res = await axios.get("/goods/list");
@@ -12,6 +13,7 @@ export function getGoodsInfo() {
   };
 }
 
+// 添加商品到购物车
 export function addToCart({ id, price, count }) {
   if (!Number.isInteger(count)) {
     count = 0;
@@ -26,6 +28,7 @@ export function addToCart({ id, price, count }) {
   return { type: ADD_TO_CART, payload: { id, price, count: count } };
 }
 
+// 购买
 export function buy() {
   return async (dispatch, state) => {
     const res = await axios.post("/goods/buy", {
