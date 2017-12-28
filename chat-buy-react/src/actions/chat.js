@@ -2,7 +2,7 @@ import {
   GET_USERNAME,
   GET_MESSAGE,
   GET_MESSAGE_LIST,
-  SET_CURRENLIST,
+  SET_CURRENT_LIST,
   CLEAN_NO_READ
 } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
@@ -77,7 +77,7 @@ export function getMessageList() {
 }
 
 export function setCurrentChatList(obj) {
-  return { type: "SET_CURRENLIST", payload: obj };
+  return { type: "SET_CURRENT_LIST", payload: obj };
 }
 
 export function cleanNoRead(readId, messageId) {
@@ -101,15 +101,14 @@ function getMessageSuccess(payload) {
       chatUserName = payload.name;
       payload = payload.obj;
     }
-    const list = state.chat.messageList.toArray();
+    const list = state.chat.messageList;
     const messageId = [payload.from, payload.to].sort().join("");
     const isNoRead = payload.from == state.user.id ? 0 : 1;
 
     let currentLsit = list.find((v, index) => {
       if (v.messageId === messageId) {
         oldIndex = index;
-        v.messages.push(payload);
-        return v;
+        return v.messages.concat([payload]);
       }
     });
     if (currentLsit) {

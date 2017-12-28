@@ -1,5 +1,4 @@
 import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "./type";
-
 import { Toast } from "antd-mobile";
 import axios from "axios";
 
@@ -32,7 +31,7 @@ export function addToCart({ id, price, count }) {
 export function buy() {
   return async (dispatch, state) => {
     const res = await axios.post("/goods/buy", {
-      buyList: state().goods.shopCart
+      buyList: state().goods.$shopCart
     });
     if (res.status === 200 && res.data.code === 0) {
       Toast.success("购买成功", 1);

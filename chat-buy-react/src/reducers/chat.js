@@ -2,16 +2,16 @@ import {
   GET_USERNAME,
   GET_MESSAGE,
   GET_MESSAGE_LIST,
-  SET_CURRENLIST,
+  SET_CURRENT_LIST,
   CLEAN_NO_READ
 } from "../actions/type";
-import { List, Map } from "immutable";
+import Immutable from "seamless-immutable";
 
 const initialState = {
   chatUserName: "",
   currentChatList: [],
   currentMessageId: "",
-  messageList: List([]),
+  messageList: Immutable([]),
   userId: "",
   noReadCount: 0
 };
@@ -23,28 +23,16 @@ function sortMessageList(list) {
 }
 
 function changeReadId(state, readId, messageId) {
-  return state.messageList.update(
-    state.messageList.findIndex(v => v.messageId == messageId),
-    item => {
-      let index = item.bothSide.findIndex(v => v.user == state.userId);
-      return Map(item.bothSide[index])
-        .set("lastId", readId)
-        .toObject();
+  state.messageList.find(v => {
+    if (v.messageId == messageId) {
+      v.bothSide.find(v => {
+        if (v.user == state.userId) {
+          v.lastId = readId;
+        }
+      });
     }
-  );
-
-  // return orders.update(orders.findIndex(v => v._id === id), order => {
-  //   if (userId) {
-  //     return Map(order)
-  //       .set("state", state)
-  //       .set("deliver", userId)
-  //       .toObject();
-  //   } else {
-  //     return Map(order)
-  //       .set("state", state)
-  //       .toObject();
-  //   }
-  // });
+  });
+  return state.messageList;
 }
 
 export default function(state = initialState, action) {
@@ -54,16 +42,16 @@ export default function(state = initialState, action) {
     case GET_MESSAGE:
       return {
         ...state,
-        messageList: List(action.messageList),
+        messageList: Immutable(action.messageList),
         noReadCount: state.noReadCount + action.isNoRead
       };
     case GET_MESSAGE_LIST:
       return {
         ...state,
-        messageList: List(sortMessageList(action.payload)),
+        messageList: Immutable(sortMessageList(action.payload)),
         userId: action.userId
       };
-    case SET_CURRENLIST:
+    case SET_CURRENT_LIST:
       return {
         ...state,
         currentChatList: action.payload.messages,

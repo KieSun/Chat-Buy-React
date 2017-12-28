@@ -8,6 +8,7 @@ import configureStore from "./store/configureStore";
 import "./common/axiosMiddleware";
 import "fastclick";
 import "./styles/index.css";
+import "./styles/index1.scss"
 
 const store = configureStore();
 
