@@ -1,11 +1,11 @@
 import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "../actions/type";
-import { List, Map, fromJS } from 'immutable'
+import { List, Map } from 'immutable'
 
-const initialState = {
-  $goodsList: List([]),
-  $shopCart: List([]),
+const initialState = Map({
+  goodsList: List([]),
+  shopCart: List([]),
   totalPrice: 0
-};
+});
 
 /**
  * @param  {} shopCart 当前购物车
@@ -45,20 +45,20 @@ function changeShopCart(shopCart, { id, price, count }, totalPrice) {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GOODS_LIST:
-      return { ...state, $goodsList: fromJS(action.payload) };
+      return { ...state, goodsList: action.payload };
     case ADD_TO_CART:
       let data = changeShopCart(
-        state.$shopCart,
+        state.shopCart,
         action.payload,
         state.totalPrice
       );
       return {
         ...state,
-        $shopCart: data[0],
+        shopCart: data[0],
         totalPrice: data[1]
       };
     case BUY_SUCCESS:
-      return { ...state, $shopCart: Map([]), totalPrice: 0 };
+      return { ...state, shopCart: Map([]), totalPrice: 0 };
     default:
       break;
   }

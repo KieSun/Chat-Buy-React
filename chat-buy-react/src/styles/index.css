@@ -11,12 +11,12 @@
   margin: 10px auto 0;
 }
 
-.list {
+.goods-list {
   margin-top: 45px;
   margin-bottom: 100px;
 }
 
-.list .price {
+.goods-list .price {
   flex: 1;
   padding-left: 15px;
   line-height: 50px;
@@ -24,7 +24,7 @@
   color: white;
 }
 
-.list .buy-button {
+.goods-list .buy-button {
   width: 150px;
   text-align: center;
   line-height: 50px;
@@ -32,7 +32,7 @@
   color: white;
 }
 
-.list .no-buy-button {
+.goods-list .no-buy-button {
   width: 150px;
   text-align: center;
   line-height: 50px;

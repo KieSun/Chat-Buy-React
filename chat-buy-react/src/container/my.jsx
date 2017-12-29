@@ -4,7 +4,7 @@ import { List } from "antd-mobile";
 const Item = List.Item;
 
 const My = ({history}) => (
-  <div className="list">
+  <div className="goods-list">
     <List style={{ marginTop: "100px" }}>
       <Item
         arrow="horizontal"

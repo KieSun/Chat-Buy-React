@@ -2,7 +2,7 @@ import React from "react";
 import List from "../components/allOrders/list";
 
 const AllOrders = () => (
-  <div className="list">
+  <div className="goods-list">
     <List />
   </div>
 );

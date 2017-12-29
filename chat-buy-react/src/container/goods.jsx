@@ -7,14 +7,14 @@ import Buy from "../components/goods/buy";
 @connect(state => state.goods, { getGoodsInfo, addToCart, buy })
 class Goods extends React.Component {
   componentDidMount() {
-    if (!this.props.$goodsList.length) {
+    if (!this.props.goodsList.length) {
       this.props.getGoodsInfo();
     }
   }
   render() {
     const { $goodsList, addToCart, $shopCart, totalPrice, buy } = this.props;
     return (
-      <div className="list">
+      <div className="goods-list">
         <GoodsList
           goodsList={$goodsList}
           addToCart={addToCart}

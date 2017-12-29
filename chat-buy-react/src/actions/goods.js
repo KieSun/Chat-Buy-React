@@ -1,13 +1,14 @@
 import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "./type";
 import { Toast } from "antd-mobile";
 import axios from "axios";
+import {fromJS, toJS } from 'immutable'
 
 // 获取商品列表
 export function getGoodsInfo() {
   return async dispatch => {
     const res = await axios.get("/goods/list");
     if (res.status === 200 && res.data.code === 0) {
-      dispatch({ type: GOODS_LIST, payload: res.data.data });
+      dispatch({ type: GOODS_LIST, payload: fromJS(res.data.data) });
     }
   };
 }
@@ -31,7 +32,7 @@ export function addToCart({ id, price, count }) {
 export function buy() {
   return async (dispatch, state) => {
     const res = await axios.post("/goods/buy", {
-      buyList: state().goods.$shopCart
+      buyList: state().goods.shopCart.toJS()
     });
     if (res.status === 200 && res.data.code === 0) {
       Toast.success("购买成功", 1);

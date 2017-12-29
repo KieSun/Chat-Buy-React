@@ -23,7 +23,7 @@ class LoginForm extends React.Component {
     return (
       <div style={{ marginTop: "100px" }}>
         <WingBlank>
-          <List>
+            <List>
             <InputItem onChange={v => this.handleTextChange("user", v)}>
               用户名
             </InputItem>

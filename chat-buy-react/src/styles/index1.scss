@@ -1,3 +1,113 @@
-body {
-  color: red;
+.dashBoard-wrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.button-wrapper {
+  width: 200px;
+  margin: 10px auto 0;
+}
+
+.goods-list {
+  margin-top: 45px;
+  margin-bottom: 100px;
+  .price {
+    flex: 1;
+    padding-left: 15px;
+    line-height: 50px;
+    background: rgb(87, 85, 83);
+    color: white;
+  }
+  .buy-button {
+    width: 150px;
+    text-align: center;
+    line-height: 50px;
+    background: rgb(45, 151, 252);
+    color: white;
+  }
+  .no-buy-button {
+    @extend .buy-button;
+    background: rgba(45, 151, 252, 0.5);
+  }
+}
+.nav {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.buy-wrapper {
+  display: flex;
+  height: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 50px;
+  width: 100%;
+  z-index: 100;
+}
+
+.list-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.bottom-input {
+  display: flex;
+  height: 46px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.chat-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.chat-list-item > .circle {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background: greenyellow;
+  text-align: center;
+  line-height: 40px;
+  margin: 0 10px;
+}
+
+.chat-list-item > .message {
+  margin-right: 10px;
+}
+
+.no-read-circle {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: red;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 20px;
+  color: black;
 }
