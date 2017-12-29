@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { login } from "../../actions/user";
 
 @withRouter
-@connect(state => state.user, { login })
+@connect(null, { login })
 class LoginForm extends React.Component {
   constructor() {
     super();

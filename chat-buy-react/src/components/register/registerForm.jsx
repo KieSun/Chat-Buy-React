@@ -8,9 +8,9 @@ import {
   Radio
 } from "antd-mobile";
 import { connect } from "react-redux";
-import { regitser } from "../../actions/user";
+import { register } from "../../actions/user";
 
-@connect(state => state.user, { regiser: regitser })
+@connect(null, { register })
 class RegisterForm extends React.Component {
   constructor() {
     super();

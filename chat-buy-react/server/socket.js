@@ -54,12 +54,6 @@ module.exports = function() {
           }
         ],
         function(err, results) {
-          console.log(
-            results[0].hasOwnProperty("from")
-              ? results[0].from
-              : results[1].from,
-            results[0].hasOwnProperty("to") ? results[0].to : results[1].to
-          );
           if (err) {
             client.emit("error", { errorMsg: "找不到聊天对象" });
           } else {
@@ -105,7 +99,6 @@ module.exports = function() {
                   if (err || !chat) {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
-                  console.log(chat, "1e12312312");
                   if (clients[to]) {
                     io
                       .to(clients[to])

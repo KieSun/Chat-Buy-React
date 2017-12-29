@@ -1,4 +1,5 @@
-import { combineReducers } from "redux";
+// import { combineReducers } from "redux";
+import {combineReducers} from 'redux-immutable'
 import UserReducer from "./user";
 import GoodsReducer from "./goods";
 import OrdersReducer from "./orders";
@@ -21,5 +22,6 @@ const rootReducer = (state, action) => {
   }
   return appReducer(state, action);
 };
+
 
 export default rootReducer;

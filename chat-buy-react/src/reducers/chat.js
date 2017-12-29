@@ -5,67 +5,55 @@ import {
   SET_CURRENT_LIST,
   CLEAN_NO_READ
 } from "../actions/type";
-import Immutable from "seamless-immutable";
+import {Map, List} from 'immutable'
 
-const initialState = {
+const initialState = Map({
   chatUserName: "",
-  currentChatList: [],
+  currentChatList: List([]),
   currentMessageId: "",
-  messageList: Immutable([]),
+  messageList: List([]),
   userId: "",
   noReadCount: 0
-};
+});
 
 function sortMessageList(list) {
   return list.sort((a, b) => {
-    return a.messages.last().date < b.messages.last().date;
+    return a.get('messages').get(-1).get('date') < b.get('messages').get(-1).get('date');
   });
 }
 
-function changeReadId(state, readId, messageId) {
-  state.messageList.find(v => {
-    if (v.messageId == messageId) {
-      v.bothSide.find(v => {
-        if (v.user == state.userId) {
-          v.lastId = readId;
-        }
-      });
-    }
-  });
-  return state.messageList;
-}
+// function changeReadId(state, readId, messageId) {
+//   state.messageList.find(v => {
+//     if (v.messageId == messageId) {
+//       v.bothSide.find(v => {
+//         if (v.user == state.userId) {
+//           v.lastId = readId;
+//         }
+//       });
+//     }
+//   });
+//   return state.messageList;
+// }
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USERNAME:
-      return { ...state, userName: action.payload };
+      return state.merge({userName: action.payload})
     case GET_MESSAGE:
-      return {
-        ...state,
-        messageList: Immutable(action.messageList),
-        noReadCount: state.noReadCount + action.isNoRead
-      };
+      return state.merge({messageList: action.messageList, noReadCount: state.get('noReadCount') + action.isNoRead})
     case GET_MESSAGE_LIST:
-      return {
-        ...state,
-        messageList: Immutable(sortMessageList(action.payload)),
-        userId: action.userId
-      };
+      return state.merge({messageList: sortMessageList(action.payload), userId: action.userId})
     case SET_CURRENT_LIST:
-      return {
-        ...state,
-        currentChatList: action.payload.messages,
-        currentMessageId: action.payload.messageId
-      };
-    case CLEAN_NO_READ:
-      return {
-        ...state,
-        messageList: changeReadId(
-          state,
-          action.payload.readId,
-          action.payload.messageId
-        )
-      };
+      return state.merge({currentChatList: action.payload.get('messages'), currentMessageId: action.payload.get('messageId')})
+    // case CLEAN_NO_READ:
+    //   return {
+    //     ...state,
+    //     messageList: changeReadId(
+    //       state,
+    //       action.payload.readId,
+    //       action.payload.messageId
+    //     )
+    //   };
     default:
       return state;
   }

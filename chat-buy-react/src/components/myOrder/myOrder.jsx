@@ -5,7 +5,7 @@ import { affirmOrder } from "../../actions/order";
 import MyOrderItem from "./myOrderItem";
 import NavBar from "../navBar/backNavBar";
 
-@connect(state => state.user, { getMyOrders, affirmOrder })
+@connect(state => ({user: state.get('user')}), { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {
   constructor() {
     super();
@@ -15,22 +15,22 @@ class MyOrder extends React.Component {
     this.props.getMyOrders();
   }
   handleChat(id) {
-    console.log(id);
     this.props.history.push(`/chat/${id}`);
   }
   render() {
+    const {history, affirmOrder, user} = this.props
     return (
       <div>
-        <NavBar title="我的订单" backClick={this.props.history.goBack} />
+        <NavBar title="我的订单" backClick={history.goBack} />
         <div style={{ marginTop: "60px" }}>
-          {this.props.orders.map(v => (
+          {user.get('orders').map(v => (
             <MyOrderItem
               item={v}
-              type={this.props.type}
-              key={v._id}
-              affirmOrder={this.props.affirmOrder}
+              type={user.get('type')}
+              key={v.get('_id')}
+              affirmOrder={affirmOrder}
               chat={this.handleChat}
-              id={this.props.id}
+              id={user.get('id')}
             />
           ))}
         </div>

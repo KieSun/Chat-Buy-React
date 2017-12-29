@@ -19,6 +19,9 @@ function changeShopCart(shopCart, { id, price, count }, totalPrice) {
   const index = shopCart.findIndex(item => item.get('id') === id);
   if (index === -1) {
     // 判断当前购物车是否找到该商品，没有就 push 商品，并修改总价
+    if (count === 0) {
+      return [shopCart, totalPrice];
+    }
     shopCart = shopCart.push(Map({ id, price, count }));
     totalPrice += price * count;
     return [shopCart, totalPrice];
@@ -45,20 +48,16 @@ function changeShopCart(shopCart, { id, price, count }, totalPrice) {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GOODS_LIST:
-      return { ...state, goodsList: action.payload };
+      return state.set('goodsList', action.payload)
     case ADD_TO_CART:
       let data = changeShopCart(
-        state.shopCart,
+        state.get('shopCart'),
         action.payload,
-        state.totalPrice
+        state.get('totalPrice')
       );
-      return {
-        ...state,
-        shopCart: data[0],
-        totalPrice: data[1]
-      };
+      return state.merge({shopCart: data[0], totalPrice: data[1]})
     case BUY_SUCCESS:
-      return { ...state, shopCart: Map([]), totalPrice: 0 };
+      return state.merge({shopCart: List([]), totalPrice: 0})
     default:
       break;
   }

@@ -5,69 +5,47 @@ import axios from "axios";
 import history from "../common/history";
 
 import { connectSocket } from "./chat";
-
-function regiserSuccess(data) {
-  return { type: REGISTER, payload: data };
-}
-
-function loginSuccess(data) {
-  return { type: LOGIN, payload: data };
-}
-
-function getInfoSuccess(data) {
-  return { type: GET_INFO, payload: data };
-}
-
-function pushHome() {
-  history.push("/");
-}
+import { fromJS } from "immutable";
 
 function setToken(token) {
   window.localStorage.setItem("token", token);
+  history.push("/");
 }
 
-function clearToken() {
-  window.localStorage.setItem("token", "");
-}
+  export function register({ user, pwd, type }) {
+    return async dispatch => {
+      if (!user || !pwd) {
+        Toast.fail("请输入帐号密码", 1);
 
-export function regitser({ user, pwd, type }) {
-  return async dispatch => {
-    if (!user || !pwd) {
-      Toast.fail("请输入帐号密码", 1);
-      return;
-    } else {
-      clearToken();
-      const res = await axios.post("/user/register", { user, pwd, type });
-      if (res.status === 200 && res.data.code === 0) {
-        dispatch(regiserSuccess(res.data.data));
-        setToken(res.data.token);
-        pushHome();
+      } else {
+        const res = await axios.post("/user/register", { user, pwd, type });
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch({ type: REGISTER, payload: res.data.data });
+          setToken(res.data.token);
+        }
       }
-    }
-  };
-}
+    };
+  }
 
-export function login({ user, pwd }) {
-  return async dispatch => {
-    if (!user || !pwd) {
-      Toast.fail("请输入帐号密码", 1);
-    } else {
-      clearToken();
-      const res = await axios.post("/user/login", { user, pwd });
-      if (res.status === 200 && res.data.code === 0) {
-        dispatch(loginSuccess(res.data.data));
-        setToken(res.data.token);
-        pushHome();
+  export function login({ user, pwd }) {
+    return async dispatch => {
+      if (!user || !pwd) {
+        Toast.fail("请输入帐号密码", 1);
+      } else {
+        const res = await axios.post("/user/login", { user, pwd });
+        if (res.status === 200 && res.data.code === 0) {
+          dispatch({ type: LOGIN, payload: res.data.data });
+          setToken(res.data.token);
+        }
       }
-    }
-  };
-}
+    };
+  }
 
-export function getInfo() {
+  export function getInfo() {
   return async dispatch => {
     const res = await axios.post("/user/info");
     if (res.status === 200 && res.data.code === 0) {
-      dispatch(getInfoSuccess(res.data.data));
+      dispatch({ type: GET_INFO, payload: res.data.data });
       dispatch(connectSocket());
     }
   };
@@ -77,7 +55,7 @@ export function getMyOrders() {
   return async dispatch => {
     const res = await axios.post("/user/orders");
     if (res.status === 200 && res.data.code === 0) {
-      dispatch({ type: GET_MY_ORDERS, payload: res.data.data });
+      dispatch({ type: GET_MY_ORDERS, payload: fromJS(res.data.data) });
     }
   };
 }

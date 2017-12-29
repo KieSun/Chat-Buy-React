@@ -6,54 +6,55 @@ import {
   AFFIRM_ORDER,
   GET_ORDER_SUCCESS
 } from "../actions/type";
-import { changeOrderState } from "../common/unit";
-import { List } from "immutable";
+import { List, Map } from "immutable";
 
-const initialState = {
+function changeOrderState(orders, id, state, userId) {
+  return orders.update(orders.findIndex(v => v.get('_id') === id), order => {
+    if (userId) {
+      return order
+        .set("state", state)
+        .set("deliver", userId)
+    } else {
+      return order
+        .set("state", state)
+    }
+  });
+}
+
+const initialState = Map({
   user: "",
   type: "",
   id: "",
   path: "",
   orders: List([])
-};
+});
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case REGISTER:
-      return {
-        ...state,
-        ...action.payload,
-        path: action.payload.type === "customer" ? "/goods" : "/allOrders"
-      };
+      return state.merge({...action.payload, path: action.payload.type === "customer" ? "/goods" : "/allOrders"})
     case LOGIN:
-      return {
-        ...state,
-        ...action.payload,
-        path: action.payload.type === "customer" ? "/goods" : "/allOrders"
-      };
+      console.log(state.merge({...action.payload, path: action.payload.type === "customer" ? "/goods" : "/allOrders"}))
+      return state.merge({...action.payload, path: action.payload.type === "customer" ? "/goods" : "/allOrders"})
     case GET_INFO:
-      return {
-        ...state,
-        ...action.payload,
-        path: action.payload.type === "customer" ? "/goods" : "/allOrders"
-      };
+      return state.merge({...action.payload, path: action.payload.type === "customer" ? "/goods" : "/allOrders"})
     case GET_MY_ORDERS:
-      return { ...state, orders: List(action.payload) };
+      return state.set('orders', action.payload)
     case AFFIRM_ORDER:
-      return {
-        ...state,
-        orders: changeOrderState(state.orders, action.payload, 2)
-      };
+      return state.set('orders', changeOrderState(state.get('orders'), action.payload, 2))
     case GET_ORDER_SUCCESS:
-      return {
-        ...state,
-        orders: changeOrderState(
-          state.orders,
-          action.payload.orderId,
-          1,
-          action.payload.id
-        )
-      };
+      console.log(state.set('orders', changeOrderState(
+        state.get('orders'),
+        action.payload.orderId,
+        1,
+        action.payload.id
+      )))
+      return state.set('orders', changeOrderState(
+        state.get('orders'),
+        action.payload.orderId,
+        1,
+        action.payload.id
+      ))
     default:
       break;
   }

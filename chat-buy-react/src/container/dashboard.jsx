@@ -46,19 +46,18 @@ const list = [
   }
 ];
 
-@connect(state => ({ user: state.user, noReadCount: state.chat.noReadCount }), {
+@connect(state => ({ user: state.get('user'), noReadCount: state.get('chat').get('noReadCount') }), {
   getInfo,
   connectSocket,
   getMessageList
 })
 class DashBoard extends React.Component {
   componentDidMount() {
-    const { history, connectSocket } = this.props;
-    const { type } = this.props.user;
+    const { history, connectSocket, user } = this.props;
     // 判断是否已经登录
     if (window.localStorage.getItem("token")) {
       // 判断是否已经拉取用户信息
-      if (!type) {
+      if (!user.get('type')) {
         this.props.getInfo();
       } else {
         connectSocket();
@@ -68,12 +67,12 @@ class DashBoard extends React.Component {
     }
     // 获取聊天消息列表
     this.props.getMessageList();
-    console.log('getMessageList');
   }
 
   render() {
-    const { location, history, noReadCount } = this.props;
-    const { type, path } = this.props.user;
+    const { location, history, noReadCount, user } = this.props;
+    const type = user.get('type')
+    const path = user.get('path')
     if (!type) {
       return null;
     } else if (path && location.pathname === "/") {

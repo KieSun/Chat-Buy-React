@@ -4,23 +4,24 @@ import { getGoodsInfo, addToCart, buy } from "../actions/goods";
 import GoodsList from "../components/goods/goodsList";
 import Buy from "../components/goods/buy";
 
-@connect(state => state.goods, { getGoodsInfo, addToCart, buy })
+@connect(state => ({goods: state.get('goods')}), { getGoodsInfo, addToCart, buy })
 class Goods extends React.Component {
   componentDidMount() {
-    if (!this.props.goodsList.length) {
+    if (this.props.goods.get('goodsList').isEmpty()) {
       this.props.getGoodsInfo();
     }
   }
   render() {
-    const { $goodsList, addToCart, $shopCart, totalPrice, buy } = this.props;
-    return (
+    const { goods, addToCart, buy } = this.props;
+    const goodsList = goods.get('goodsList')
+    return goodsList.isEmpty() ? null : (
       <div className="goods-list">
         <GoodsList
-          goodsList={$goodsList}
+          goodsList={goodsList}
           addToCart={addToCart}
-          shopCart={$shopCart}
+          shopCart={goods.get('shopCart')}
         />
-        <Buy price={totalPrice} handleBuy={() => buy()} />
+        <Buy price={goods.get('totalPrice')} handleBuy={buy} />
       </div>
     );
   }
