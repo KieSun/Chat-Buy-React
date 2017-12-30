@@ -53,7 +53,7 @@ class RegisterForm extends React.Component {
             ))}
           </List>
           <WhiteSpace />
-          <Button type="primary" onClick={() => this.props.regiser(this.state)}>
+          <Button type="primary" onClick={() => this.props.register(this.state)}>
             注册
           </Button>
         </WingBlank>

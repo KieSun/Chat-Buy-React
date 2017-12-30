@@ -7,6 +7,7 @@ import {
 } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
 import {fromJS} from 'immutable'
+import {filterNoReadCount} from "../common/unit"
 
 import axios from "axios";
 import io from "socket.io-client";
@@ -78,28 +79,37 @@ export function getMessageList() {
   return async (dispatch, state) => {
     const res = await axios.post("/chat/getMessageList");
     if (res.status === 200 && res.data.code === 0) {
+      const id = state().get('user').get('id')
+      const data = fromJS(res.data.data)
       dispatch({
         type: GET_MESSAGE_LIST,
-        payload:  fromJS(res.data.data),
-        userId: state().get('user').get('id')
+        payload:  data,
+        userId: id,
+        noReadCounts: fromJS(filterNoReadCount(id, data))
       });
     }
   };
 }
 
 // 设置当前聊天信息列表
-export function setCurrentChatList(obj) {
-  return { type: "SET_CURRENT_LIST", payload: obj };
+export function setCurrentChatList(obj, messageId) {
+  return { type: "SET_CURRENT_LIST", payload: obj, messageId };
 }
 
 // 清除未读消息
 export function cleanNoRead(readId, messageId) {
-  return async dispatch => {
+  return async (dispatch, getState) => {
     const res = await axios.post("/chat/cleanNoRead", { readId, messageId });
     if (res.status === 200 && res.data.code === 0) {
+      const chat = getState().get('chat')
+      console.log(chat.get('messageList'))
+      const index = chat.get('messageList').findIndex(v => v.get('messageId') === messageId)
+      const noReadCounts =  chat.get('noReadCounts')
+      const readCount = noReadCounts.get(index)
       dispatch({
         type: CLEAN_NO_READ,
-        payload: { readId, messageId }
+        noReadCounts: chat.get('noReadCounts').set(index, 0),
+        readCount
       });
     }
   };
@@ -120,25 +130,35 @@ function getMessageSuccess(payload) {
     // 自己生成 messageId
     const messageId = [payload.from, payload.to].sort().join("");
     // 判断消息是否为自己发送，不是就将未读消息加一
-    const isNoRead = payload.from == state.get('user').get('id') ? 0 : 1;
+    const isNoRead = payload.from === state.get('user').get('id') ? 0 : 1;
     // 在全部消息列表中寻找是否存在当前聊天 messageId，存在就将聊天信息插入
     let index = list.findIndex(v => {
       return v.get('messageId') === messageId
     })
-    let currentList = list.update(index, item => {
-      return item.get('messages').push(fromJS(payload))
-    })
-
+    // 获取当前未读消息数组
+    const noReadCounts = state.get('chat').get('noReadCounts')
+    // 如果该对话已存在
     if (index > -1) {
-      // 如果匹配了 messageId，就将消息数组插入到0索引位置
+      // 更新消息列表
+      let currentList = list.update(index, item => {
+        let oldItem = item.get('messages')
+        oldItem = oldItem.push(fromJS(payload))
+        return item.set('messages', oldItem)
+      })
+      // 获取当前聊天列表
+      const currentChatList = currentList.find(v => v.get('messageId') === messageId);
+      // 将接收到的消息数组插入到 0
       const oldItem = currentList.get(index)
+      currentList = currentList.delete(index).insert(0, oldItem)
       dispatch({
         type: GET_MESSAGE,
-        messageList: currentList.delete(index).insert(0, oldItem),
-        isNoRead
+        messageList: currentList,
+        isNoRead,
+        noReadCounts: noReadCounts.set(index, noReadCounts.get(index) + isNoRead),
+        currentChatList: currentChatList ? currentChatList.get('messages') : state.get('chat').get('currentChatList')
       });
     } else {
-      // 否则就自己生成一个数组插入到数组第一位
+      // 否则就自己生成一个数组插入到 0
       const obj = {
         messageId,
         bothSide: [
@@ -153,7 +173,18 @@ function getMessageSuccess(payload) {
         ],
         messages: [payload]
       };
-      dispatch({ type: GET_MESSAGE, messageList: list.unshift(fromJS(obj)), isNoRead });
+      // 如果双方从未有聊天记录并且正在聊天，需要改变当前聊天列表数据
+      let currentChatList = state.get('chat').get('currentChatList')
+      if (messageId === state.get('chat').get('currentMessageId')) {
+        currentChatList = currentChatList.set(0, fromJS(payload))
+      }
+      dispatch({
+        type: GET_MESSAGE,
+        messageList: list.unshift(fromJS(obj)),
+        isNoRead,
+        noReadCounts: noReadCounts.unshift(isNoRead),
+        currentChatList: currentChatList
+      });
     }
   };
 }

@@ -10,6 +10,7 @@ import { List, Map } from "immutable";
 
 function changeOrderState(orders, id, state, userId) {
   return orders.update(orders.findIndex(v => v.get('_id') === id), order => {
+    // 如果该订单被接单，需要手动加上外卖员的 ID 用以聊天
     if (userId) {
       return order
         .set("state", state)
@@ -22,10 +23,15 @@ function changeOrderState(orders, id, state, userId) {
 }
 
 const initialState = Map({
+  // 用户名
   user: "",
+  // 用户类型
   type: "",
+  // 用户 ID
   id: "",
+  // 用户可以跳转的路由
   path: "",
+  // 我的所有订单
   orders: List([])
 });
 
@@ -43,12 +49,6 @@ export default function(state = initialState, action) {
     case AFFIRM_ORDER:
       return state.set('orders', changeOrderState(state.get('orders'), action.payload, 2))
     case GET_ORDER_SUCCESS:
-      console.log(state.set('orders', changeOrderState(
-        state.get('orders'),
-        action.payload.orderId,
-        1,
-        action.payload.id
-      )))
       return state.set('orders', changeOrderState(
         state.get('orders'),
         action.payload.orderId,

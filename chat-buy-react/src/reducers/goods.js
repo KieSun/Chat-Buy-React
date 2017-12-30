@@ -2,8 +2,11 @@ import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "../actions/type";
 import { List, Map } from 'immutable'
 
 const initialState = Map({
+  // 当前商品列表
   goodsList: List([]),
+  // 购物车
   shopCart: List([]),
+  // 总价
   totalPrice: 0
 });
 

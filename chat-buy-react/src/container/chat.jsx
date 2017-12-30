@@ -1,10 +1,16 @@
 import React from 'react'
 import { List, InputItem } from "antd-mobile";
 import ChatList from '../components/message/chatList'
-import {sendMessage} from "../actions/chat"
+import NavBar from '../components/navBar/backNavBar';
+import {cleanNoRead, getUserName, sendMessage, setCurrentChatList} from "../actions/chat"
 import {connect} from 'react-redux'
 
-@connect(null, {sendMessage})
+@connect(state => ({chat: state.get('chat')}), {
+  getUserName,
+  setCurrentChatList,
+  cleanNoRead,
+  sendMessage
+})
 class Chat extends React.Component {
   constructor() {
     super();
@@ -13,6 +19,31 @@ class Chat extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this)
   }
+  componentDidMount() {
+    // 获取当前聊天对象 ID
+    this.id = this.props.match.params.id;
+    const {chat} = this.props
+    const messageId = [chat.get('userId'), this.id].sort().join("")
+    let currentList = chat.get('messageList').find(v => {
+      return v.get('messageId') === messageId;
+    });
+    this.props.setCurrentChatList(currentList, messageId);
+    this.props.getUserName(this.id);
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  componentWillUnmount() {
+    const {chat} = this.props
+    const currentChatList = chat.get('currentChatList')
+    const currentMessageId = chat.get('currentMessageId')
+    if (currentChatList.isEmpty()) {
+      return;
+    }
+    let lastId = currentChatList.findLast(v => {
+      return v.get('to') === chat.get('userId')
+    }).get('_id')
+    this.props.cleanNoRead(lastId, currentMessageId);
+  }
+  // 提交聊天信息
   handleSubmit() {
     if (this.state.value.trim()) {
       this.props.sendMessage(this.props.match.params.id, this.state.value);
@@ -20,9 +51,17 @@ class Chat extends React.Component {
     }
   }
   render() {
+    const {chat, history} = this.props
+    const userName = chat.get('userName')
     return (
       <div>
-        <ChatList />
+        {!!userName && (
+          <NavBar title={userName} backClick={history.goBack} />
+        )}
+        <ChatList
+          currentChatList={chat.get('currentChatList')}
+          userId={chat.get('userId')}
+        />
         <div className="bottom-input">
           <List style={{ width: "100%" }}>
             <InputItem
