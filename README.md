@@ -7,6 +7,8 @@
 
 [English](https://github.com/KieSun/Chat-Buy-React/blob/master/README-EN.md)
 
+[博客总结](https://juejin.im/post/5a490d8051882511793e8a5f)
+
 
 ## 技术栈和主要框架
 
