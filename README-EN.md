@@ -37,5 +37,6 @@ npm run server
 
 # run localhost
 npm run start
+```
 
 Feedback, issues, etc. are more than welcome!
