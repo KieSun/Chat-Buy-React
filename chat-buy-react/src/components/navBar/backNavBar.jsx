@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 const BackNavBar = ({ title, backClick, hasIcon = true }) => (
   <NavBar
     className="nav"
-    icon={hasIcon &&<Icon type="left" />}
+    icon={hasIcon && <Icon type="left" />}
     onLeftClick={() => backClick()}
   >
     {title}

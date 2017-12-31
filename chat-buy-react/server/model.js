@@ -1,10 +1,10 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 mongoose.Promise = require("bluebird");
-var DB_URL = "mongodb://localhost/chat-buy-react";
+const DB_URL = "mongodb://localhost/chat-buy-react";
 mongoose.connect(DB_URL, { useMongoClient: true });
 const Schema = mongoose.Schema;
 
-const userSchema = mongoose.Schema({
+const userSchema = Schema({
   // 用户名
   user: { type: String, require: true },
   // 密码
@@ -15,7 +15,7 @@ const userSchema = mongoose.Schema({
   orders: [{ type: Schema.Types.ObjectId, ref: "allOrders" }]
 });
 
-const allOrdersSchema = mongoose.Schema({
+const allOrdersSchema = Schema({
   // 价格
   price: { type: Number, require: true },
   // 购买商品描述
@@ -32,7 +32,7 @@ const allOrdersSchema = mongoose.Schema({
   deliver: { type: Schema.Types.ObjectId, ref: "user" }
 });
 
-var chatSchema = new Schema({
+const chatSchema = new Schema({
   messageId: String,
   // 聊天双方
   bothSide: [

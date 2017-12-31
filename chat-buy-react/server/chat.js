@@ -1,9 +1,9 @@
 const express = require("express");
 const model = require("./model");
-const async = require("async");
 const Chat = model.chat;
 const Router = express.Router();
 
+// 获取所有聊天信息
 Router.post("/getMessageList", function(req, res) {
   const { id } = req.decoded;
   Chat.find({
@@ -15,7 +15,7 @@ Router.post("/getMessageList", function(req, res) {
     return res.json({ code: 0, data: doc });
   });
 });
-
+// 清除未读消息
 Router.post("/cleanNoRead", function(req, res) {
   const { id } = req.decoded;
   const { messageId, readId } = req.body;
@@ -23,6 +23,9 @@ Router.post("/cleanNoRead", function(req, res) {
     { "bothSide.user": id, messageId },
     { $set: { "bothSide.$.lastId": readId } },
     function(error, result) {
+      if (error || !result) {
+        return res.json({ code: 1 });
+      }
       return res.json({ code: 0 });
     }
   );

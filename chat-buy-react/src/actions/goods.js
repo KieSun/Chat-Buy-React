@@ -1,7 +1,7 @@
 import { GOODS_LIST, ADD_TO_CART, BUY_SUCCESS } from "./type";
 import { Toast } from "antd-mobile";
 import axios from "axios";
-import {fromJS} from 'immutable'
+import { fromJS } from "immutable";
 
 // 获取商品列表
 export function getGoodsInfo() {
@@ -32,7 +32,10 @@ export function addToCart({ id, price, count }) {
 export function buy() {
   return async (dispatch, state) => {
     const res = await axios.post("/goods/buy", {
-      buyList: state().get('goods').get('shopCart').toJS()
+      buyList: state()
+        .get("goods")
+        .get("shopCart")
+        .toJS()
     });
     if (res.status === 200 && res.data.code === 0) {
       Toast.success("购买成功", 1);

@@ -4,7 +4,7 @@ const async = require("async");
 const User = model.user;
 const AllOrders = model.allOrders;
 const Router = express.Router();
-
+// 获取所有可接订单
 Router.get("/allOrders", function(req, res) {
   AllOrders.find({ state: 0 })
     .sort({ date: -1 })
@@ -15,11 +15,11 @@ Router.get("/allOrders", function(req, res) {
       return res.json({ code: 0, data: doc });
     });
 });
-
+// 接单
 Router.post("/getOrder", function(req, res) {
   const { orderId } = req.body;
   const { id } = req.decoded;
-
+  // 同步 先找到订单并更新订单状态然后再将订单 push 到用户的所有订单数组中
   async.waterfall(
     [
       function(callback) {
@@ -54,6 +54,7 @@ Router.post("/getOrder", function(req, res) {
             if (e || !user) {
               callback(e, null);
             }
+            // 如果对方用户在线，发送接单信息
             let receiver = order.customer;
             if (clients.hasOwnProperty(receiver)) {
               io.to(clients[receiver]).emit("getOrder", {
@@ -67,14 +68,14 @@ Router.post("/getOrder", function(req, res) {
       }
     ],
     function(err, result) {
-      if (err) {
+      if (err || !result) {
         return res.json({ code: 1, msg: "后端出错" });
       }
       return res.json({ code: 0, msg: "接单成功" });
     }
   );
 });
-
+// 确认订单
 Router.post("/affirm", function(req, res) {
   const { orderId } = req.body;
   const { id } = req.decoded;
@@ -93,6 +94,7 @@ Router.post("/affirm", function(req, res) {
       if (!result) {
         return res.json({ code: 1, msg: "该订单已完成" });
       }
+      // 如果对方用户在线，发送确认订单信息
       let receiver = result.deliver == id ? result.customer : result.deliver;
       if (clients.hasOwnProperty(receiver)) {
         io.to(clients[receiver]).emit("affirmOrder", orderId);

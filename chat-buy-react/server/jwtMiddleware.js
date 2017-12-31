@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const key = require("./key");
 
+// token 中间件 在请求过来时统一判断 token 是否失效
 module.exports = function(req, res, next) {
   if (req.url === "/login" || req.url === "/register") {
     next();

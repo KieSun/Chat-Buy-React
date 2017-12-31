@@ -46,18 +46,24 @@ const list = [
   }
 ];
 
-@connect(state => ({ user: state.get('user'), noReadCount: state.get('chat').get('noReadCount') }), {
-  getInfo,
-  connectSocket,
-  getMessageList
-})
+@connect(
+  state => ({
+    user: state.get("user"),
+    noReadCount: state.get("chat").get("noReadCount")
+  }),
+  {
+    getInfo,
+    connectSocket,
+    getMessageList
+  }
+)
 class DashBoard extends React.Component {
   componentDidMount() {
     const { history, connectSocket, user } = this.props;
     // 判断是否已经登录
     if (window.localStorage.getItem("token")) {
       // 判断是否已经拉取用户信息
-      if (!user.get('type')) {
+      if (!user.get("type")) {
         this.props.getInfo();
       } else {
         connectSocket();
@@ -71,8 +77,8 @@ class DashBoard extends React.Component {
 
   render() {
     const { location, history, noReadCount, user } = this.props;
-    const type = user.get('type')
-    const path = user.get('path')
+    const type = user.get("type");
+    const path = user.get("path");
     if (!type) {
       return null;
     } else if (path && location.pathname === "/") {
@@ -97,7 +103,7 @@ class DashBoard extends React.Component {
         </Switch>
         <div className="dashBoard-wrapper">
           <TabBar hidden={!currentNavBar}>
-          {/* 将不需要显示的组件过滤 */}
+            {/* 将不需要显示的组件过滤 */}
             {list.filter(v => v.type !== type).map(v => (
               <TabBar.Item
                 icon={{ uri: require(`../images/${v.imgName}.png`) }}

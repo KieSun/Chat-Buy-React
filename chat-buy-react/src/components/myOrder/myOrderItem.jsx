@@ -1,14 +1,14 @@
 import React from "react";
 import { Card, Button } from "antd-mobile";
 import PropTypes from "prop-types";
-import ImmutablePropTypes  from 'react-immutable-proptypes'
+import ImmutablePropTypes from "react-immutable-proptypes";
 
 const Item = ({ item, type, handleGetOrder, affirmOrder, chat, id }) => {
   let stateText = "";
-  const state = item.get('state')
-  const count = item.get('count')
-  const orderId = item.get('_id')
-  const customerId = item.get('customer')
+  const state = item.get("state");
+  const count = item.get("count");
+  const orderId = item.get("_id");
+  const customerId = item.get("customer");
   // 设置订单状态文字
   switch (state) {
     case 0:
@@ -50,7 +50,9 @@ const Item = ({ item, type, handleGetOrder, affirmOrder, chat, id }) => {
           type="ghost"
           inline
           size="small"
-          onClick={() => chat(customerId === id ? item.get('deliver') : customerId)}
+          onClick={() =>
+            chat(customerId === id ? item.get("deliver") : customerId)
+          }
         >
           联系对方
         </Button>
@@ -75,8 +77,8 @@ const Item = ({ item, type, handleGetOrder, affirmOrder, chat, id }) => {
       <Card.Header title="YCK 的店" extra={<span>{stateText}</span>} />
       <Card.Body>
         <div className="card-body">
-          <div>{item.get('desc') + countDesc}</div>
-          <div>¥{item.get('price')}</div>
+          <div>{item.get("desc") + countDesc}</div>
+          <div>¥{item.get("price")}</div>
         </div>
       </Card.Body>
       <Card.Footer extra={footerExtra} />
@@ -94,7 +96,7 @@ Item.propTypes = {
   // 确认订单
   affirmOrder: PropTypes.func,
   // 聊天
-  chat: PropTypes.func,
+  chat: PropTypes.func
 };
 
 export default Item;

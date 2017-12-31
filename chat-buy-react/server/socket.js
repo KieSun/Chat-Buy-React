@@ -7,15 +7,18 @@ const async = require("async");
 
 module.exports = function() {
   io.on("connection", function(client) {
+    // 将用户存储一起
     client.on("user", user => {
       clients[user] = client.id;
       client.user = user;
     });
+    // 断开连接清除用户信息
     client.on("disconnect", () => {
       if (client.user) {
         delete clients[client.user];
       }
     });
+    // 发送聊天对象昵称
     client.on("getUserName", id => {
       User.findOne({ _id: id }, (error, user) => {
         if (user) {
@@ -25,6 +28,7 @@ module.exports = function() {
         }
       });
     });
+    // 接收信息
     client.on("sendMessage", data => {
       const { from, to, message } = data;
       const messageId = [from, to].sort().join("");
@@ -34,6 +38,7 @@ module.exports = function() {
         message,
         date: Date()
       };
+      // 异步操作，找到聊天双方
       async.parallel(
         [
           function(callback) {
@@ -57,9 +62,11 @@ module.exports = function() {
           if (err) {
             client.emit("error", { errorMsg: "找不到聊天对象" });
           } else {
+            // 寻找该 messageId 是否存在
             Chat.findOne({
               messageId
             }).exec(function(err, doc) {
+              // 不存在就自己创建保存
               if (!doc) {
                 var chatModel = new Chat({
                   messageId,
@@ -84,6 +91,7 @@ module.exports = function() {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
                   if (clients[to]) {
+                    // 该 messageId 不存在就得发送发送方昵称
                     io.to(clients[to]).emit("message", {
                       obj: chat.messages[chat.messages.length - 1],
                       name: results[0].hasOwnProperty("from")
@@ -100,11 +108,9 @@ module.exports = function() {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
                   if (clients[to]) {
-                    io
-                      .to(clients[to])
-                      .emit("message", {
-                        obj: chat.messages[chat.messages.length - 1]
-                      });
+                    io.to(clients[to]).emit("message", {
+                      obj: chat.messages[chat.messages.length - 1]
+                    });
                   }
                 });
               }

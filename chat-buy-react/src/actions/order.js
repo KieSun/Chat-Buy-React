@@ -3,7 +3,7 @@ import { GET_ALL_ORDERS, AFFIRM_ORDER, GET_ORDER_SUCCESS } from "./type";
 import { Toast } from "antd-mobile";
 import axios from "axios";
 import history from "../common/history";
-import {fromJS} from 'immutable'
+import { fromJS } from "immutable";
 
 export function getAllOrders() {
   return async dispatch => {
@@ -41,4 +41,3 @@ export function affirmOrder(orderId) {
     }
   };
 }
-

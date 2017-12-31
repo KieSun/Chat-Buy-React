@@ -12,36 +12,35 @@ function setToken(token) {
   history.push("/");
 }
 
-  export function register({ user, pwd, type }) {
-    return async dispatch => {
-      if (!user || !pwd) {
-        Toast.fail("请输入帐号密码", 1);
-
-      } else {
-        const res = await axios.post("/user/register", { user, pwd, type });
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch({ type: REGISTER, payload: res.data.data });
-          setToken(res.data.token);
-        }
+export function register({ user, pwd, type }) {
+  return async dispatch => {
+    if (!user || !pwd) {
+      Toast.fail("请输入帐号密码", 1);
+    } else {
+      const res = await axios.post("/user/register", { user, pwd, type });
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch({ type: REGISTER, payload: res.data.data });
+        setToken(res.data.token);
       }
-    };
-  }
+    }
+  };
+}
 
-  export function login({ user, pwd }) {
-    return async dispatch => {
-      if (!user || !pwd) {
-        Toast.fail("请输入帐号密码", 1);
-      } else {
-        const res = await axios.post("/user/login", { user, pwd });
-        if (res.status === 200 && res.data.code === 0) {
-          dispatch({ type: LOGIN, payload: res.data.data });
-          setToken(res.data.token);
-        }
+export function login({ user, pwd }) {
+  return async dispatch => {
+    if (!user || !pwd) {
+      Toast.fail("请输入帐号密码", 1);
+    } else {
+      const res = await axios.post("/user/login", { user, pwd });
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch({ type: LOGIN, payload: res.data.data });
+        setToken(res.data.token);
       }
-    };
-  }
+    }
+  };
+}
 
-  export function getInfo() {
+export function getInfo() {
   return async dispatch => {
     const res = await axios.post("/user/info");
     if (res.status === 200 && res.data.code === 0) {

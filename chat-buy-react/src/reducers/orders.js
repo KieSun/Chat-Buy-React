@@ -1,5 +1,5 @@
 import { GET_ALL_ORDERS } from "../actions/type";
-import {Map, List} from 'immutable'
+import { Map, List } from "immutable";
 
 const initialState = Map({
   allOrders: List([])
@@ -8,7 +8,7 @@ const initialState = Map({
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_ALL_ORDERS:
-      return state.set('allOrders', action.payload);
+      return state.set("allOrders", action.payload);
     default:
       break;
   }

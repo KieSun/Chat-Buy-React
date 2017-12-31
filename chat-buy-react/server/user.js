@@ -5,10 +5,11 @@ const key = require("./key");
 const jwt = require("jsonwebtoken");
 const Router = express.Router();
 
+// 注册
 Router.post("/register", function(req, res) {
   const { user, pwd, type } = req.body;
-  User.findOne({ user }, function(e, d) {
-    if (d) {
+  User.findOne({ user }, function(e, doc) {
+    if (doc) {
       return res.json({ code: 1, msg: "已存在该用户" });
     }
     const model = new User({ user, pwd, type });
@@ -17,6 +18,7 @@ Router.post("/register", function(req, res) {
         return res.json({ code: 1, msg: "后端出错" });
       }
       const { user, type, _id } = doc;
+      // 保持登录状态7天
       const token = jwt.sign({ id: _id }, key, {
         expiresIn: 60 * 60 * 24 * 7
       });
@@ -24,7 +26,7 @@ Router.post("/register", function(req, res) {
     });
   });
 });
-
+// 登录
 Router.post("/login", function(req, res) {
   const { user, pwd } = req.body;
   User.findOne({ user, pwd }, { pwd: 0 }, function(e, doc) {
@@ -41,7 +43,7 @@ Router.post("/login", function(req, res) {
     return res.json({ code: 0, data: { user, type, id: _id }, token });
   });
 });
-
+// 获取登录信息
 Router.post("/info", function(req, res) {
   const { id } = req.decoded;
   User.findOne({ _id: id }, function(e, user) {
@@ -58,7 +60,7 @@ Router.post("/info", function(req, res) {
     });
   });
 });
-
+// 获取订单
 Router.post("/orders", function(req, res) {
   const { id } = req.decoded;
 

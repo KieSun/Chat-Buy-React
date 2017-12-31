@@ -5,10 +5,11 @@ const User = model.user;
 const AllOrders = model.allOrders;
 const Router = express.Router();
 
+// 获取商品列表
 Router.get("/list", function(req, res) {
   return res.json({ code: 0, data: foods.list });
 });
-
+// 购买商品
 Router.post("/buy", function(req, res) {
   const { id } = req.decoded;
   const { buyList } = req.body;
