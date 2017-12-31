@@ -12,7 +12,7 @@ Use React / Node to achieve the application. Project is small but complete, suit
 📌 ES6 + ES7     
 📡 fetch：axios + socket.io
 🎈 UI Framework：antd mobile  
-✏️ Back-end：express 
+✏️ Back-end：express + mongoDB
 
 ## Run Project
 ``` bash
