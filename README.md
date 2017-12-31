@@ -14,7 +14,7 @@
 📌 ES6 + ES7     
 📡 网络请求：axios + socket.io
 🎈 页面相应式框架：antd mobile  
-✏️ 后台：express  
+✏️ 后台：express + mongoDB
 
 ## 项目运行（nodejs 6.0+）
 ``` bash
