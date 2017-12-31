@@ -90,7 +90,6 @@ module.exports = function() {
                   if (err || !chat) {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
-                  console.log(clients[to]);
                   if (clients[to]) {
                     // 该 messageId 不存在就得发送发送方昵称
                     io.to(clients[to]).emit("message", {
@@ -108,7 +107,6 @@ module.exports = function() {
                   if (err || !chat) {
                     client.emit("serverError", { errorMsg: "后端出错" });
                   }
-                  console.log(clients[to]);
                   if (clients[to]) {
                     io.to(clients[to]).emit("message", {
                       obj: chat.messages[chat.messages.length - 1]
