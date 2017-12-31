@@ -68,7 +68,7 @@ Router.post("/getOrder", function(req, res) {
       }
     ],
     function(err, result) {
-      if (err || !result) {
+      if (err) {
         return res.json({ code: 1, msg: "后端出错" });
       }
       return res.json({ code: 0, msg: "接单成功" });

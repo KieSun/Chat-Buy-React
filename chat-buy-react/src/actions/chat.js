@@ -19,6 +19,9 @@ let socket = "";
 // socket 连接
 export function connectSocket() {
   return (dispatch, state) => {
+    const orders = state()
+      .get("user")
+      .get("orders");
     socket = io("http://localhost:1717");
     // 建立连接后发送用户 ID
     socket.on("connect", function() {
@@ -31,11 +34,15 @@ export function connectSocket() {
     });
     // 接收确认订单信息
     socket.on("affirmOrder", id => {
-      dispatch(affirmOrderSuccess(id));
+      if (!orders.isEmpty()) {
+        dispatch(affirmOrderSuccess(id));
+      }
     });
     // 接收接单信息
     socket.on("getOrder", data => {
-      dispatch(getOrderSuccess(data));
+      if (!orders.isEmpty()) {
+        dispatch(getOrderSuccess(data));
+      }
     });
     // 接收聊天对象昵称
     socket.on("userName", userName => {
@@ -47,6 +54,7 @@ export function connectSocket() {
     });
     // 接收聊天消息
     socket.on("message", data => {
+      console.log(data);
       dispatch(getMessageSuccess(data));
     });
     socket.on("serverError", msg => {
