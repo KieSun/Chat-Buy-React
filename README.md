@@ -5,6 +5,8 @@
 
 利用 React / Node 实现的应用。项目不怎么复杂，但是五脏六腑俱全，适合新手学习。
 
+[English](https://github.com/KieSun/Chat-Buy-React/blob/master/README-EN.md)
+
 
 ## 技术栈和主要框架
 
@@ -35,7 +37,7 @@ npm install
 # 开启后端
 npm run server
 
-# 开启本地服务器localhost:8088
+# 开启本地服务器
 npm run start
 
 # 发布环境
