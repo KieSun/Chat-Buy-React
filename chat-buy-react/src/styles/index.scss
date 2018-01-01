@@ -3,7 +3,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: 99;
 }
 
 .button-wrapper {
@@ -74,7 +74,7 @@
   left: 0;
   bottom: 0;
   width: 100%;
-  z-index: 100;
+  z-index: 10000;
 }
 
 .chat-list-item {

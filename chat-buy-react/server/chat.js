@@ -10,9 +10,9 @@ Router.post("/getMessageList", function(req, res) {
     messageId: { $regex: id }
   }).exec(function(err, doc) {
     if (err) {
-      return res.json({ code: 1 });
+      return res.status(500).json({ msg: "后端出错" });
     }
-    return res.json({ code: 0, data: doc });
+    return res.status(200).json({ code: 0, data: doc });
   });
 });
 // 清除未读消息
@@ -24,9 +24,9 @@ Router.post("/cleanNoRead", function(req, res) {
     { $set: { "bothSide.$.lastId": readId } },
     function(error, result) {
       if (error || !result) {
-        return res.json({ code: 1 });
+        return res.status(500).json({ msg: "后端出错" });
       }
-      return res.json({ code: 0 });
+      return res.status(200).json({ msg: "后端出错" });
     }
   );
 });

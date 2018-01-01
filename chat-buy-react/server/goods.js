@@ -35,7 +35,7 @@ Router.post("/buy", function(req, res) {
   const model = new AllOrders(order);
   model.save(function(error, data) {
     if (error || !data) {
-      return res.json({ code: 1, msg: "后端出错" });
+      return res.status(500).json({ msg: "后端出错" });
     }
 
     User.update(
@@ -47,10 +47,10 @@ Router.post("/buy", function(req, res) {
       },
       function(e, user) {
         if (e || !user) {
-          return res.json({ code: 1, msg: "后端出错" });
+          return res.status(500).json({ msg: "后端出错" });
         }
 
-        return res.json({ code: 0, msg: "购买成功" });
+        return res.status(200).json({ code: 0, msg: "购买成功" });
       }
     );
   });

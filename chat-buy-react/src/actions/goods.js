@@ -6,9 +6,13 @@ import { fromJS } from "immutable";
 // 获取商品列表
 export function getGoodsInfo() {
   return async dispatch => {
-    const res = await axios.get("/goods/list");
-    if (res.status === 200 && res.data.code === 0) {
-      dispatch({ type: GOODS_LIST, payload: fromJS(res.data.data) });
+    try {
+      const res = await axios.get("/goods/list");
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch({ type: GOODS_LIST, payload: fromJS(res.data.data) });
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }
@@ -31,15 +35,19 @@ export function addToCart({ id, price, count }) {
 // 购买
 export function buy() {
   return async (dispatch, state) => {
-    const res = await axios.post("/goods/buy", {
-      buyList: state()
-        .get("goods")
-        .get("shopCart")
-        .toJS()
-    });
-    if (res.status === 200 && res.data.code === 0) {
-      Toast.success("购买成功", 1);
-      dispatch({ type: BUY_SUCCESS });
+    try {
+      const res = await axios.post("/goods/buy", {
+        buyList: state()
+          .get("goods")
+          .get("shopCart")
+          .toJS()
+      });
+      if (res.status === 200 && res.data.code === 0) {
+        Toast.success("购买成功", 1);
+        dispatch({ type: BUY_SUCCESS });
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }

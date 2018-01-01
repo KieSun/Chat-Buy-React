@@ -92,18 +92,22 @@ export function sendMessage(to, message) {
 // 获取聊天信息列表
 export function getMessageList() {
   return async (dispatch, state) => {
-    const res = await axios.post("/chat/getMessageList");
-    if (res.status === 200 && res.data.code === 0) {
-      const id = state()
-        .get("user")
-        .get("id");
-      const data = fromJS(res.data.data);
-      dispatch({
-        type: GET_MESSAGE_LIST,
-        payload: data,
-        userId: id,
-        noReadCounts: fromJS(filterNoReadCount(id, data))
-      });
+    try {
+      const res = await axios.post("/chat/getMessageList");
+      if (res.status === 200 && res.data.code === 0) {
+        const id = state()
+          .get("user")
+          .get("id");
+        const data = fromJS(res.data.data);
+        dispatch({
+          type: GET_MESSAGE_LIST,
+          payload: data,
+          userId: id,
+          noReadCounts: fromJS(filterNoReadCount(id, data))
+        });
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }
@@ -116,20 +120,24 @@ export function setCurrentChatList(obj, messageId) {
 // 清除未读消息
 export function cleanNoRead(readId, messageId) {
   return async (dispatch, getState) => {
-    const res = await axios.post("/chat/cleanNoRead", { readId, messageId });
-    if (res.status === 200 && res.data.code === 0) {
-      const chat = getState().get("chat");
-      console.log(chat.get("messageList"));
-      const index = chat
-        .get("messageList")
-        .findIndex(v => v.get("messageId") === messageId);
-      const noReadCounts = chat.get("noReadCounts");
-      const readCount = noReadCounts.get(index);
-      dispatch({
-        type: CLEAN_NO_READ,
-        noReadCounts: chat.get("noReadCounts").set(index, 0),
-        readCount
-      });
+    try {
+      const res = await axios.post("/chat/cleanNoRead", { readId, messageId });
+      if (res.status === 200 && res.data.code === 0) {
+        const chat = getState().get("chat");
+        console.log(chat.get("messageList"));
+        const index = chat
+          .get("messageList")
+          .findIndex(v => v.get("messageId") === messageId);
+        const noReadCounts = chat.get("noReadCounts");
+        const readCount = noReadCounts.get(index);
+        dispatch({
+          type: CLEAN_NO_READ,
+          noReadCounts: chat.get("noReadCounts").set(index, 0),
+          readCount
+        });
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }

@@ -53,6 +53,7 @@ class Chat extends React.Component {
   }
   // 提交聊天信息
   handleSubmit() {
+    console.log('handleSubmit')
     if (this.state.value.trim()) {
       this.props.sendMessage(this.props.match.params.id, this.state.value);
       this.setState({ value: "" });
@@ -72,6 +73,7 @@ class Chat extends React.Component {
           <List style={{ width: "100%" }}>
             <InputItem
               placeholder="请输入信息"
+              autoFocus={true}
               value={this.state.value}
               onChange={value => this.setState({ value })}
               extra={<span>发送</span>}

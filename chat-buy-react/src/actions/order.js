@@ -7,9 +7,13 @@ import { fromJS } from "immutable";
 
 export function getAllOrders() {
   return async dispatch => {
-    const res = await axios.get("/order/allOrders");
-    if (res.status === 200 && res.data.code === 0) {
-      dispatch({ type: GET_ALL_ORDERS, payload: fromJS(res.data.data) });
+    try {
+      const res = await axios.get("/order/allOrders");
+      if (res.status === 200 && res.data.code === 0) {
+        dispatch({ type: GET_ALL_ORDERS, payload: fromJS(res.data.data) });
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }
@@ -24,20 +28,28 @@ export function affirmOrderSuccess(id) {
 
 export function getOrder(orderId) {
   return async dispatch => {
-    const res = await axios.post("/order/getOrder", { orderId });
-    if (res.status === 200 && res.data.code === 0) {
-      history.push("/me/orders");
-      Toast.success("接单成功", 1);
+    try {
+      const res = await axios.post("/order/getOrder", { orderId });
+      if (res.status === 200 && res.data.code === 0) {
+        history.push("/me/orders");
+        Toast.success("接单成功", 1);
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }
 
 export function affirmOrder(orderId) {
   return async dispatch => {
-    const res = await axios.post("/order/affirm", { orderId });
-    if (res.status === 200 && res.data.code === 0) {
-      Toast.success("确认订单成功", 1);
-      dispatch(affirmOrderSuccess(orderId));
+    try {
+      const res = await axios.post("/order/affirm", { orderId });
+      if (res.status === 200 && res.data.code === 0) {
+        Toast.success("确认订单成功", 1);
+        dispatch(affirmOrderSuccess(orderId));
+      }
+    } catch (error) {
+      console.log(error)
     }
   };
 }

@@ -12,12 +12,12 @@ module.exports = function(req, res, next) {
   if (token) {
     jwt.verify(token, key, function(err, decoded) {
       if (err) {
-        return res.json({ code: 2, errorMsg: "token失效" });
+        return res.status(401).json({ errorMsg: "token失效" });
       }
       req.decoded = decoded;
       next();
     });
   } else {
-    return res.json({ code: 2, errorMsg: "token失效" });
+    return res.status(401).json({ errorMsg: "token失效" });
   }
 };

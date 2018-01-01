@@ -10,7 +10,7 @@ Router.get("/allOrders", function(req, res) {
     .sort({ date: -1 })
     .exec(function(error, doc) {
       if (error) {
-        return res.json({ code: 1, msg: "后端出错" });
+        return res.status(500).json({ msg: "后端出错" });
       }
       return res.json({ code: 0, data: doc });
     });
@@ -36,7 +36,7 @@ Router.post("/getOrder", function(req, res) {
               callback(error, null);
             }
             if (!order) {
-              return res.json({ code: 1, msg: "该订单已被接单" });
+              return res.status(200).json({ code: 1, msg: "该订单已被接单" });
             }
             callback(null, order);
           }
@@ -69,9 +69,9 @@ Router.post("/getOrder", function(req, res) {
     ],
     function(err, result) {
       if (err) {
-        return res.json({ code: 1, msg: "后端出错" });
+        return res.status(500).json({ msg: "后端出错" });
       }
-      return res.json({ code: 0, msg: "接单成功" });
+      return res.status(200).json({ code: 0, msg: "接单成功" });
     }
   );
 });
@@ -89,17 +89,17 @@ Router.post("/affirm", function(req, res) {
     },
     function(error, result) {
       if (error) {
-        return res.json({ code: 1, msg: "后端出错" });
+        return res.status(500).json({ msg: "后端出错" });
       }
       if (!result) {
-        return res.json({ code: 1, msg: "该订单已完成" });
+        return res.status(200).json({ code: 1, msg: "该订单已完成" });
       }
       // 如果对方用户在线，发送确认订单信息
       let receiver = result.deliver == id ? result.customer : result.deliver;
       if (clients.hasOwnProperty(receiver)) {
         io.to(clients[receiver]).emit("affirmOrder", orderId);
       }
-      return res.json({ code: 0, msg: "订单完成" });
+      return res.status(200).json({ code: 0, msg: "订单完成" });
     }
   );
 });
