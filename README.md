@@ -36,6 +36,9 @@ mongo
 # 安装依赖
 npm install
 
+# 全局安装 nodemon 
+npm i nodemon -g
+
 # 开启后端
 npm run server
 
