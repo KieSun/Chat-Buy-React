@@ -24,7 +24,7 @@
 git clone https://github.com/KieSun/Chat-Buy-React.git
 cd chat-buy-react
 
-# Mac 安装MongoDb
+# Mac 安装MongoDb (如果命令行因为网络问题安装不了，可以直接去 https://www.mongodb.com/download-center#community 下载
 brew install mongodb
 
 # 启动MongoDb（安装成功后命令行有提示）
@@ -35,6 +35,9 @@ mongo
 
 # 安装依赖
 npm install
+
+# 全局安装 nodemon 
+npm i nodemon -g
 
 # 开启后端
 npm run server
@@ -144,9 +147,11 @@ npm run build
 
 想第一时间获得更新的视频，可以扫码加群。
 
-如果群已满 100 人，你可以直接加我好友，我会拉你入群，**请备注加群**
+目前一群已满100人，你可以扫描加入二群（和一群没区别），当然你可以直接加我好友，我会拉你进一群，**请备注加群**
 
-![微信群](https://user-gold-cdn.xitu.io/2017/12/31/160ab813dda056ea?w=361&h=480&f=jpeg&s=52595)
+进群的小伙伴不如点个赞？让更多的人看到这个文章，这样我就有动力更新视频了。
+
+![微信群](https://user-gold-cdn.xitu.io/2018/1/1/160b04ee214477b5?w=361&h=480&f=jpeg&s=52789)
 ![我的微信](https://user-gold-cdn.xitu.io/2017/12/31/160ab8143c23969f?w=361&h=480&f=jpeg&s=57343)
 
 ## 群介绍
