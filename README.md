@@ -24,7 +24,7 @@
 git clone https://github.com/KieSun/Chat-Buy-React.git
 cd chat-buy-react
 
-# Mac 安装MongoDb
+# Mac 安装MongoDb (如果命令行因为网络问题安装不了，可以直接去[这里下载](https://www.mongodb.com/download-center#community))
 brew install mongodb
 
 # 启动MongoDb（安装成功后命令行有提示）
