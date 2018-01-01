@@ -31,6 +31,7 @@ mongo
 
 # install npm package
 npm install
+npm i nodemon -g
 
 # run server
 npm run server
