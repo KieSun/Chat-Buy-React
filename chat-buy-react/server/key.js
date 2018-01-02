@@ -1,3 +1,3 @@
-const privateKey = "chat-buy-react";
+import config from "./config";
 
-module.exports = privateKey;
+module.exports = config.privateKey;
