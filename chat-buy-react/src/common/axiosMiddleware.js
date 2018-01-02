@@ -16,46 +16,50 @@ axios.interceptors.request.use(config => {
     config.headers["x-access-token"] = window.localStorage.getItem("token");
   }
   return config;
-})
+});
 
-axios.interceptors.response.use(response => {
-  Toast.hide();
-  const data = response.data;
-  if (data.code === 1) {
-    Toast.fail(data.msg, 1);
-  }
-  return response
-}, error => {
-  if (error.response) {
-    switch (error.response.status) {
-      case 401:
-        store.dispatch(logout());
-        break
-      case 500:
-        Toast.fail(error.response.data.msg || '服务器出错啦', 1);
-        break
-      default:
-        break
-    }
-    return Promise.reject(error)
-  } else {
-    // 请求超时重试机制
+axios.interceptors.response.use(
+  response => {
     Toast.hide();
-    const config = error.config;
-    config.loadText = '请求超时，正在重试'
-    console.log(error)
-    if(!config || !config.maxRetryCount) return Promise.reject(error);
-    config.retryCount = config.retryCount || 0;
-    if(config.retryCount >= config.maxRetryCount) {
-      Toast.fail('还是超时，不请求了', 2)
-      return Promise.reject(error);
+    const data = response.data;
+    if (data.code === 1) {
+      Toast.fail(data.msg, 1);
     }
-    config.retryCount += 1;
-    const request = new Promise(resolve => {
-      setTimeout(() => resolve(), config.delay || 1)
-    })
-    return request.then(() => {
-      axios(config)
-    });
+    return response;
+  },
+  error => {
+    Toast.hide();
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          store.dispatch(logout());
+          break;
+        case 500:
+          Toast.fail(error.response.data.msg || "服务器出错啦", 1);
+          break;
+        default:
+          break;
+      }
+      return Promise.reject(error);
+    } else {
+      // 请求超时重试机制
+      Toast.hide();
+      const config = error.config;
+      config.loadText = "请求超时，正在重试";
+      console.log(error);
+      if (!config || !config.maxRetryCount) return Promise.reject(error);
+      config.retryCount = config.retryCount || 0;
+      if (config.retryCount >= config.maxRetryCount) {
+        Toast.fail("还是超时，不请求了", 2);
+        return Promise.reject(error);
+      }
+      config.retryCount += 1;
+      const request = new Promise(resolve => {
+        setTimeout(() => resolve(), config.delay || 1);
+      });
+      return request.then(() => {
+        axios(config);
+      });
+    }
   }
-})
+);
