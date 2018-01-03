@@ -39,8 +39,11 @@ npm install
 # 全局安装 nodemon 
 npm i nodemon -g
 
-# 开启后端
+# 开启后端 (Mac)
 npm run server
+
+# 开启后端 (Windows)
+npm run dev
 
 # 开启本地服务器
 npm run start

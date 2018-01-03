@@ -33,8 +33,11 @@ mongo
 npm install
 npm i nodemon -g
 
-# run server
+# run server (Mac)
 npm run server
+
+# run server (Windows)
+npm run dev
 
 # run localhost
 npm run start
