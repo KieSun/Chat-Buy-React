@@ -80,24 +80,23 @@
 .chat-list-item {
   display: flex;
   align-items: center;
+  .circle {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    background: greenyellow;
+    text-align: center;
+    line-height: 40px;
+    margin: 0 10px;
+    flex-shrink: 0;
+  }
+  .message {
+    margin-right: 10px;
+    word-wrap:break-word;
+  }
 }
-
 .reverse {
   flex-direction: row-reverse;
-}
-
-.chat-list-item > .circle {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-  background: greenyellow;
-  text-align: center;
-  line-height: 40px;
-  margin: 0 10px;
-}
-
-.chat-list-item > .message {
-  margin-right: 10px;
 }
 
 .no-read-circle {

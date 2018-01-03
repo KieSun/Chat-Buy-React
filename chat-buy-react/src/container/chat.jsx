@@ -6,7 +6,8 @@ import {
   cleanNoRead,
   getUserName,
   sendMessage,
-  setCurrentChatList
+  setCurrentChatList,
+  getMessageList
 } from "../actions/chat";
 import { connect } from "react-redux";
 
@@ -14,7 +15,8 @@ import { connect } from "react-redux";
   getUserName,
   setCurrentChatList,
   cleanNoRead,
-  sendMessage
+  sendMessage,
+  getMessageList
 })
 class Chat extends React.Component {
   constructor() {
@@ -29,12 +31,17 @@ class Chat extends React.Component {
     this.id = this.props.match.params.id;
     const { chat } = this.props;
     const messageId = [chat.get("userId"), this.id].sort().join("");
-    let currentList = chat.get("messageList").find(v => {
-      return v.get("messageId") === messageId;
-    });
-    this.props.setCurrentChatList(currentList, messageId);
-    this.props.getUserName(this.id);
-    window.scrollTo(0, document.body.scrollHeight);
+    const messageList = chat.get("messageList");
+    if (messageList) {
+      let currentList = messageList.find(v => {
+        return v.get("messageId") === messageId;
+      });
+      this.props.setCurrentChatList(currentList, messageId);
+      this.props.getUserName(this.id);
+      window.scrollTo(0, document.body.scrollHeight);
+    } else {
+      this.props.getMessageList();
+    }
   }
   componentWillUnmount() {
     // 组件销毁前发送清除未读消息请求
@@ -44,16 +51,15 @@ class Chat extends React.Component {
     if (currentChatList.isEmpty()) {
       return;
     }
-    let lastId = currentChatList
-      .findLast(v => {
-        return v.get("to") === chat.get("userId");
-      })
-      .get("_id");
-    this.props.cleanNoRead(lastId, currentMessageId);
+    let last = currentChatList.findLast(v => {
+      return v.get("to") === chat.get("userId");
+    });
+    if (last) {
+      this.props.cleanNoRead(last.get("_id"), currentMessageId);
+    }
   }
   // 提交聊天信息
   handleSubmit() {
-    console.log('handleSubmit')
     if (this.state.value.trim()) {
       this.props.sendMessage(this.props.match.params.id, this.state.value);
       this.setState({ value: "" });

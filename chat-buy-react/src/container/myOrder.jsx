@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getMyOrders } from "../../actions/user";
-import { affirmOrder } from "../../actions/order";
-import MyOrderItem from "./myOrderItem";
-import NavBar from "../navBar/backNavBar";
+import { getMyOrders } from "../actions/user";
+import { affirmOrder } from "../actions/order";
+import MyOrderItem from "../components/myOrder/myOrderItem";
+import NavBar from "../components/navBar/backNavBar";
 
 @connect(state => ({ user: state.get("user") }), { getMyOrders, affirmOrder })
 class MyOrder extends React.Component {

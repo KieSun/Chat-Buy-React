@@ -13,7 +13,7 @@ const AllOrders = asyncComponent(() => import("./allOrders.jsx"));
 const Message = asyncComponent(() => import("./message.jsx"));
 const NotFound = asyncComponent(() => import("../components/common/404.jsx"));
 const MyOrder = asyncComponent(() =>
-  import("../components/myOrder/myOrder.jsx")
+  import("./myOrder.jsx")
 );
 const Chat = asyncComponent(() => import("./chat.jsx"));
 

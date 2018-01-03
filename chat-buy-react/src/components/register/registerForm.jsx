@@ -7,62 +7,41 @@ import {
   Button,
   Radio
 } from "antd-mobile";
-import { connect } from "react-redux";
-import { register } from "../../actions/user";
+import PropTypes from "prop-types";
 
-@connect(null, { register })
-class RegisterForm extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      user: "",
-      pwd: "",
-      type: "deliver"
-    };
-  }
-  handleTextChange(key, value) {
-    this.setState({
-      [key]: value
-    });
-  }
-  render() {
-    const redioData = [
-      { type: "deliver", text: "送货员" },
-      { type: "customer", text: "顾客" }
-    ];
-    return (
-      <div style={{ marginTop: "100px" }}>
-        <WingBlank>
-          <List>
-            <InputItem onChange={v => this.handleTextChange("user", v)}>
-              用户名
-            </InputItem>
-            <WhiteSpace />
-            <InputItem onChange={v => this.handleTextChange("pwd", v)}>
-              密码
-            </InputItem>
-            <WhiteSpace />
-            {redioData.map(i => (
-              <Radio.RadioItem
-                key={i.type}
-                checked={this.state.type === i.type}
-                onChange={() => this.handleTextChange("type", i.type)}
-              >
-                {i.text}
-              </Radio.RadioItem>
-            ))}
-          </List>
-          <WhiteSpace />
-          <Button
-            type="primary"
-            onClick={() => this.props.register(this.state)}
+const RegisterForm = ({ register, radioData, handleTextChange, type }) => (
+  <div style={{ marginTop: "100px" }}>
+    <WingBlank>
+      <List>
+        <InputItem onChange={v => handleTextChange("user", v)}>
+          用户名
+        </InputItem>
+        <WhiteSpace />
+        <InputItem onChange={v => handleTextChange("pwd", v)}>密码</InputItem>
+        <WhiteSpace />
+        {radioData.map(i => (
+          <Radio.RadioItem
+            key={i.type}
+            checked={type === i.type}
+            onChange={() => handleTextChange("type", i.type)}
           >
-            注册
-          </Button>
-        </WingBlank>
-      </div>
-    );
-  }
-}
+            {i.text}
+          </Radio.RadioItem>
+        ))}
+      </List>
+      <WhiteSpace />
+      <Button type="primary" onClick={register}>
+        注册
+      </Button>
+    </WingBlank>
+  </div>
+);
+
+RegisterForm.propTypes = {
+  register: PropTypes.func.isRequired,
+  radioData: PropTypes.array.isRequired,
+  handleTextChange: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired
+};
 
 export default RegisterForm;
