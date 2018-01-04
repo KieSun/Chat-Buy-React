@@ -18,6 +18,7 @@ export function filterNoReadCount(userId, messageList) {
     } else {
       noReadCountArray.push(messages.size);
     }
+    return noReadCountArray
   });
   return noReadCountArray;
 }
