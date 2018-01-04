@@ -31,7 +31,7 @@ brew install mongodb
 mongod --config /usr/local/etc/mongod.conf
 
 # 连接到mongo
-mongo
+mongod
 
 # 安装依赖
 npm install
@@ -46,7 +46,7 @@ npm run server
 npm run dev
 
 # 开启本地服务器
-npm run start
+npm start
 
 # 发布环境
 npm run build

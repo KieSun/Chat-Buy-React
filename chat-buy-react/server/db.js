@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import config from "./config";
 
 // Control the number of connections to the mongonDB
-let retryCount = 100;
+let retryCount = 1;
 
 // mongoose.Promise = global.Promise;
 mongoose.Promise = require("bluebird");
@@ -32,6 +32,5 @@ connections.on('disconnected', function() {
 		mongoose.connect(config.DEV_DB_URL, { useMongoClient: true });
 		retryCount ++;
 	}
-	
 });
 mongoose.connect(config.DEV_DB_URL, { useMongoClient: true });
