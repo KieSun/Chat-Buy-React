@@ -2,7 +2,7 @@ import {
   GET_USERNAME,
   GET_MESSAGE,
   GET_MESSAGE_LIST,
-  SET_CURRENT_LIST,
+  // SET_CURRENT_LIST,
   CLEAN_NO_READ
 } from "./type";
 import { getOrderSuccess, affirmOrderSuccess } from "./order";
