@@ -152,7 +152,7 @@ npm run build
 
 [课程地址，你可以直接关注我](https://www.bilibili.com/video/av17908190/)
 
-![我的微信](https://user-gold-cdn.xitu.io/2017/12/31/160ab8143c23969f?w=361&h=480&f=jpeg&s=57343)
+![](https://user-gold-cdn.xitu.io/2018/1/8/160d539b489635ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 ![](https://user-gold-cdn.xitu.io/2018/1/4/160bf4d185fcff79?w=320&h=480&f=jpeg&s=33707)
 
 ## 群介绍
