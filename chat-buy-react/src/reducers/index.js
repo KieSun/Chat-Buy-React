@@ -14,8 +14,6 @@ const appReducer = combineReducers({
   chat: ChatReducer
 });
 
-console.log(appReducer);
-
 const rootReducer = (state, action) => {
   if (action.type === LOG_OUT) {
     history.push("/login");

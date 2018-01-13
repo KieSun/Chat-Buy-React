@@ -9,6 +9,7 @@ class ChatList extends React.PureComponent {
   }
   render() {
     const { currentChatList, userId } = this.props;
+    console.log('render')
     return (
       <div>
         <div style={{ margin: "60px 0 55px" }}>

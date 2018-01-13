@@ -25,8 +25,8 @@ module.exports = function(app) {
         if (error || !result) {
           return res.status(500).json({ msg: "后端出错" });
         }
-        return res.status(200).json({ msg: "后端出错" });
+        return res.json({ code: 0 });
       }
     );
   });
-}
+};

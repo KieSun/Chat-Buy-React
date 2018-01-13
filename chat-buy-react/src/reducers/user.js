@@ -11,7 +11,6 @@ import { List, Map } from "immutable";
 function changeOrderState(orders, id, state, userId) {
   return orders.update(orders.findIndex(v => v.get("_id") === id), order => {
     // 如果该订单被接单，需要手动加上外卖员的 ID 用以聊天
-    console.log(id, order, userId, orders.findIndex(v => v.get("_id") === id));
     if (userId) {
       return order.set("state", state).set("deliver", userId);
     } else {
