@@ -1,6 +1,14 @@
 import * as React from "react";
 import { List, InputItem, WingBlank, WhiteSpace, Button } from "antd-mobile";
-const LoginForm = ({ login, push, handleTextChange }) => (<div style={{ marginTop: "100px" }}>
+
+interface Props {
+  login: () => void,
+  push: () => void,
+  handleTextChange: (type: string, value: any) => void,
+}
+
+const LoginForm = ({ login, push, handleTextChange }: Props) => (
+  <div style={{ marginTop: "100px" }}>
     <WingBlank>
       <List>
         <InputItem onChange={v => handleTextChange("user", v)}>
@@ -23,5 +31,6 @@ const LoginForm = ({ login, push, handleTextChange }) => (<div style={{ marginTo
         </Button>
       </div>
     </WingBlank>
-  </div>);
+  </div>
+);
 export default LoginForm;

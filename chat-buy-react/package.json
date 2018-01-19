@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/history": "^4.6.2",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "@types/react-hot-loader": "^3.0.5",
+    "@types/react-redux": "^5.0.14",
+    "@types/react-router-dom": "^4.2.3",
     "antd-mobile": "^2.0.3",
     "async": "^2.6.0",
     "autoprefixer": "7.1.6",
@@ -54,6 +60,8 @@
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.0.4",
     "sw-precache-webpack-plugin": "0.11.4",
+    "ts-loader": "^3.2.0",
+    "typescript": "^2.6.2",
     "whatwg-fetch": "2.0.3"
   },
   "devDependencies": {
@@ -107,12 +115,16 @@
       "^react-native$": "react-native-web"
     },
     "moduleFileExtensions": [
-      "web.js",
       "mjs",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "web.js",
       "js",
-      "json",
       "web.jsx",
       "jsx",
+      "json",
       "node"
     ]
   },

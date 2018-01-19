@@ -2,6 +2,53 @@
 # yarn lockfile v1
 
 
+"@types/history@*", "@types/history@^4.6.2":
+  version "4.6.2"
+  resolved "https://registry.yarnpkg.com/@types/history/-/history-4.6.2.tgz#12cfaba693ba20f114ed5765467ff25fdf67ddb0"
+
+"@types/node@*":
+  version "9.3.0"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-9.3.0.tgz#3a129cda7c4e5df2409702626892cb4b96546dd5"
+
+"@types/react-dom@^16.0.3":
+  version "16.0.3"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.0.3.tgz#8accad7eabdab4cca3e1a56f5ccb57de2da0ff64"
+  dependencies:
+    "@types/node" "*"
+    "@types/react" "*"
+
+"@types/react-hot-loader@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@types/react-hot-loader/-/react-hot-loader-3.0.5.tgz#b80fe14268e2942a6c2d8ecea829cbfa893a0cbb"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-redux@^5.0.14":
+  version "5.0.14"
+  resolved "https://registry.yarnpkg.com/@types/react-redux/-/react-redux-5.0.14.tgz#f3fc30dcbb2d20455a714f591cc27f77b4df09bb"
+  dependencies:
+    "@types/react" "*"
+    redux "^3.6.0"
+
+"@types/react-router-dom@^4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@types/react-router-dom/-/react-router-dom-4.2.3.tgz#06e0b67ff536adc0681dffdbe592ae91fb85887d"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
+
+"@types/react-router@*":
+  version "4.0.20"
+  resolved "https://registry.yarnpkg.com/@types/react-router/-/react-router-4.0.20.tgz#3404f54e44bba2239ea4320ea701d86d92f05486"
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^16.0.34":
+  version "16.0.34"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-16.0.34.tgz#7a8f795afd8a404a9c4af9539b24c75d3996914e"
+
 abab@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
@@ -2350,7 +2397,7 @@ engine.io@~3.1.0:
   optionalDependencies:
     uws "~0.14.4"
 
-enhanced-resolve@^3.4.0:
+enhanced-resolve@^3.0.0, enhanced-resolve@^3.4.0:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-3.4.1.tgz#0421e339fd71419b3da13d129b3979040230476e"
   dependencies:
@@ -2487,18 +2534,6 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^12.1.0:
-  version "12.1.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb-base/download/eslint-config-airbnb-base-12.1.0.tgz#386441e54a12ccd957b0a92564a4bafebd747944"
-  dependencies:
-    eslint-restricted-globals "^0.1.1"
-
-eslint-config-airbnb@^16.1.0:
-  version "16.1.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb/download/eslint-config-airbnb-16.1.0.tgz#2546bfb02cc9fe92284bf1723ccf2e87bc45ca46"
-  dependencies:
-    eslint-config-airbnb-base "^12.1.0"
-
 eslint-config-react-app@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-2.0.1.tgz#fd0503da01ae608f0c6ae8861de084975142230e"
@@ -2568,10 +2603,6 @@ eslint-plugin-react@7.4.0:
     has "^1.0.1"
     jsx-ast-utils "^2.0.0"
     prop-types "^15.5.10"
-
-eslint-restricted-globals@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/eslint-restricted-globals/download/eslint-restricted-globals-0.1.1.tgz#35f0d5cbc64c2e3ed62e93b4b1a7af05ba7ed4d7"
 
 eslint-scope@^3.7.1:
   version "3.7.1"
@@ -6348,7 +6379,7 @@ redux-thunk@^2.2.0:
   version "2.2.0"
   resolved "http://registry.npm.taobao.org/redux-thunk/download/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
-redux@^3.7.2:
+redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"
   resolved "http://registry.npm.taobao.org/redux/download/redux-3.7.2.tgz#06b73123215901d25d065be342eb026bc1c8537b"
   dependencies:
@@ -6813,6 +6844,10 @@ semver-diff@^2.0.0:
 "semver@2 || 3 || 4 || 5", semver@^5.0.3, semver@^5.1.0, semver@^5.3.0:
   version "5.4.1"
   resolved "https://registry.yarnpkg.com/semver/-/semver-5.4.1.tgz#e059c09d8571f0540823733433505d3a2f00b18e"
+
+semver@^5.0.1:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-5.5.0.tgz#dc4bbc7a6ca9d916dee5d43516f0092b58f7b8ab"
 
 semver@~5.3.0:
   version "5.3.0"
@@ -7461,6 +7496,15 @@ tryit@^1.0.1:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/tryit/-/tryit-1.0.3.tgz#393be730a9446fd1ead6da59a014308f36c289cb"
 
+ts-loader@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ts-loader/-/ts-loader-3.2.0.tgz#23211922179b81f7448754b7fdfca45b8374a15a"
+  dependencies:
+    chalk "^2.3.0"
+    enhanced-resolve "^3.0.0"
+    loader-utils "^1.0.2"
+    semver "^5.0.1"
+
 tty-browserify@0.0.0:
   version "0.0.0"
   resolved "https://registry.yarnpkg.com/tty-browserify/-/tty-browserify-0.0.0.tgz#a157ba402da24e9bf957f9aa69d524eed42901a6"
@@ -7503,6 +7547,10 @@ type-is@~1.6.15:
 typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
+
+typescript@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.6.2.tgz#3c5b6fd7f6de0914269027f03c0946758f7673a4"
 
 ua-parser-js@^0.7.9:
   version "0.7.17"

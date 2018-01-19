@@ -83,7 +83,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx'],
+    extensions: ['.web.js', '.mjs', '.js', '.json', '.web.jsx', '.jsx', 'tsx', 'ts'],
     alias: {
 
       // Support React Native Web
@@ -111,17 +111,19 @@ module.exports = {
       {
         test: /\.(js|jsx|mjs)$/,
         enforce: 'pre',
-        use: [
-          {
-            options: {
-              formatter: eslintFormatter,
-              eslintPath: require.resolve('eslint'),
-
-            },
-            loader: require.resolve('eslint-loader'),
+        use: [{
+          options: {
+            formatter: eslintFormatter,
+            eslintPath: require.resolve('eslint'),
           },
-        ],
+          loader: require.resolve('eslint-loader'),
+        }, ],
         include: paths.appSrc,
+      },
+      {
+        test: /\.tsx?$/,
+        loaders: ['babel-loader', 'ts-loader'],
+        exclude: /node_modules/
       },
       {
         // "oneOf" will traverse all following loaders until one will
@@ -189,7 +191,9 @@ module.exports = {
                 },
 
               },
-              {loader: require.resolve('sass-loader')}
+              {
+                loader: require.resolve('sass-loader')
+              }
             ],
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.

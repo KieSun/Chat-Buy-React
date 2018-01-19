@@ -1,6 +1,28 @@
 {
     "compilerOptions": {
-        "experimentalDecorators": true,
-        "allowJs": true
-    }
-}
+      "module": "es2015",
+      "target": "es6",
+      "lib": ["es6", "dom"],
+      "allowJs": true,
+      "jsx": "preserve",
+      "moduleResolution": "node",
+      "forceConsistentCasingInFileNames": true,
+      "noImplicitReturns": true,
+      "noImplicitThis": true,
+      "strictNullChecks": true,
+      "suppressImplicitAnyIndexErrors": true,
+      "noUnusedLocals": true,
+      "experimentalDecorators": true,
+      "allowSyntheticDefaultImports": true
+    },
+    "exclude": [
+      "node_modules",
+      "build",
+      "scripts",
+      "acceptance-tests",
+      "webpack",
+      "jest",
+      "src/setupTests.ts"
+    ]
+  }
+  
