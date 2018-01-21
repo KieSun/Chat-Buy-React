@@ -1,12 +1,25 @@
-import React from "react";
+import * as React from "react";
 import LoginForm from "../components/login/loginForm";
 import { connect } from "react-redux";
 import { login } from "../actions/user";
 
-@connect(null, { login })
-class Login extends React.Component {
-  constructor() {
-    super();
+interface Props {
+  history: any
+}
+
+interface Action {
+  login: (state: State) => void
+}
+
+interface State {
+  user?: string
+  pwd?: string
+}
+
+@(connect(null, { login }) as any)
+class Login extends React.Component<Props & Action, State> {
+  constructor(props) {
+    super(props);
     this.state = {
       user: "",
       pwd: ""
@@ -15,7 +28,7 @@ class Login extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
     this.handlePush = this.handlePush.bind(this);
   }
-  handleTextChange(key, value) {
+  handleTextChange(key: string, value: string) {
     this.setState({
       [key]: value
     });
