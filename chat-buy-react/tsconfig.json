@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "module": "es2015",
+      "module": "esnext",
       "target": "es6",
       "lib": ["es6", "dom"],
       "allowJs": true,
@@ -13,7 +13,7 @@
       "suppressImplicitAnyIndexErrors": true,
       "noUnusedLocals": true,
       "experimentalDecorators": true,
-      "allowSyntheticDefaultImports": true
+      "allowSyntheticDefaultImports": true,
     },
     "exclude": [
       "node_modules",

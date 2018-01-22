@@ -1,10 +1,11 @@
 import * as React from "react";
 import { List, InputItem, WingBlank, WhiteSpace, Button } from "antd-mobile";
+import { User } from "../../actions/user";
 
 interface Props {
-  login: () => void,
-  push: () => void,
-  handleTextChange: (type: string, value: any) => void,
+  login: () => void;
+  push: () => void;
+  handleTextChange: (type: keyof User, value: any) => void;
 }
 
 const LoginForm = ({ login, push, handleTextChange }: Props) => (
