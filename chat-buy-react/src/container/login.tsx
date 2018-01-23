@@ -12,7 +12,7 @@ interface Action {
 }
 
 @(connect(null, { login }) as any)
-class Login extends React.Component<RouteComponentProps<Login> & Action, User> {
+class Login extends React.Component<RouteComponentProps<any> & Action, User> {
   state: User = {
     user: "",
     pwd: ""

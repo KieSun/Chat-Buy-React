@@ -78,7 +78,7 @@ const list: Array<TabType> = [
     getMessageList
   }
 ) as any)
-class DashBoard extends React.Component<RouteComponentProps<DashBoard> & Props & State> {
+class DashBoard extends React.Component<RouteComponentProps<any> & Props & State> {
   componentDidMount() {
     const { history, connectSocket, user } = this.props;
     // 判断是否已经登录

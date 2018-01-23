@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable import/first */
+import * as React from "react";
 import { List, InputItem } from "antd-mobile";
 import ChatList from "../components/message/chatList";
 import NavBar from "../components/navBar/backNavBar";
@@ -10,31 +11,53 @@ import {
   getMessageList
 } from "../actions/chat";
 import { connect } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
+import ImmutablePropTypes from 'immutable';
 
-@connect(state => ({ chat: state.get("chat") }), {
+interface Props {
+  chat: ImmutablePropTypes.Map<string, any>
+}
+
+interface Action {
+  getUserName: (userId: number) => void
+  setCurrentChatList: (list: ImmutablePropTypes.Map<keyof CurrentList, any>, id: string) => void
+  cleanNoRead: (lastId: string, currentId: string) => void
+  sendMessage: (id: number, value: string) => void
+  getMessageList: () => void
+}
+
+interface Params {
+  id: number
+}
+
+interface State {
+  value: string
+}
+
+interface CurrentList {
+  messageId: string
+}
+
+@(connect(state => ({ chat: state.get("chat") }), {
   getUserName,
   setCurrentChatList,
   cleanNoRead,
   sendMessage,
   getMessageList
-})
-class Chat extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      value: ""
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
+}) as any)
+class Chat extends React.Component<RouteComponentProps<Params> & Props & Action, State> {
+  state = {
+    value: ""
   }
+  id = this.props.match.params.id;
   componentDidMount() {
     // 获取当前聊天对象 ID
-    this.id = this.props.match.params.id;
     const { chat } = this.props;
     const messageId = [chat.get("userId"), this.id].sort().join("");
-    const messageList = chat.get("messageList");
+    const messageList: ImmutablePropTypes.List<ImmutablePropTypes.Map<keyof CurrentList, any>> = chat.get("messageList");
     if (messageList) {
       let currentList = messageList.find(v => {
-        return v.get("messageId") === messageId;
+        return v!.get("messageId") === messageId;
       });
       this.props.setCurrentChatList(currentList, messageId);
       this.props.getUserName(this.id);
@@ -59,7 +82,7 @@ class Chat extends React.Component {
     }
   }
   // 提交聊天信息
-  handleSubmit() {
+  handleSubmit = () => {
     if (this.state.value.trim()) {
       this.props.sendMessage(this.props.match.params.id, this.state.value);
       this.setState({ value: "" });
@@ -79,7 +102,6 @@ class Chat extends React.Component {
           <List style={{ width: "100%" }}>
             <InputItem
               placeholder="请输入信息"
-              autoFocus={true}
               value={this.state.value}
               onChange={value => this.setState({ value })}
               extra={<span>发送</span>}

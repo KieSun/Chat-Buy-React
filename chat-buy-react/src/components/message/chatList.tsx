@@ -1,15 +1,19 @@
+/* eslint-disable import/first */
 import React from "react";
 import ChatListItem from "./chatListItem";
-import ImmutablePropTypes from "react-immutable-proptypes";
-import PropTypes from "prop-types";
+import Immutable from 'immutable';
 
-class ChatList extends React.PureComponent {
+interface Props {
+  currentChatList: Immutable.List<any>
+  userId: string
+}
+
+class ChatList extends React.PureComponent<Props> {
   componentDidUpdate() {
     window.scrollTo(0, document.body.scrollHeight);
   }
   render() {
     const { currentChatList, userId } = this.props;
-    console.log('render')
     return (
       <div>
         <div style={{ margin: "60px 0 55px" }}>
@@ -26,10 +30,5 @@ class ChatList extends React.PureComponent {
     );
   }
 }
-
-ChatList.propTypes = {
-  currentChatList: ImmutablePropTypes.list.isRequired,
-  userId: PropTypes.string.isRequired
-};
 
 export default ChatList;
