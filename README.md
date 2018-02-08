@@ -15,7 +15,7 @@
 📦 React 全家桶：react + redux + react-router 4.0 + immutable.js  
 📌 ES6 + ES7     
 📡 网络请求：axios + socket.io
-🎈 页面相应式框架：antd mobile  
+🎈 页面响应式框架：antd mobile  
 ✏️ 后台：express + mongoDB
 
 ## 项目运行（nodejs 6.0+）
