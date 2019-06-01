@@ -54,10 +54,10 @@ npm run build
 
 ## 项目截图
 
-![登录](https://user-gold-cdn.xitu.io/2017/12/31/160ab0250a8841d5?w=378&h=667&f=gif&s=32928)
-![商品购买](https://user-gold-cdn.xitu.io/2017/12/31/160ab0246b51bfef?w=378&h=667&f=gif&s=31759)
-![订单](https://user-gold-cdn.xitu.io/2017/12/31/160ab02588408b53?w=378&h=667&f=gif&s=207506)
-![聊天](https://user-gold-cdn.xitu.io/2017/12/31/160ab023c8e6a9d7?w=378&h=667&f=gif&s=67204)
+![登录](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034346.gif)
+![商品购买](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034347.gif)
+![订单](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034349.gif)
+![聊天](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034351.gif)
 
 ## 文件结构
 
@@ -142,7 +142,7 @@ npm run build
 
 ## 视频
 
-![课程大纲](https://user-gold-cdn.xitu.io/2017/12/31/160ab7a0feddd5c7?w=925&h=648&f=png&s=184587)
+![课程大纲](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034352.png)
 
 从2018年1月开始，每周都会更新 2 小时左右的教学视频，视频会按照以上大纲教学，这个视频是完全免费的，保证更新完成。
 
@@ -152,8 +152,8 @@ npm run build
 
 [课程地址，你可以直接关注我](https://www.bilibili.com/video/av17908190/)
 
-![](https://user-gold-cdn.xitu.io/2018/1/8/160d539b489635ce?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
-![](https://user-gold-cdn.xitu.io/2018/1/4/160bf4d185fcff79?w=320&h=480&f=jpeg&s=33707)
+![](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034354.jpg)
+![](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034356.jpg)
 
 ## 群介绍
 
@@ -188,6 +188,6 @@ npm run build
 
 ## 🌏 LICENSE
 
-![](https://www.gnu.org/graphics/gplv3-127x51.png)
+![](https://yck-1254263422.cos.ap-shanghai.myqcloud.com/blog/2019-06-01-034400.png)
 
 基于 GPLv3 协议进行分发和使用，更多信息参见协议文件。
