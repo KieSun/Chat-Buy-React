@@ -51,7 +51,7 @@
     "redux": "^3.7.2",
     "redux-immutable": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "socket.io": "^2.0.4",
+    "socket.io": "^2.4.0",
     "socket.io-client": "^2.0.4",
     "sw-precache-webpack-plugin": "0.11.4",
     "whatwg-fetch": "2.0.3"
