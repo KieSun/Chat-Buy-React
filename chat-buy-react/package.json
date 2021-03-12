@@ -67,7 +67,7 @@
     "eslint-plugin-react": "7.4.0",
     "nodemon": "^1.14.7",
     "postcss-loader": "2.0.8",
-    "react-dev-utils": "^4.2.1",
+    "react-dev-utils": "^11.0.4",
     "sass-loader": "^6.0.6",
     "style-loader": "0.19.0",
     "url-loader": "0.6.2",
