@@ -2487,18 +2487,6 @@ escope@^3.6.0:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint-config-airbnb-base@^12.1.0:
-  version "12.1.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb-base/download/eslint-config-airbnb-base-12.1.0.tgz#386441e54a12ccd957b0a92564a4bafebd747944"
-  dependencies:
-    eslint-restricted-globals "^0.1.1"
-
-eslint-config-airbnb@^16.1.0:
-  version "16.1.0"
-  resolved "http://registry.npm.taobao.org/eslint-config-airbnb/download/eslint-config-airbnb-16.1.0.tgz#2546bfb02cc9fe92284bf1723ccf2e87bc45ca46"
-  dependencies:
-    eslint-config-airbnb-base "^12.1.0"
-
 eslint-config-react-app@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/eslint-config-react-app/-/eslint-config-react-app-2.0.1.tgz#fd0503da01ae608f0c6ae8861de084975142230e"
@@ -2568,10 +2556,6 @@ eslint-plugin-react@7.4.0:
     has "^1.0.1"
     jsx-ast-utils "^2.0.0"
     prop-types "^15.5.10"
-
-eslint-restricted-globals@^0.1.1:
-  version "0.1.1"
-  resolved "http://registry.npm.taobao.org/eslint-restricted-globals/download/eslint-restricted-globals-0.1.1.tgz#35f0d5cbc64c2e3ed62e93b4b1a7af05ba7ed4d7"
 
 eslint-scope@^3.7.1:
   version "3.7.1"
@@ -4478,8 +4462,8 @@ locate-path@^2.0.0:
     path-exists "^3.0.0"
 
 lodash-es@^4.2.0, lodash-es@^4.2.1:
-  version "4.17.4"
-  resolved "http://registry.npm.taobao.org/lodash-es/download/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
 
 lodash._getnative@^3.0.0:
   version "3.9.1"
