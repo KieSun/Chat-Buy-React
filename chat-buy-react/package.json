@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.0.3",
-    "async": "^2.6.0",
+    "async": "^2.6.4",
     "autoprefixer": "7.1.6",
     "axios": "^0.17.1",
     "babel-cli": "^6.26.0",
